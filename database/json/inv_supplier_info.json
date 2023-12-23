@@ -1,0 +1,32 @@
+[
+    {
+        "sup_name":"Hasib",
+        "sup_email":"hasib@gmail.com",
+        "sup_contact":"01314353560",
+        "user_id":"1"
+    },
+    {
+        "sup_name":"Faysal",
+        "sup_email":"faysal@gmail.com",
+        "sup_contact":"01314282660",
+        "user_id":"2"
+    },
+    {
+        "sup_name":"Ahsan",
+        "sup_email":"ahsan@gmail.com",
+        "sup_contact":"01314867560",
+        "user_id":"3"
+    },
+    {
+        "sup_name":"Kawser",
+        "sup_email":"kawser@gmail.com",
+        "sup_contact":"01794353560",
+        "user_id":"4"
+    },
+    {
+        "sup_name":"Tanim",
+        "sup_email":"tanim@gmail.com",
+        "sup_contact":"01784953560",
+        "user_id":"5"
+    }
+]

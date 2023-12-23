@@ -1,0 +1,30 @@
+.heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:40px ;
+}
+
+.title{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.add{
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.hidden{
+    display: none;
+}

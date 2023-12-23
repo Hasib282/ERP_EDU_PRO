@@ -1,0 +1,17 @@
+[
+    {
+        "category_name":"Admin"
+    },
+    {
+        "category_name":"Student"
+    },
+    {
+        "category_name":"Teacher"
+    },
+    {
+        "category_name":"Staff"
+    },
+    {
+        "category_name":"Super Admin"
+    }
+]

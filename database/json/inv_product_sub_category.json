@@ -1,0 +1,22 @@
+[
+    {
+        "sub_category_name":"coke",
+        "category_id":"1"
+    },
+    {
+        "sub_category_name":"pepsi",
+        "category_id":"1"
+    },
+    {
+        "sub_category_name":"Sprite",
+        "category_id":"1"
+    },
+    {
+        "sub_category_name":"Frutica",
+        "category_id":"1"
+    },
+    {
+        "sub_category_name":"Mojo",
+        "category_id":"1"
+    }
+]

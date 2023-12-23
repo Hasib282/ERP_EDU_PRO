@@ -1,0 +1,32 @@
+[
+    {
+        "manufacturer_name":"Hasib",
+        "manufacturer_email":"hasib@gmail.com",
+        "manufacturer_contact":"01314353560",
+        "user_id":"1"
+    },
+    {
+        "manufacturer_name":"Faysal",
+        "manufacturer_email":"faysal@gmail.com",
+        "manufacturer_contact":"01314282660",
+        "user_id":"2"
+    },
+    {
+        "manufacturer_name":"Ahsan",
+        "manufacturer_email":"ahsan@gmail.com",
+        "manufacturer_contact":"01314867560",
+        "user_id":"3"
+    },
+    {
+        "manufacturer_name":"Kawser",
+        "manufacturer_email":"kawser@gmail.com",
+        "manufacturer_contact":"01794353560",
+        "user_id":"4"
+    },
+    {
+        "manufacturer_name":"Tanim",
+        "manufacturer_email":"tanim@gmail.com",
+        "manufacturer_contact":"01784953560",
+        "user_id":"5"
+    }
+]
