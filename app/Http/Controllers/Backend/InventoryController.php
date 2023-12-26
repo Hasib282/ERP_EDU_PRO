@@ -43,8 +43,49 @@ class InventoryController extends Controller
     }//End Method
 
     public function AddSuppliers(){
-        return view('inventory.supplier.addSuppliers');
+        $user_info = User_Info::get();
+        return view('inventory.supplier.addSuppliers',compact('user_info'));
     }
+
+
+    //Insert Supplier
+    public function InsertSuppliers(Request $request){
+        Inv_Supplier_info::insert([
+            "sup_name" => $request->supplierName,
+            "sup_email" => $request->supplierEmail,
+            "sup_contact" => $request->supplierContact,
+            "user_id" => $request->user,
+        ]);
+
+        return redirect()->route('show.suppliers');  
+    }
+
+
+
+    //Edit Supplier
+    public function EditSuppliers($id){
+        $inv_supplier = Inv_Supplier_info::findOrFail($id);
+        $user_info = User_Info::get();
+        return view('inventory.supplier.editSuppliers', compact('inv_supplier','user_info'));
+    }
+
+
+
+    //Update Manufacturer
+    public function UpdateSuppliers(Request $request,$id){
+
+        Inv_Supplier_info::findOrFail($id)->update([
+            "sup_name" => $request->supplierName,
+            "sup_email" => $request->supplierEmail,
+            "sup_contact" => $request->supplierContact,
+            "user_id" => $request->user,
+            "status" => $request->status,
+            "updated_at" => now()
+        ]);
+        return redirect()->route('show.suppliers');  
+    }
+
+
 
     //Delete Supplier
     public function DeleteSuppliers($id){
@@ -70,20 +111,20 @@ class InventoryController extends Controller
     }
 
 
-    //Insert Product
+    //Insert Manufacturer
     public function InsertManufacturers(Request $request){
         Inv_Manufacturer_info::insert([
-            "manufacturer_name"=>$request->manufacturerName,
-            "manufacturer_email"=>$request->manufacturerEmail,
-            "manufacturer_contact"=>$request->manufacturerContact,
-            "user_id"=>$request->user,
+            "manufacturer_name" => $request->manufacturerName,
+            "manufacturer_email" => $request->manufacturerEmail,
+            "manufacturer_contact" => $request->manufacturerContact,
+            "user_id" => $request->user,
         ]);
         return redirect()->route('show.manufacturers');  
     }
 
 
 
-    //Edit Product Sub Category
+    //Edit Manufacturer
     public function EditManufacturers($id){
         $inv_manufacturer = Inv_Manufacturer_info::findOrFail($id);
         $user_info = User_Info::get();
@@ -92,13 +133,14 @@ class InventoryController extends Controller
 
 
 
-    //Update Product Sub Category
+    //Update Manufacturer
     public function UpdateManufacturers(Request $request,$id){
         Inv_Manufacturer_info::findOrFail($id)->update([
-            "manufacturer_name"=>$request->manufacturerName,
-            "manufacturer_email"=>$request->manufacturerEmail,
-            "manufacturer_contact"=>$request->manufacturerContact,
-            "user_id"=>$request->user,
+            "manufacturer_name" => $request->manufacturerName,
+            "manufacturer_email" => $request->manufacturerEmail,
+            "manufacturer_contact" => $request->manufacturerContact,
+            "user_id" => $request->user,
+            "status" => $request->status,
             "updated_at" => now()
         ]);
         return redirect()->route('show.manufacturers');  
@@ -135,7 +177,7 @@ class InventoryController extends Controller
     //Insert Products
     public function InsertProductCategory(Request $request){
         Inv_Product_Category::insert([
-            "product_category_name"=>$request->categoryName,
+            "product_category_name" => $request->categoryName,
         ]);
         return redirect()->route('show.productCatagory');
     }
@@ -152,7 +194,8 @@ class InventoryController extends Controller
     //Update Product Category
     public function UpdateProductCategory(Request $request,$id){
         Inv_Product_Category::findOrFail($id)->update([
-            "product_category_name"=>$request->categoryName,
+            "product_category_name" => $request->categoryName,
+            "status" => $request->status,
             "updated_at" => now()
         ]);
         return redirect()->route('show.productCatagory');  
@@ -210,8 +253,8 @@ class InventoryController extends Controller
     public function InsertSubCategory(Request $request){
         
         Inv_Product_Sub_Category::insert([
-            "sub_category_name"=>$request->subCategory,
-            "category_id"=>$request->category
+            "sub_category_name" => $request->subCategory,
+            "category_id" => $request->category
         ]);
         return redirect()->route('show.subCatagory');
     }
@@ -232,8 +275,9 @@ class InventoryController extends Controller
     public function UpdateSubCategory(Request $request,$id){
         $inv_product_category = Inv_Product_Category::findOrFail($id);
         Inv_Product_Sub_Category::findOrFail($id)->update([
-            "sub_category_name"=>$request->subCategory,
-            "category_id"=>$request->category,
+            "sub_category_name" => $request->subCategory,
+            "category_id" => $request->category,
+            "status" => $request->status,
             "updated_at" => now()
         ]);
         return redirect()->route('show.subCatagory');  
@@ -281,15 +325,14 @@ class InventoryController extends Controller
     //Insert Product
     public function InsertProducts(Request $request){
         Inv_Product::insert([
-            "product_name"=>$request->productName,
-            "category_id"=>$request->category,
-            "sub_category_id"=>$request->subCategory,
-            "manufacturer_id"=>$request->manufacturer,
-            "size"=>$request->size,
-            "unit"=>$request->unit,
-            "quantity"=>$request->quantity,
-            "mrp"=>$request->mrp,
-            "user_id"=>$request->user,
+            "product_name" => $request->productName,
+            "category_id" => $request->category,
+            "sub_category_id" => $request->subCategory,
+            "manufacturer_id" => $request->manufacturer,
+            "size" => $request->size,
+            "unit" => $request->unit,
+            "mrp" => $request->mrp,
+            "user_id" => $request->user,
         ]);
         return redirect()->route('show.products');  
     }
@@ -315,15 +358,15 @@ class InventoryController extends Controller
     //Update Product
     public function UpdateProducts(Request $request,$id){
         Inv_Product::findOrFail($id)->update([
-            "product_name"=>$request->productName,
-            "category_id"=>$request->category,
-            "sub_category_id"=>$request->subCategory,
-            "manufacturer_id"=>$request->manufacturer,
-            "size"=>$request->size,
-            "unit"=>$request->unit,
-            "quantity"=>$request->quantity,
-            "mrp"=>$request->mrp,
-            "user_id"=>$request->user,
+            "product_name" => $request->productName,
+            "category_id" => $request->category,
+            "sub_category_id" => $request->subCategory,
+            "manufacturer_id" => $request->manufacturer,
+            "size" => $request->size,
+            "unit" => $request->unit,
+            "mrp" => $request->mrp,
+            "user_id" => $request->user,
+            "status" => $request->status,
             "updated_at" => now()
         ]);
         return redirect()->route('show.products');  

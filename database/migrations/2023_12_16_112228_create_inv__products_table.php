@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('manufacturer_id');
             $table->float('size');
             $table->unsignedBigInteger('unit');
-            $table->float('quantity');
             $table->float('mrp');
             $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Incative');
             $table->unsignedBigInteger('user_id');

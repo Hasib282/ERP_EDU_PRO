@@ -45,6 +45,19 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="status">Status:</label>
+                                <select name="status" class="form-control" id="status">
+                                    <option value="">Status</option>
+                                    @if($inv_sub_category->status == 1)
+                                        <option value="1" selected> Active </option>
+                                        <option value="0"> Inactive </option>
+                                    @else
+                                        <option value="1"> Active </option>
+                                        <option value="0" selected> Inactive </option>
+                                    @endif
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="center">

@@ -65,8 +65,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/suppliers', 'ShowSuppliers')->name('show.suppliers');
         Route::get('/addSuppliers', 'AddSuppliers')->name('add.suppliers');
         Route::post('/insertSuppliers', 'InsertSuppliers')->name('insert.suppliers');
-        Route::get('/editSupliers/{id}', 'EditSupliers')->name('edit.suppliers');
-        Route::put('/updateSupliers/{id}', 'UpdateSupliers')->name('update.supliers');
+        Route::get('/editSupliers/{id}', 'EditSuppliers')->name('edit.suppliers');
+        Route::put('/updateSupliers/{id}', 'UpdateSuppliers')->name('update.suppliers');
         Route::delete('/deleteSupliers/{id}', 'DeleteSuppliers')->name('delete.suppliers');
 
 
@@ -89,7 +89,7 @@ Route::controller(InventoryController::class)->group(function(){
 
 
 
-        ///////////// --------------- inventory product category routes ----------- ///////////////////
+        ///////////// --------------- inventory product Sub Category routes ----------- ///////////////////
         Route::get('/subCategory', 'ShowSubCategory')->name('show.subCatagory');
         Route::get('/addSubCategory', 'AddSubCategory')->name('add.subCatagory');
         // Route::get('/getSubCategory/{category}', 'GetSubCategory')->name('get.subCategory');

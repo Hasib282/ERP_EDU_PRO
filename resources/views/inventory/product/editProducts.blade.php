@@ -96,12 +96,6 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="quantity">Quantity</label>
-                            <input type="text" name="quantity" class="form-control" value="{{ $inv_product->quantity }}" id="quantity">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
                             <label for="mrp">MRP</label>
                             <input type="text" name="mrp" class="form-control" value="{{ $inv_product->mrp }}" id="mrp">
                         </div>
@@ -119,6 +113,21 @@
                                 @endif
                                 <option value="{{ $user->id }}">{{ $user->id }}</option>
                             @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select name="status" class="form-control" id="status">
+                                <option value="">Status</option>
+                                @if($inv_product->status == 1)
+                                    <option value="1" selected> Active </option>
+                                    <option value="0"> Inactive </option>
+                                @else
+                                    <option value="1"> Active </option>
+                                    <option value="0" selected> Inactive </option>
+                                @endif
                             </select>
                         </div>
                     </div>

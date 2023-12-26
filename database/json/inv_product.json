@@ -6,7 +6,6 @@
         "manufacturer_id":"1",
         "size":"50",
         "unit":"1",
-        "quantity":"20",
         "mrp":25,
         "user_id":"1"
     },
@@ -17,7 +16,6 @@
         "manufacturer_id":"1",
         "size":"50",
         "unit":"1",
-        "quantity":"20",
         "mrp":25,
         "user_id":"1"
     },
@@ -28,7 +26,6 @@
         "manufacturer_id":"1",
         "size":"50",
         "unit":"1",
-        "quantity":"20",
         "mrp":25,
         "user_id":"1"
     },
@@ -39,7 +36,6 @@
         "manufacturer_id":"1",
         "size":"50",
         "unit":"1",
-        "quantity":"20",
         "mrp":25,
         "user_id":"1"
     },
@@ -50,7 +46,6 @@
         "manufacturer_id":"1",
         "size":"50",
         "unit":"1",
-        "quantity":"20",
         "mrp":25,
         "user_id":"1"
     }

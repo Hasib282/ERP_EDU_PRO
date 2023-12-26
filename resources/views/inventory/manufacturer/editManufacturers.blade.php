@@ -38,6 +38,7 @@
                         <label for="manufacturerContact">Manufacturer Contact</label>
                         <input type="text" name="manufacturerContact" class="form-control" value="{{ $inv_manufacturer->manufacturer_contact }}"  id="manufacturerContact">
                     </div>
+                    
                     <div class="form-group">
                         <label for="user">User id:</label>
                         <select name="user" class="form-control" id="user">
@@ -49,6 +50,20 @@
                                     <option value="{{ $user->id }}"> {{ $user->id }} </option>
                                 @endif
                             @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status:</label>
+                        <select name="status" class="form-control" id="status">
+                            <option value="">Status</option>
+                            @if($inv_manufacturer->status == 1)
+                                <option value="1" selected> Active </option>
+                                <option value="0"> Inactive </option>
+                            @else
+                                <option value="1"> Active </option>
+                                <option value="0" selected> Inactive </option>
+                            @endif
                         </select>
                     </div>
                     <div class="center">

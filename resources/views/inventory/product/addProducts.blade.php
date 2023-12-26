@@ -84,12 +84,6 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="quantity">Quantity</label>
-                                <input type="text" name="quantity" class="form-control" id="quantity">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
                                 <label for="mrp">MRP</label>
                                 <input type="text" name="mrp" class="form-control"  id="mrp">
                             </div>
