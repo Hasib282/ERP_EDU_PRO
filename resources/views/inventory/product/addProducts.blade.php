@@ -124,57 +124,46 @@
         $('#subCategory').hide();
         jQuery('#category').change(function() {
             var selectedCategory = jQuery(this).val();
-            alert(selectedCategory);
-            jQuery.ajax({
-                url:'/admin/inventory/getSubCategory',
-                type:'Post',
-                data:'category_id='+selectedCategory,
-                success:function(data){
-                    // $('#subCategory').append('<option value="">Select SubCategory</option>');
-                    // $.each(data, function(key, value) {
-                    //     $('#subCategory').append('<option value="' + key + '">' + value + '</option>');
-                    // });
-                    // // Show the subcategory field
-                    $('#subCategorySelect').show();
+            if (selectedCategory) {
+            $.ajax({
+                url: '{{ route('get.subCategory') }}',
+                type: 'GET',
+                data: { category_id: selectedCategory },
+                success: function(response) {
                     $('#subCategory').show();
-                    alert(data)
+                    $('#subCategory').empty();
+                    $.each(response, function(key, subcategory) {
+                        $('#subCategory').append('<option value="' + subcategory.id + '">' + subcategory.sub_category_name + '</option>');
+                    });
+                },
+                error: function(err) {
+                    console.error(err);
                 }
-        })
+            });
+        } else {
+            $('#subCategory').hide();
+            $('#subCategory').empty();
+        }
+        //     alert(selectedCategory);
+        //     jQuery.ajax({
+        //         url:'/admin/inventory/getSubCategory/'.selectedCategory,
+        //         type:'GET',
+        //         success:function(data){
+        //             // $.each(data, function(key, value) {
+        //             //     $('#subCategory').append('<option value="' + key + '">' + value + '</option>');
+        //             // });
+        //             // Show the subcategory field
+        //             $('#subCategorySelect').show();
+        //             $('#subCategory').show();
+        //             alert(data)
+        //         }
+        // })
         });
+        
 
     })
 
-    // $(document).ready(function() {
-    //     $('#subCategorySelect').hide();
-    //     $('#subCategory').hide();
-
-    //     $('#category').on('change', function() {
-    //         var selectedCategory = $(this).val();
-    //         if (selectedCategory) {
-    //             alert(selectedCategory)
-    //             $.ajax({
-    //                 url: "/getSubCategory",
-    //                 method: 'GET',
-    //                 data:{"category":selectedCategory}
-    //                 console.log(data)
-                    // success: function(data) {
-                        
-                    //     Populate subcategory dropdown
-                    //     $('#subCategory').append('<option value="">Select SubCategory</option>');
-                    //     $.each(data, function(key, value) {
-                    //         $('#subCategory').append('<option value="' + key + '">' + value + '</option>');
-                    //     });
-                    //     // Show the subcategory field
-                    //     $('#subCategorySelect').show();
-                    //     $('#subCategory').show();
-                    // },
-                    // error: function(error) {
-                    //     console.log('Error fetching subcategories:', error);
-                    // }
-    //             });
-    //         }
-    //     });
-    // });
+    
 </script> --}}
 
 @endsection

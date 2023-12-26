@@ -65,8 +65,45 @@ class InventoryController extends Controller
 
 
     public function AddManufacturers(){
-        return view('inventory.manufacturer.addManufacturers');
+        $user_info = User_Info::get();
+        return view('inventory.manufacturer.addManufacturers',compact('user_info'));
     }
+
+
+    //Insert Product
+    public function InsertManufacturers(Request $request){
+        Inv_Manufacturer_info::insert([
+            "manufacturer_name"=>$request->manufacturerName,
+            "manufacturer_email"=>$request->manufacturerEmail,
+            "manufacturer_contact"=>$request->manufacturerContact,
+            "user_id"=>$request->user,
+        ]);
+        return redirect()->route('show.manufacturers');  
+    }
+
+
+
+    //Edit Product Sub Category
+    public function EditManufacturers($id){
+        $inv_manufacturer = Inv_Manufacturer_info::findOrFail($id);
+        $user_info = User_Info::get();
+        return view('inventory.manufacturer.editManufacturers', compact('inv_manufacturer','user_info'));
+    }
+
+
+
+    //Update Product Sub Category
+    public function UpdateManufacturers(Request $request,$id){
+        Inv_Manufacturer_info::findOrFail($id)->update([
+            "manufacturer_name"=>$request->manufacturerName,
+            "manufacturer_email"=>$request->manufacturerEmail,
+            "manufacturer_contact"=>$request->manufacturerContact,
+            "user_id"=>$request->user,
+            "updated_at" => now()
+        ]);
+        return redirect()->route('show.manufacturers');  
+    }
+
 
     //Delete Manufacturers
     public function DeleteManufacturers($id){
@@ -158,10 +195,13 @@ class InventoryController extends Controller
     }
 
 
-    public function GetSubcategory(Request $req)
+    public function GetSubcategory(Request $request)
     {
-        dd($req->category_id);
-        $subcategories = Subcategory::where('category_id', $category)->pluck('sub_category_name','id');
+        $categoryId = $request->input('category_id');
+        $subcategories = Subcategory::select('id', 'sub_category_name')
+        ->where('category_id', $categoryId)
+        ->get();
+        // dd($sub_category);
         return response()->json($subcategories);
     }
 

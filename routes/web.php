@@ -93,7 +93,7 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/subCategory', 'ShowSubCategory')->name('show.subCatagory');
         Route::get('/addSubCategory', 'AddSubCategory')->name('add.subCatagory');
         // Route::get('/getSubCategory/{category}', 'GetSubCategory')->name('get.subCategory');
-        Route::post('/getSubCategory', 'GetSubCategory')->name('get.subCategory');
+        Route::get('/getSubCategory', 'GetSubCategory')->name('get.subCategory');
         Route::post('/insertSubCategory', 'InsertSubCategory')->name('insert.subCatagory');
         Route::get('/editSubCategory/{id}', 'EditSubCategory')->name('edit.subCatagory');
         Route::put('/updateSubCategory/{id}', 'UpdateSubCategory')->name('update.subCatagory');
