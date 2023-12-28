@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('manufacturer_name');
             $table->string('manufacturer_email');
             $table->string('manufacturer_contact');
-            $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Incative');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('user__infos')
                     ->onUpdate('cascade')

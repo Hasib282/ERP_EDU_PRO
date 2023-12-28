@@ -16,15 +16,53 @@ use Carbon\Carbon;
 class InventoryController extends Controller
 {
     /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
+    
+    //Show Units
     public function ShowUnits(){
         $inv_unit = Inv_Unit::get();
         return view('inventory.unit.units', compact('inv_unit'));
-    }//End Method
+    }
 
 
+    //Add Unit
     public function AddUnits(){
         return view('inventory.unit.addUnits');
     }
+
+
+    //Insert Unit
+    public function InsertUnits(Request $request){
+        $request->validate([
+            "unitName" => 'required|unique:inv__units,unit_name'
+        ]);
+
+        Inv_Unit::insert([
+            "unit_name" => $request->unitName,
+        ]);
+        return redirect()->route('show.units');  
+    }
+
+
+
+    //Edit Unit
+    public function EditUnits($id){
+        $inv_unit = Inv_Unit::findOrFail($id);
+        return view('inventory.unit.editUnits', compact('inv_unit'));
+    }
+
+
+
+    //Update Unit
+    public function UpdateUnits(Request $request,$id){
+        Inv_Unit::findOrFail($id)->update([
+            "unit_name" => $request->unitName,
+            "status" => $request->status,
+            "updated_at" => now()
+        ]);
+        return redirect()->route('show.units');  
+    }
+
+
 
     //Delete Units
     public function DeleteUnits($id){
@@ -71,7 +109,7 @@ class InventoryController extends Controller
 
 
 
-    //Update Manufacturer
+    //Update Suppliers
     public function UpdateSuppliers(Request $request,$id){
 
         Inv_Supplier_info::findOrFail($id)->update([

@@ -39,7 +39,7 @@
                       <td>{{ $item->manufacturer_name }}</td>
                       <td>{{ $item->manufacturer_email }}</td>
                       <td>{{ $item->manufacturer_contact }}</td>
-                      <td>{{ $item->user_id }}</td>
+                      <td>{{ $item->UserName->name }}</td>
                       <td>
                         @if($item->status==1)
                           <a href="{{ route('status',['table_name' => 'Inv_Manufacturer_Info', 'id' => $item->id, 'status' => $item->status] ) }}" class="btn btn-success btn-sm"><i class="fa-solid fa-check"></i>Active</a>

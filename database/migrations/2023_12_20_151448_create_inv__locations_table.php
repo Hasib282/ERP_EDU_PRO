@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('city_name');
             $table->string('district_name');
-            $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Incative');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

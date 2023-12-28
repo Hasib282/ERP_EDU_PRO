@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('sup_name');
             $table->string('sup_email');
             $table->string('sup_contact');
-            $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Incative');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('user__infos')
                     ->onUpdate('cascade')

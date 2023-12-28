@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('inv__product__categories')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Incative');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

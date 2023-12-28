@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inv__product__categories', function (Blueprint $table) {
             $table->id();
             $table->string('product_category_name');
-            $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Incative');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

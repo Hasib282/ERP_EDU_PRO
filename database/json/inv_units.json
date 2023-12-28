@@ -1,22 +1,17 @@
 [
     {
-        "unit_name":"kg",
-        "user_id":"1"
+        "unit_name":"kg"
     },
     {
-        "unit_name":"gm",
-        "user_id":"2"
+        "unit_name":"gm"
     },
     {
-        "unit_name":"ml",
-        "user_id":"3"
+        "unit_name":"ml"
     },
     {
-        "unit_name":"Litter",
-        "user_id":"4"
+        "unit_name":"Litter"
     },
     {
-        "unit_name":"pcs",
-        "user_id":"5"
+        "unit_name":"pcs"
     }
 ]

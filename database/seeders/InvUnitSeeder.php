@@ -20,7 +20,6 @@ class InvUnitSeeder extends Seeder
         $users->each(function($user){
             Inv_Unit::create([
                 "unit_name"=>$user->unit_name,
-                "user_id"=>$user->user_id
             ]);
         });
     }
