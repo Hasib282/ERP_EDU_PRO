@@ -54,7 +54,7 @@ Route::controller(InventoryController::class)->group(function(){
 
         ///////////// --------------- inventory unit routes ----------- ///////////////////
         Route::get('/units', 'ShowUnits')->name('show.units');
-        Route::get('/addUnits', 'AddUnits')->name('add.units');
+        // Route::get('/addUnits', 'AddUnits')->name('add.units');
         Route::post('/insertUnits', 'InsertUnits')->name('insert.units');
         Route::get('/editUnits/{id}', 'EditUnits')->name('edit.units');
         Route::put('/updateUnits/{id}', 'UpdateUnits')->name('update.units');

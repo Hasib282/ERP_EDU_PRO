@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\user_info;
-use App\Models\Inv_Unit;
-use App\Models\Inv_Supplier_Info;
-use App\Models\Inv_Manufacturer_info;
-use App\Models\Inv_Product_Category;
-use App\Models\Inv_Product_Sub_Category;
-use App\Models\Inv_Product;
 use Carbon\Carbon;
+use App\Models\Inv_Unit;
+use App\Models\user_info;
+use App\Models\Inv_Product;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Models\Inv_Supplier_Info;
+use App\Http\Controllers\Controller;
+use App\Models\Inv_Product_Category;
+use App\Models\Inv_Manufacturer_info;
+use App\Models\Inv_Product_Sub_Category;
 
 class InventoryController extends Controller
 {
@@ -24,10 +25,10 @@ class InventoryController extends Controller
     }
 
 
-    //Add Unit
-    public function AddUnits(){
-        return view('inventory.unit.addUnits');
-    }
+    // //Add Unit
+    // public function AddUnitModal(){
+    //     return view('inventory.unit.addUnitModal');
+    // }
 
 
     //Insert Unit
@@ -39,7 +40,9 @@ class InventoryController extends Controller
         Inv_Unit::insert([
             "unit_name" => $request->unitName,
         ]);
-        return redirect()->route('show.units');  
+        return response()->json([
+            'status'=>'success',
+        ]);  
     }
 
 
@@ -47,19 +50,34 @@ class InventoryController extends Controller
     //Edit Unit
     public function EditUnits($id){
         $inv_unit = Inv_Unit::findOrFail($id);
-        return view('inventory.unit.editUnits', compact('inv_unit'));
+        return response()->json([
+            'inv_unit'=>$inv_unit,
+        ]);
     }
 
 
 
     //Update Unit
     public function UpdateUnits(Request $request,$id){
-        Inv_Unit::findOrFail($id)->update([
+        $inv_unit = Inv_Unit::findOrFail($id);
+
+        $request->validate([
+            "unitName" => ['required',Rule::unique('inv__units', 'unit_name')->ignore($inv_unit->id)],
+            "status"=>'required|in:0,1'
+        ]);
+
+        $update = Inv_Unit::findOrFail($id)->update([
             "unit_name" => $request->unitName,
             "status" => $request->status,
             "updated_at" => now()
         ]);
-        return redirect()->route('show.units');  
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        }
+        
+        
     }
 
 
@@ -67,7 +85,9 @@ class InventoryController extends Controller
     //Delete Units
     public function DeleteUnits($id){
         Inv_Unit::findOrFail($id)->delete();
-        return redirect()->back();  
+        return response()->json([
+            'status'=>'success'
+        ]); 
     }
 
     /////////////////////////// --------------- Inventory Units Methods end ---------- //////////////////////////
