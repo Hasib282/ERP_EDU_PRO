@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Attach event listeners to each button
     openModalBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
-            var modalId = btn.getAttribute('modal-id');
+            var modalId = btn.getAttribute('data-modal-id');
             var modal = document.getElementById(modalId);
 
             if (modal) {
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var closeBtns = document.querySelectorAll('.close-modal');
     closeBtns.forEach(function (closeBtn) {
         closeBtn.addEventListener('click', function () {
-            var modalId = closeBtn.getAttribute('modal-id');
+            var modalId = closeBtn.getAttribute('data-modal-id');
             var modal = document.getElementById(modalId);
 
             if (modal) {

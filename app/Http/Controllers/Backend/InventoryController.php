@@ -17,18 +17,11 @@ use App\Models\Inv_Product_Sub_Category;
 class InventoryController extends Controller
 {
     /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
-    
     //Show Units
     public function ShowUnits(){
-        $inv_unit = Inv_Unit::get();
+        $inv_unit = Inv_Unit::orderBy('added_at','desc')->paginate(5);
         return view('inventory.unit.units', compact('inv_unit'));
     }
-
-
-    // //Add Unit
-    // public function AddUnitModal(){
-    //     return view('inventory.unit.addUnitModal');
-    // }
 
 
     //Insert Unit
@@ -44,7 +37,6 @@ class InventoryController extends Controller
             'status'=>'success',
         ]);  
     }
-
 
 
     //Edit Unit
@@ -76,8 +68,6 @@ class InventoryController extends Controller
                 'status'=>'success'
             ]); 
         }
-        
-        
     }
 
 
@@ -90,24 +80,56 @@ class InventoryController extends Controller
         ]); 
     }
 
+
+    public function UnitPagination(Request $request){
+        $inv_unit = Inv_Unit::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.unit.unitPagination', compact('inv_unit'))->render();
+    }
+
+
+
+    public function SearchUnit(Request $request){
+        $inv_unit = Inv_Unit::where('unit_name', 'like', '%'.$request->search.'%')
+        ->orWhere('id', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if($inv_unit->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'pagination' => $inv_unit->links()->toHtml(),
+                'data' => view('inventory.unit.unitPagination', compact('inv_unit'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+        
+    }
+
     /////////////////////////// --------------- Inventory Units Methods end ---------- //////////////////////////
 
 
     /////////////////////////// --------------- Inventory Suppliers Methods start---------- //////////////////////////
 
     public function ShowSuppliers(){
-        $inv_supplier = Inv_Supplier_Info::get();
-        return view('inventory.supplier.suppliers', compact('inv_supplier'));
-    }//End Method
-
-    public function AddSuppliers(){
         $user_info = User_Info::get();
-        return view('inventory.supplier.addSuppliers',compact('user_info'));
-    }
+        $inv_supplier = Inv_Supplier_Info::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.supplier.suppliers', compact('inv_supplier','user_info'));
+    }//End Method
 
 
     //Insert Supplier
     public function InsertSuppliers(Request $request){
+        $request->validate([
+            "supplierName" => 'required',
+            "supplierEmail" => 'required',
+            "supplierContact" => 'required',
+            "user" => 'required',
+        ]);
+        
         Inv_Supplier_info::insert([
             "sup_name" => $request->supplierName,
             "sup_email" => $request->supplierEmail,
@@ -115,7 +137,9 @@ class InventoryController extends Controller
             "user_id" => $request->user,
         ]);
 
-        return redirect()->route('show.suppliers');  
+        return response()->json([
+            'status'=>'success',
+        ]); 
     }
 
 
@@ -124,15 +148,27 @@ class InventoryController extends Controller
     public function EditSuppliers($id){
         $inv_supplier = Inv_Supplier_info::findOrFail($id);
         $user_info = User_Info::get();
-        return view('inventory.supplier.editSuppliers', compact('inv_supplier','user_info'));
+        return response()->json([
+            'inv_supplier'=>$inv_supplier,
+            'user_info'=>$user_info,
+        ]);
     }
 
 
 
     //Update Suppliers
     public function UpdateSuppliers(Request $request,$id){
+        $inv_unit = Inv_Supplier_info::findOrFail($id);
 
-        Inv_Supplier_info::findOrFail($id)->update([
+        $request->validate([
+            "supplierName" => 'required',
+            "supplierEmail" => 'required',
+            "supplierContact" => 'required',
+            "user" => 'required',
+            "status" => 'required'
+        ]);
+
+        $update = Inv_Supplier_info::findOrFail($id)->update([
             "sup_name" => $request->supplierName,
             "sup_email" => $request->supplierEmail,
             "sup_contact" => $request->supplierContact,
@@ -140,7 +176,11 @@ class InventoryController extends Controller
             "status" => $request->status,
             "updated_at" => now()
         ]);
-        return redirect()->route('show.suppliers');  
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        }
     }
 
 
@@ -148,7 +188,41 @@ class InventoryController extends Controller
     //Delete Supplier
     public function DeleteSuppliers($id){
         Inv_Supplier_Info::findOrFail($id)->delete();
-        return redirect()->back();  
+        return response()->json([
+            'status'=>'success'
+        ]); 
+    }
+
+
+    public function SupplierPagination(Request $request){
+        $user_info = User_Info::get();
+        $inv_supplier = Inv_Supplier_Info::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.supplier.supplierPagination', compact('inv_supplier','user_info'))->render();
+    }
+
+
+    public function SearchSupplier(Request $request){
+        $user_info = User_Info::get();
+        $inv_supplier = Inv_Supplier_Info::where('id', 'like', '%'.$request->search.'%')
+        ->orWhere('sup_name', 'like','%'.$request->search.'%')
+        ->orWhere('sup_email', 'like','%'.$request->search.'%')
+        ->orWhere('sup_contact', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if($inv_supplier->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'pagination' => $inv_supplier->links()->toHtml(),
+                'data' => view('inventory.supplier.supplierPagination', compact('inv_supplier','user_info'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+        
     }
 
     /////////////////////////// --------------- Inventory Suppliers Methods start---------- //////////////////////////
@@ -467,6 +541,9 @@ class InventoryController extends Controller
     /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
     /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
 
+
+
+    /////////////////////////// --------------- Status Methods start ---------- //////////////////////////
     public function Status($table_name,$id,$status)
     {
         $model = "App\\Models\\" . $table_name;
@@ -479,5 +556,15 @@ class InventoryController extends Controller
             return redirect()->back();
         }  
     }
+
+    /////////////////////////// --------------- Status Methods end ---------- //////////////////////////
+
+    /////////////////////////// --------------- Pagination Method start ---------- //////////////////////////
+
+    // public function Pagination(Request $request){
+
+    // }
+
+    /////////////////////////// --------------- Units Methods start ---------- //////////////////////////
 
 }

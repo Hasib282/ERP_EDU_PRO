@@ -2,7 +2,7 @@
     <div class="modal-subject">
         <div class="modal-heading">
             <h3 class="center">Add Unit</h3>
-            <span class="close-modal" modal-id="addUnitModal">&times;</span>
+            <span class="close-modal" data-modal-id="addUnitModal">&times;</span>
         </div>
         
         <div class="center">

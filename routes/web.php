@@ -54,20 +54,24 @@ Route::controller(InventoryController::class)->group(function(){
 
         ///////////// --------------- inventory unit routes ----------- ///////////////////
         Route::get('/units', 'ShowUnits')->name('show.units');
-        // Route::get('/addUnits', 'AddUnits')->name('add.units');
         Route::post('/insertUnits', 'InsertUnits')->name('insert.units');
         Route::get('/editUnits/{id}', 'EditUnits')->name('edit.units');
         Route::put('/updateUnits/{id}', 'UpdateUnits')->name('update.units');
         Route::delete('/deleteUnits/{id}', 'DeleteUnits')->name('delete.units');
+        Route::get('/searchUnit', 'SearchUnit')->name('search.units');
+        Route::get('/unit/pagination', 'UnitPagination');
+        
 
         
         ///////////// --------------- inventory suppliers routes ----------- ///////////////////
         Route::get('/suppliers', 'ShowSuppliers')->name('show.suppliers');
-        Route::get('/addSuppliers', 'AddSuppliers')->name('add.suppliers');
         Route::post('/insertSuppliers', 'InsertSuppliers')->name('insert.suppliers');
-        Route::get('/editSupliers/{id}', 'EditSuppliers')->name('edit.suppliers');
-        Route::put('/updateSupliers/{id}', 'UpdateSuppliers')->name('update.suppliers');
-        Route::delete('/deleteSupliers/{id}', 'DeleteSuppliers')->name('delete.suppliers');
+        Route::get('/editSuppliers/{id}', 'EditSuppliers')->name('edit.suppliers');
+        Route::put('/updateSuppliers/{id}', 'UpdateSuppliers')->name('update.suppliers');
+        Route::delete('/deleteSuppliers/{id}', 'DeleteSuppliers')->name('delete.suppliers');
+        Route::get('/searchSupplier', 'SearchSupplier')->name('search.suppliers');
+        Route::get('/supplier/pagination', 'SupplierPagination');
+
 
 
         ///////////// --------------- inventory manufacturer routes ----------- ///////////////////
@@ -77,6 +81,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/editManufacturers/{id}', 'EditManufacturers')->name('edit.manufacturers');
         Route::put('/updateManufacturers/{id}', 'UpdateManufacturers')->name('update.manufacturers');
         Route::delete('/deleteManufacturers/{id}', 'DeleteManufacturers')->name('delete.manufacturers');
+        Route::get('/searchManufacturer', 'SearchManufacturer')->name('search.manufacturers');
+        Route::get('/manufacturer/pagination', 'ManufacturerPagination');
         
 
         ///////////// --------------- inventory product category routes ----------- ///////////////////
