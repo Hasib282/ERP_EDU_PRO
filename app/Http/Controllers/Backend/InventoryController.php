@@ -81,7 +81,7 @@ class InventoryController extends Controller
     }
 
 
-    public function UnitPagination(Request $request){
+    public function UnitPagination(){
         $inv_unit = Inv_Unit::orderBy('added_at','desc')->paginate(5);
         return view('inventory.unit.unitPagination', compact('inv_unit'))->render();
     }
@@ -194,7 +194,7 @@ class InventoryController extends Controller
     }
 
 
-    public function SupplierPagination(Request $request){
+    public function SupplierPagination(){
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::orderBy('added_at','desc')->paginate(5);
         return view('inventory.supplier.supplierPagination', compact('inv_supplier','user_info'))->render();
@@ -297,21 +297,26 @@ class InventoryController extends Controller
     /////////////////////////// --------------- Inventory Product Categorys Methods start---------- //////////////////////////
     
     public function ShowProductCategory(){
-        $inv_product_category = Inv_Product_Category::get();
-        return view('inventory.product_category.productCategory', compact('inv_product_category',));
+        $inv_product_category = Inv_Product_Category::orderBy('added_at','desc')->paginate(5);;
+        return view('inventory.product_category.productCategory', compact('inv_product_category'));
     }//End Method
 
 
-    public function AddProductCategory(){
-        return view('inventory.product_category.addProductCategory');
-    }
-
     //Insert Products
     public function InsertProductCategory(Request $request){
-        Inv_Product_Category::insert([
+        $request->validate([
+            "categoryName" => 'required|unique:inv__product__categories,product_category_name'
+        ]);
+
+        $inv_product_category = Inv_Product_Category::insert([
             "product_category_name" => $request->categoryName,
         ]);
-        return redirect()->route('show.productCatagory');
+        if($inv_product_category){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        }
+         
     }
 
 
@@ -319,25 +324,69 @@ class InventoryController extends Controller
     //Edit Product Category
     public function EditProductCategory($id){
         $inv_product_category = Inv_Product_Category::findOrFail($id);
-        return view('inventory.product_category/editProductCategory', compact('inv_product_category'));
+        return response()->json([
+            'inv_product_category'=>$inv_product_category,
+        ]);
     }
 
 
     //Update Product Category
     public function UpdateProductCategory(Request $request,$id){
-        Inv_Product_Category::findOrFail($id)->update([
+        $inv_product_category = Inv_Product_Category::findOrFail($id);
+
+        $request->validate([
+            "categoryName" => ['required',Rule::unique('inv__product__categories', 'product_category_name')->ignore($inv_product_category->id)],
+            "status"=>'required|in:0,1'
+        ]);
+
+        $update = Inv_Product_Category::findOrFail($id)->update([
             "product_category_name" => $request->categoryName,
             "status" => $request->status,
             "updated_at" => now()
         ]);
-        return redirect()->route('show.productCatagory');  
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        }
     }
 
 
     //Delete Product Category
     public function DeleteProductCategory($id){
         Inv_Product_Category::findOrFail($id)->delete();
-        return redirect()->back();  
+        return response()->json([
+            'status'=>'success'
+        ]); 
+    }
+
+
+    //product Category Pagination
+    public function ProductCategoryPagination(){
+        $inv_product_category = Inv_Product_Category::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.product_category.productCategoryPagination', compact('inv_product_category'))->render();
+    }
+
+
+    //product category Search
+    public function SearchProductCategory(Request $request){
+        $inv_product_category = Inv_Product_Category::where('product_category_name', 'like', '%'.$request->search.'%')
+        ->orWhere('id', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if($inv_product_category->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'pagination' => $inv_product_category->links()->toHtml(),
+                'data' => view('inventory.product_category.productCategoryPagination', compact('inv_product_category'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
     }
     
     /////////////////////////// --------------- Inventory Product Categorys Methods end---------- //////////////////////////
@@ -357,62 +406,79 @@ class InventoryController extends Controller
     
     //Show Product Sub Categories
     public function ShowSubCategory(){
-        $sub_category = Inv_Product_Sub_Category::get();
-        return view('inventory.product_category.sub_category.subcategory', compact('sub_category',));
-    }
-
-   
-
-    //Add Product Sub Category
-    public function AddSubCategory(){
         $inv_product_category = Inv_Product_Category::get();
-        return view('inventory.product_category.sub_category.addSubCategory',compact('inv_product_category'));
-    }
-
-
-    public function GetSubcategory(Request $request)
-    {
-        $categoryId = $request->input('category_id');
-        $subcategories = Subcategory::select('id', 'sub_category_name')
-        ->where('category_id', $categoryId)
-        ->get();
-        // dd($sub_category);
-        return response()->json($subcategories);
-    }
+        $sub_category = Inv_Product_Sub_Category::orderBy('added_at','desc')->paginate(5);;
+        return view('inventory.product_category.sub_category.subcategory', compact('sub_category','inv_product_category'));
+    }//End Method
 
 
     //Insert Product Sub Category
     public function InsertSubCategory(Request $request){
-        
-        Inv_Product_Sub_Category::insert([
-            "sub_category_name" => $request->subCategory,
-            "category_id" => $request->category
+        $request->validate([
+            "subCategory" => 'required|unique:inv__product__sub__categories,sub_category_name',
+            "category" => 'required'
         ]);
-        return redirect()->route('show.subCatagory');
+
+        $sub_category = Inv_Product_Sub_Category::insert([
+            "sub_category_name" => $request->subCategory,
+            "category_id" => $request->category,
+        ]);
+        if($sub_category){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        }
+         
     }
 
 
 
 
+    // public function GetSubcategory(Request $request)
+    // {
+    //     $categoryId = $request->input('category_id');
+    //     $subcategories = Subcategory::select('id', 'sub_category_name')
+    //     ->where('category_id', $categoryId)
+    //     ->get();
+    //     // dd($sub_category);
+    //     return response()->json($subcategories);
+    // }
+
+
+    
     //Edit Product Sub Category
     public function EditSubCategory($id){
-        $inv_sub_category = Inv_Product_Sub_Category::findOrFail($id);
+        $sub_category = Inv_Product_Sub_Category::findOrFail($id);
         $inv_product_category = Inv_Product_Category::get();
-        return view('inventory.product_category.sub_category.editSubCategory', compact('inv_sub_category','inv_product_category'));
+        return response()->json([
+            'inv_product_category'=>$inv_product_category,
+            'sub_category'=>$sub_category
+        ]);
     }
 
 
 
     //Update Product Sub Category
     public function UpdateSubCategory(Request $request,$id){
-        $inv_product_category = Inv_Product_Category::findOrFail($id);
-        Inv_Product_Sub_Category::findOrFail($id)->update([
+        $sub_category = Inv_Product_Sub_Category::findOrFail($id);
+
+        $request->validate([
+            "subCategory" => ['required',Rule::unique('inv__product__sub__categories', 'sub_category_name')->ignore($sub_category->id)],
+            "category"=>'required',
+            "status"=>'required|in:0,1',
+        ]);
+
+        $update = Inv_Product_Sub_Category::findOrFail($id)->update([
             "sub_category_name" => $request->subCategory,
             "category_id" => $request->category,
             "status" => $request->status,
             "updated_at" => now()
         ]);
-        return redirect()->route('show.subCatagory');  
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        }
     }
 
 
@@ -420,7 +486,39 @@ class InventoryController extends Controller
     //Delete Product Sub Category
     public function DeleteSubCategory($id){
         Inv_Product_Sub_Category::findOrFail($id)->delete();
-        return redirect()->back();  
+        return response()->json([
+            'status'=>'success'
+        ]);
+    }
+
+
+    //product Category Pagination
+    public function SubCategoryPagination(){
+        $sub_category = Inv_Product_Sub_Category::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.product_category.sub_category.subCategoryPagination', compact('sub_category'))->render();
+    }
+
+
+    //product category Search
+    public function SearchSubCategory(Request $request){
+        $sub_category = Inv_Product_Sub_Category::where('sub_category_name', 'like', '%'.$request->search.'%')
+        ->orWhere('category_id', 'like','%'.$request->search.'%')
+        ->orWhere('id', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if($sub_category->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'pagination' => $sub_category->links()->toHtml(),
+                'data' => view('inventory.product_category.sub_category.subCategoryPagination', compact('sub_category'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
     }
     
     /////////////////////////// --------------- Inventory Product Sub Categorys Methods end---------- //////////////////////////

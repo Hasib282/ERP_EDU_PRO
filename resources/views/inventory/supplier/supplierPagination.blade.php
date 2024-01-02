@@ -64,7 +64,7 @@
                     </tr>
                 </tfoot>
             </table>
-            <div class="center">
+            <div class="center paginate">
                 {!! $inv_supplier->links() !!}
             </div>
         </div>

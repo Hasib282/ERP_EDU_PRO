@@ -87,24 +87,22 @@ Route::controller(InventoryController::class)->group(function(){
 
         ///////////// --------------- inventory product category routes ----------- ///////////////////
         Route::get('/productCategory', 'ShowProductCategory')->name('show.productCatagory');
-        Route::get('/addProductCategory', 'AddProductCategory')->name('add.productCatagory');
         Route::post('/insertProductCategory', 'InsertProductCategory')->name('insert.productCatagory');
         Route::get('/editProductCategory/{id}', 'EditProductCategory')->name('edit.productCatagory');
         Route::put('/updateProductCategory/{id}', 'UpdateProductCategory')->name('update.productCatagory');
         Route::delete('/deleteProductCategory/{id}', 'DeleteProductCategory')->name('delete.productCatagory');
-
+        Route::get('/searchProductCategory', 'SearchProductCategory')->name('search.productCategory');
+        Route::get('/productCategory/pagination', 'ProductCategoryPagination');
 
 
         ///////////// --------------- inventory product Sub Category routes ----------- ///////////////////
-        Route::get('/subCategory', 'ShowSubCategory')->name('show.subCatagory');
-        Route::get('/addSubCategory', 'AddSubCategory')->name('add.subCatagory');
-        // Route::get('/getSubCategory/{category}', 'GetSubCategory')->name('get.subCategory');
-        Route::get('/getSubCategory', 'GetSubCategory')->name('get.subCategory');
-        Route::post('/insertSubCategory', 'InsertSubCategory')->name('insert.subCatagory');
-        Route::get('/editSubCategory/{id}', 'EditSubCategory')->name('edit.subCatagory');
-        Route::put('/updateSubCategory/{id}', 'UpdateSubCategory')->name('update.subCatagory');
-        Route::delete('/deleteSubCategory/{id}', 'DeleteSubCategory')->name('delete.subCatagory');
-
+        Route::get('/productSubCategory', 'ShowSubCategory')->name('show.subCatagory');
+        Route::post('/insertProductSubCategory', 'InsertSubCategory')->name('insert.subCatagory');
+        Route::get('/editProductSubCategory/{id}', 'EditSubCategory')->name('edit.subCatagory');
+        Route::put('/updateProductSubCategory/{id}', 'UpdateSubCategory')->name('update.subCatagory');
+        Route::delete('/deleteProductSubCategory/{id}', 'DeleteSubCategory')->name('delete.subCatagory');
+        Route::get('/searchProductSubCategory', 'SearchSubCategory')->name('search.subCategory');
+        Route::get('/productSubCategory/pagination', 'SubCategoryPagination');
 
         
         ///////////// --------------- inventory products routes ----------- ///////////////////
