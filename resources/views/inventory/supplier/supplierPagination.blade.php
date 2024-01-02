@@ -26,7 +26,8 @@
                     @foreach ($inv_supplier as $key => $item)
                         <tr class="odd">
 
-                            <td class="dtr-control sorting_1" tabindex="0">{{ $inv_supplier->firstItem() + $key }}</td>
+                            <td class="dtr-control sorting_1" tabindex="0">{{ $inv_supplier->firstItem() + $key }}
+                            </td>
                             <td>{{ $item->sup_name }}</td>
                             <td>{{ $item->sup_email }}</td>
                             <td>{{ $item->sup_contact }}</td>

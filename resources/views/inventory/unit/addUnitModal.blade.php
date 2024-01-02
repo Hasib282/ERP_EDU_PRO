@@ -4,7 +4,7 @@
             <h3 class="center">Add Unit</h3>
             <span class="close-modal" data-modal-id="addUnitModal">&times;</span>
         </div>
-        
+
         <div class="center">
             <div class="card card-primary col-md-10">
                 <div class="card-header">
@@ -15,14 +15,14 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form id="AddUnitForm" method="post">
-                    @csrf 
+                    @csrf
                     <div class="center">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="unitName">Unit Name</label>
-                                        <input type="text" name="unitName" class="form-control"  id="unitName">
+                                        <input type="text" name="unitName" class="form-control" id="unitName">
                                         <span class="text-danger" id="unitName_error"></span>
                                     </div>
                                 </div>

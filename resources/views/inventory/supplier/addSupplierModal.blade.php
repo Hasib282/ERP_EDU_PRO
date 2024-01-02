@@ -4,29 +4,29 @@
             <h3 class="center">Add Supplier</h3>
             <span class="close-modal" data-modal-id="addSupplierModal">&times;</span>
         </div>
-        
+
         <div class="center">
             <div class="card card-primary col-md-10">
                 <!-- form start -->
                 <form id="AddSupplierForm" method="post">
-                    @csrf 
+                    @csrf
                     <div class="center">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="supplierName">Supplier Name</label>
-                                <input type="text" name="supplierName" class="form-control"  id="supplierName">
+                                <input type="text" name="supplierName" class="form-control" id="supplierName">
                                 <span class="text-danger" id="supplierName_error"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="supplierEmail">Supplier Email</label>
-                                <input type="text" name="supplierEmail" class="form-control"  id="supplierEmail">
+                                <input type="text" name="supplierEmail" class="form-control" id="supplierEmail">
                                 <span class="text-danger" id="supplierEmail_error"></span>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="supplierContact">Supplier Contact</label>
-                                <input type="text" name="supplierContact" class="form-control"  id="supplierContact">
+                                <input type="text" name="supplierContact" class="form-control" id="supplierContact">
                                 <span class="text-danger" id="supplierContact_error"></span>
                             </div>
 
@@ -34,7 +34,7 @@
                                 <label for="user">User id:</label>
                                 <select name="user" class="form-control" id="user">
                                     <option value="">User id</option>
-                                    @foreach($user_info as $user)
+                                    @foreach ($user_info as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
                                 </select>

@@ -8,7 +8,8 @@
                         <button class="open-modal add" data-modal-id="addSupplierModal">Add Supplier</button>
                     </div>
                     <div class="col-md-9 text-right">
-                        <input type="text" name="searchSupplier" id="searchSupplier" class="form-control form-control-sm" placeholder="Search here..." style="width: 40%;">
+                        <input type="text" name="searchSupplier" id="searchSupplier" class="form-control form-control-sm"
+                            placeholder="Search here..." style="width: 40%;">
                     </div>
                 </div>
             </div>
@@ -16,16 +17,16 @@
 
         <!-- /.card-header -->
         <div class="card-body inv-supplier">
-            @include('inventory.supplier.supplierPagination');
+            @include('inventory.supplier.supplierPagination')
         </div>
     </div>
 
 
-    @include('inventory.supplier.addSupplierModal');
+    @include('inventory.supplier.addSupplierModal')
 
-    @include('inventory.supplier.editSupplierModal');
+    @include('inventory.supplier.editSupplierModal')
 
-    {!! Toastr::message() !!}
+    {{-- {!! Toastr::message() !!} --}}
 @endsection
 
 

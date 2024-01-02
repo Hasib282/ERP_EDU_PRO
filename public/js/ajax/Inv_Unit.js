@@ -107,7 +107,6 @@ $(document).ready(function () {
     $(document).on('click', '.pagination a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        let href = $(this).attr('href').split('?')[0];
         $.ajax({
             url: `/admin/inventory/unit/pagination?page=${page}`,
             success: function (res) {

@@ -9,7 +9,7 @@
             <div class="card card-primary col-md-10">
                 <!-- form start -->
                 <form id="EditSupplierForm" method="post">
-                    @csrf 
+                    @csrf
                     @method('Put')
                     <div class="center">
                         <div class="card-body">
@@ -21,26 +21,28 @@
                             </div>
                             <div class="form-group">
                                 <label for="updateSupplierEmail">Supplier Email</label>
-                                <input type="text" name="supplierEmail" class="form-control" id="updateSupplierEmail">
+                                <input type="text" name="supplierEmail" class="form-control"
+                                    id="updateSupplierEmail">
                                 <span class="text-danger" id="update_supplierEmail_error"></span>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="updateSupplierContact">Supplier Contact</label>
-                                <input type="text" name="supplierContact" class="form-control" id="updateSupplierContact">
+                                <input type="text" name="supplierContact" class="form-control"
+                                    id="updateSupplierContact">
                                 <span class="text-danger" id="update_supplierContact_error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="updateUser">User id:</label>
                                 <select name="user" class="form-control" id="updateUser">
-                                    
+
                                 </select>
                                 <span class="text-danger" id="update_user_error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="updateStatus">Status:</label>
                                 <select name="status" class="form-control" id="updateStatus">
-                                    
+
                                 </select>
                                 <span class="text-danger" id="update_status_error"></span>
                             </div>

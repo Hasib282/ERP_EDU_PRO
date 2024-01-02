@@ -14,11 +14,11 @@
                 </div>
                 <!-- form start -->
                 <form id="EditUnitForm" method="post">
-                    @csrf 
+                    @csrf
                     @method('Put')
                     <div class="center">
                         <div class="card-body">
-                            <input type="hidden" name="unitId" class="form-control"  id="updateUnitId">
+                            <input type="hidden" name="unitId" class="form-control" id="updateUnitId">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -32,7 +32,7 @@
                                 <label for="status">Status:</label>
                                 <select name="status" class="form-control" id="updateStatus">
                                     {{-- options will be display dynamically --}}
-                                    
+
                                 </select>
                                 <span class="text-danger" id="update_status_error"></span>
                             </div>

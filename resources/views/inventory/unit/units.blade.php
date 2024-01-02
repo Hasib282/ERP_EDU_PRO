@@ -8,12 +8,13 @@
                         <button class="open-modal add" data-modal-id="addUnitModal">Add Unit</button>
                     </div>
                     <div class="col-md-10 text-right">
-                        <input type="text" name="searchUnit" id="searchUnit" class="form-control form-control-sm" placeholder="Search here..." style="width: 40%;">
+                        <input type="text" name="searchUnit" id="searchUnit" class="form-control form-control-sm"
+                            placeholder="Search here..." style="width: 40%;">
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- /.card-header -->
         <div class="card-body inv-unit">
             @include('inventory.unit.UnitPagination')
@@ -35,5 +36,3 @@
 @section('ajax')
     <script src="{{ asset('js/ajax/Inv_Unit.js') }}"></script>
 @endsection
-
-
