@@ -91,7 +91,7 @@
                                     <div class="form-group">
                                         <label for="updateCategoryName">Category Name</label>
                                         <input type="text" name="categoryName" class="form-control"  id="updateCategoryName">
-                                        <span class="text-danger" id="update_categoryName_error"></span>
+                                        <span class="text-danger error" id="update_categoryName_error"></span>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                                 <select name="status" class="form-control" id="updateStatus">
                                     {{-- options will be display dynamically --}}
                                 </select>
-                                <span class="text-danger" id="update_status_error"></span>
+                                <span class="text-danger error" id="update_status_error"></span>
                             </div>
                             <div class="center">
                                 <button type="submit" id="updateProductCategory" class="btn btn-primary">Submit</button>

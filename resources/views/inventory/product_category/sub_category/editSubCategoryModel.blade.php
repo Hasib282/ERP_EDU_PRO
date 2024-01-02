@@ -172,7 +172,7 @@
                                     <div class="form-group">
                                         <label for="updateSubCategoryName">Category Name</label>
                                         <input type="text" name="subCategory" class="form-control"  id="updateSubCategoryName">
-                                        <span class="text-danger" id="update_subCategory_error"></span>
+                                        <span class="text-danger error" id="update_subCategory_error"></span>
                                     </div>
                                 </div>
                             </div>
@@ -181,14 +181,14 @@
                                 <select name="category" class="form-control" id="updateCategory">
                                     {{-- options will be display dynamically --}}
                                 </select>
-                                <span class="text-danger" id="update_category_error"></span>
+                                <span class="text-danger error" id="update_category_error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="updateStatus">Status:</label>
                                 <select name="status" class="form-control" id="updateStatus">
                                     {{-- options will be display dynamically --}}
                                 </select>
-                                <span class="text-danger" id="update_status_error"></span>
+                                <span class="text-danger error" id="update_status_error"></span>
                             </div>
                             <div class="center">
                                 <button type="submit" id="updateProductSubCategory" class="btn btn-primary">Submit</button>

@@ -107,12 +107,12 @@ Route::controller(InventoryController::class)->group(function(){
         
         ///////////// --------------- inventory products routes ----------- ///////////////////
         Route::get('/products', 'ShowProducts')->name('show.products');
-        Route::get('/addProducts', 'AddProducts')->name('add.products');
         Route::post('/insertProducts', 'InsertProducts')->name('insert.products');
         Route::get('/editProducts/{id}', 'EditProducts')->name('edit.products');
         Route::put('/updateProducts/{id}', 'UpdateProducts')->name('update.products');
         Route::delete('/deleteProducts/{id}', 'DeleteProducts')->name('delete.products');
-
+        Route::get('/searchProducts', 'SearchProduct')->name('search.products');
+        Route::get('/product/pagination', 'ProductPagination');
     });
 
     Route::get('admin/status/{table_name}/{id}/{status}','Status')->name('status');

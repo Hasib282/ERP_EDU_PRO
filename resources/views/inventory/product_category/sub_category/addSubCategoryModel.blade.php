@@ -81,7 +81,7 @@
                                     <div class="form-group">
                                         <label for="subCategory">Sub Category Name</label>
                                         <input type="text" name="subCategory" class="form-control" id="subCategory">
-                                        <span class="text-danger" id="subCategory_error"></span>
+                                        <span class="text-danger error" id="subCategory_error"></span>
                                     </div>
 
                                     <div class="form-group">
@@ -92,7 +92,7 @@
                                                 <option value="{{ $category->id }}">{{ $category->product_category_name }}</option>
                                             @endforeach
                                         </select>
-                                        <span class="text-danger" id="category_error"></span>
+                                        <span class="text-danger error" id="category_error"></span>
                                     </div>
                                 </div>
                             </div>

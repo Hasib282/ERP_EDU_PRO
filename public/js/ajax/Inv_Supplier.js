@@ -10,6 +10,9 @@ $(document).ready(function(){
             url:"/admin/inventory/insertSuppliers",
             method:'post',
             data:{supplierName:supplierName,supplierEmail:supplierEmail,supplierContact:supplierContact,user:user},
+            beforeSend:function name(params) {
+                $(document).find('span.error').text('');  
+            },
             success:function(res){
                 if(res.status == "success"){
                     $('#addSupplierModal').hide();
@@ -76,6 +79,9 @@ $(document).ready(function(){
             url:`/admin/inventory/updateSuppliers/${id}`,
             method:'Put',
             data:{supplierName:supplierName,supplierEmail:supplierEmail,supplierContact:supplierContact,user:user,status:status},
+            beforeSend:function name(params) {
+                $(document).find('span.error').text('');  
+            },
             success:function(res){
                 if(res.status == "success"){
                     $('#editSupplierModal').hide();

@@ -24,7 +24,7 @@
                                     <div class="form-group">
                                         <label for="categoryName">Category Name</label>
                                         <input type="text" name="categoryName" class="form-control"  id="categoryName">
-                                        <span class="text-danger" id="categoryName_error"></span>
+                                        <span class="text-danger error" id="categoryName_error"></span>
                                     </div>
                                 </div>
                             </div>

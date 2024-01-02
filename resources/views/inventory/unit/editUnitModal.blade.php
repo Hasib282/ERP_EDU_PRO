@@ -34,7 +34,7 @@
                                     {{-- options will be display dynamically --}}
 
                                 </select>
-                                <span class="text-danger" id="update_status_error"></span>
+                                <span class="text-danger error" id="update_status_error"></span>
                             </div>
                             <div class="center">
                                 <button type="submit" class="btn btn-primary" id="updateUnit">Submit</button>

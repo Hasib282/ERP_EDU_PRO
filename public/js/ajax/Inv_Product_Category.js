@@ -8,6 +8,9 @@ $(document).ready(function () {
             url: "/admin/inventory/insertProductCategory",
             method: 'Post',
             data: { categoryName: categoryName },
+            beforeSend:function name(params) {
+                $(document).find('span.error').text('');  
+            },
             success: function (res) {
                 if (res.status == "success") {
                     $('#addProductCategoryModal').hide();
@@ -32,7 +35,6 @@ $(document).ready(function () {
     $(document).on('click', '.editProductCategoryModal', function () {
         let modalId = $(this).data('modal-id');
         let id = $(this).data('id');
-        console.log(modalId+':'+id)
         $.ajax({
             url: `/admin/inventory/editProductCategory/${id}`,
             method: 'get',
@@ -67,6 +69,9 @@ $(document).ready(function () {
             url: `/admin/inventory/updateProductCategory/${id}`,
             method: 'Put',
             data: { categoryName: categoryName, status: status },
+            beforeSend:function name(params) {
+                $(document).find('span.error').text('');  
+            },
             success: function (res) {
                 if (res.status == "success") {
                     $('#editProductCategoryModal').hide();

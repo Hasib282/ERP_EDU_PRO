@@ -23,7 +23,7 @@
                                     <div class="form-group">
                                         <label for="unitName">Unit Name</label>
                                         <input type="text" name="unitName" class="form-control" id="unitName">
-                                        <span class="text-danger" id="unitName_error"></span>
+                                        <span class="text-danger error" id="unitName_error"></span>
                                     </div>
                                 </div>
                             </div>

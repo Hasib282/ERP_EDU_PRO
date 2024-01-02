@@ -8,6 +8,9 @@ $(document).ready(function () {
             url: "/admin/inventory/insertUnits",
             method: 'post',
             data: { unitName: unitName },
+            beforeSend:function name(params) {
+                $(document).find('span.error').text('');  
+            },
             success: function (res) {
                 if (res.status == "success") {
                     $('#addUnitModal').hide();
@@ -65,6 +68,9 @@ $(document).ready(function () {
             url: `/admin/inventory/updateUnits/${id}`,
             method: 'Put',
             data: { unitName: unitName, status: status },
+            beforeSend:function name(params) {
+                $(document).find('span.error').text('');  
+            },
             success: function (res) {
                 if (res.status == "success") {
                     $('#editUnitModal').hide();

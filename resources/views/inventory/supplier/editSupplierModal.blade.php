@@ -17,34 +17,34 @@
                             <div class="form-group">
                                 <label for="updateSupplierName">Supplier Name</label>
                                 <input type="text" name="supplierName" class="form-control" id="updateSupplierName">
-                                <span class="text-danger" id="update_supplierName_error"></span>
+                                <span class="text-danger error" id="update_supplierName_error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="updateSupplierEmail">Supplier Email</label>
                                 <input type="text" name="supplierEmail" class="form-control"
                                     id="updateSupplierEmail">
-                                <span class="text-danger" id="update_supplierEmail_error"></span>
+                                <span class="text-danger error" id="update_supplierEmail_error"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="updateSupplierContact">Supplier Contact</label>
                                 <input type="text" name="supplierContact" class="form-control"
                                     id="updateSupplierContact">
-                                <span class="text-danger" id="update_supplierContact_error"></span>
+                                <span class="text-danger error" id="update_supplierContact_error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="updateUser">User id:</label>
                                 <select name="user" class="form-control" id="updateUser">
 
                                 </select>
-                                <span class="text-danger" id="update_user_error"></span>
+                                <span class="text-danger error" id="update_user_error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="updateStatus">Status:</label>
                                 <select name="status" class="form-control" id="updateStatus">
 
                                 </select>
-                                <span class="text-danger" id="update_status_error"></span>
+                                <span class="text-danger error" id="update_status_error"></span>
                             </div>
                             <div class="center">
                                 <button type="submit" id="updateSupplier" class="btn btn-primary">Submit</button>

@@ -21,7 +21,7 @@ class InventoryController extends Controller
     public function ShowUnits(){
         $inv_unit = Inv_Unit::orderBy('added_at','desc')->paginate(5);
         return view('inventory.unit.units', compact('inv_unit'));
-    }
+    }//End Method
 
 
     //Insert Unit
@@ -36,7 +36,7 @@ class InventoryController extends Controller
         return response()->json([
             'status'=>'success',
         ]);  
-    }
+    }//End Method
 
 
     //Edit Unit
@@ -45,7 +45,7 @@ class InventoryController extends Controller
         return response()->json([
             'inv_unit'=>$inv_unit,
         ]);
-    }
+    }//End Method
 
 
 
@@ -68,7 +68,7 @@ class InventoryController extends Controller
                 'status'=>'success'
             ]); 
         }
-    }
+    }//End Method
 
 
 
@@ -78,13 +78,13 @@ class InventoryController extends Controller
         return response()->json([
             'status'=>'success'
         ]); 
-    }
+    }//End Method
 
 
     public function UnitPagination(){
         $inv_unit = Inv_Unit::orderBy('added_at','desc')->paginate(5);
         return view('inventory.unit.unitPagination', compact('inv_unit'))->render();
-    }
+    }//End Method
 
 
 
@@ -107,7 +107,7 @@ class InventoryController extends Controller
             ]); 
         }
         
-    }
+    }//End Method
 
     /////////////////////////// --------------- Inventory Units Methods end ---------- //////////////////////////
 
@@ -140,7 +140,7 @@ class InventoryController extends Controller
         return response()->json([
             'status'=>'success',
         ]); 
-    }
+    }//End Method
 
 
 
@@ -152,7 +152,7 @@ class InventoryController extends Controller
             'inv_supplier'=>$inv_supplier,
             'user_info'=>$user_info,
         ]);
-    }
+    }//End Method
 
 
 
@@ -181,7 +181,7 @@ class InventoryController extends Controller
                 'status'=>'success'
             ]); 
         }
-    }
+    }//End Method
 
 
 
@@ -191,14 +191,14 @@ class InventoryController extends Controller
         return response()->json([
             'status'=>'success'
         ]); 
-    }
+    }//End Method
 
 
     public function SupplierPagination(){
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::orderBy('added_at','desc')->paginate(5);
         return view('inventory.supplier.supplierPagination', compact('inv_supplier','user_info'))->render();
-    }
+    }//End Method
 
 
     public function SearchSupplier(Request $request){
@@ -223,7 +223,7 @@ class InventoryController extends Controller
             ]); 
         }
         
-    }
+    }//End Method
 
     /////////////////////////// --------------- Inventory Suppliers Methods start---------- //////////////////////////
 
@@ -240,7 +240,7 @@ class InventoryController extends Controller
     public function AddManufacturers(){
         $user_info = User_Info::get();
         return view('inventory.manufacturer.addManufacturers',compact('user_info'));
-    }
+    }//End Method
 
 
     //Insert Manufacturer
@@ -252,7 +252,7 @@ class InventoryController extends Controller
             "user_id" => $request->user,
         ]);
         return redirect()->route('show.manufacturers');  
-    }
+    }//End Method
 
 
 
@@ -261,7 +261,7 @@ class InventoryController extends Controller
         $inv_manufacturer = Inv_Manufacturer_info::findOrFail($id);
         $user_info = User_Info::get();
         return view('inventory.manufacturer.editManufacturers', compact('inv_manufacturer','user_info'));
-    }
+    }//End Method
 
 
 
@@ -276,14 +276,14 @@ class InventoryController extends Controller
             "updated_at" => now()
         ]);
         return redirect()->route('show.manufacturers');  
-    }
+    }//End Method
 
 
     //Delete Manufacturers
     public function DeleteManufacturers($id){
         Inv_Manufacturer_Info::findOrFail($id)->delete();
         return redirect()->back();  
-    }
+    }//End Method
 
     /////////////////////////// --------------- Inventory Manufacturers Methods end---------- //////////////////////////
 
@@ -317,7 +317,7 @@ class InventoryController extends Controller
             ]); 
         }
          
-    }
+    }//End Method
 
 
 
@@ -327,7 +327,7 @@ class InventoryController extends Controller
         return response()->json([
             'inv_product_category'=>$inv_product_category,
         ]);
-    }
+    }//End Method
 
 
     //Update Product Category
@@ -349,7 +349,7 @@ class InventoryController extends Controller
                 'status'=>'success'
             ]); 
         }
-    }
+    }//End Method
 
 
     //Delete Product Category
@@ -358,14 +358,14 @@ class InventoryController extends Controller
         return response()->json([
             'status'=>'success'
         ]); 
-    }
+    }//End Method
 
 
     //product Category Pagination
     public function ProductCategoryPagination(){
         $inv_product_category = Inv_Product_Category::orderBy('added_at','desc')->paginate(5);
         return view('inventory.product_category.productCategoryPagination', compact('inv_product_category'))->render();
-    }
+    }//End Method
 
 
     //product category Search
@@ -387,7 +387,7 @@ class InventoryController extends Controller
                 'status'=>'null'
             ]); 
         }
-    }
+    }//End Method
     
     /////////////////////////// --------------- Inventory Product Categorys Methods end---------- //////////////////////////
 
@@ -429,7 +429,7 @@ class InventoryController extends Controller
             ]); 
         }
          
-    }
+    }//End Method
 
 
 
@@ -454,7 +454,7 @@ class InventoryController extends Controller
             'inv_product_category'=>$inv_product_category,
             'sub_category'=>$sub_category
         ]);
-    }
+    }//End Method
 
 
 
@@ -479,7 +479,7 @@ class InventoryController extends Controller
                 'status'=>'success'
             ]); 
         }
-    }
+    }//End Method
 
 
 
@@ -489,14 +489,14 @@ class InventoryController extends Controller
         return response()->json([
             'status'=>'success'
         ]);
-    }
+    }//End Method
 
 
     //product Category Pagination
     public function SubCategoryPagination(){
         $sub_category = Inv_Product_Sub_Category::orderBy('added_at','desc')->paginate(5);
         return view('inventory.product_category.sub_category.subCategoryPagination', compact('sub_category'))->render();
-    }
+    }//End Method
 
 
     //product category Search
@@ -519,7 +519,7 @@ class InventoryController extends Controller
                 'status'=>'null'
             ]); 
         }
-    }
+    }//End Method
     
     /////////////////////////// --------------- Inventory Product Sub Categorys Methods end---------- //////////////////////////
 
@@ -536,25 +536,31 @@ class InventoryController extends Controller
     
     //show all Products
     public function ShowProducts(){
-        $inv_product = Inv_Product::get();
-        return view('inventory.product.products', compact('inv_product'));
-    }
-
-
-    //Add Products
-    public function AddProducts(){
         $inv_product_category = Inv_Product_Category::get();
         $sub_category = Inv_Product_Sub_Category::get();
         $inv_manufacturer = Inv_Manufacturer_Info::get();
         $inv_unit = Inv_Unit::get();
         $user_info = User_Info::get();
-        return view('inventory.product.addProducts',compact('inv_product_category','inv_manufacturer','inv_unit','user_info','sub_category'));
-    }
+        $inv_product = Inv_Product::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.product.products', compact('inv_product','inv_product_category','inv_manufacturer','inv_unit','user_info','sub_category'));
+    }//End Method
+
 
 
     //Insert Product
     public function InsertProducts(Request $request){
-        Inv_Product::insert([
+        $request->validate([
+            "productName" => 'required|unique:inv__product__sub__categories,sub_category_name',
+            "category" => 'required',
+            "subCategory" => 'required',
+            "manufacturer" => 'required',
+            "size" => 'required',
+            "unit" => 'required',
+            "mrp" => 'required',
+            "user" => 'required',
+        ]);
+
+        $inv_product = Inv_Product::insert([
             "product_name" => $request->productName,
             "category_id" => $request->category,
             "sub_category_id" => $request->subCategory,
@@ -564,8 +570,12 @@ class InventoryController extends Controller
             "mrp" => $request->mrp,
             "user_id" => $request->user,
         ]);
-        return redirect()->route('show.products');  
-    }
+        if($inv_product){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        }  
+    }//End Method
 
 
     
@@ -580,14 +590,34 @@ class InventoryController extends Controller
         $inv_unit = Inv_Unit::get();
         $user_info = User_Info::get();
         $inv_product = Inv_Product::findOrFail($id);
-        return view('inventory.product.editProducts', compact('inv_product','inv_product_category','inv_manufacturer','inv_unit','user_info','sub_category'));
+        return response()->json([
+            'inv_product_category'=>$inv_product_category,
+            'sub_category'=>$sub_category,
+            'inv_manufacturer'=>$inv_manufacturer,
+            'inv_unit'=>$inv_unit,
+            'user_info'=>$user_info,
+            'inv_product'=>$inv_product,
+        ]);
     }//End Method
 
 
 
     //Update Product
     public function UpdateProducts(Request $request,$id){
-        Inv_Product::findOrFail($id)->update([
+        $inv_product = Inv_Product::findOrFail($id);
+
+        $request->validate([
+            "productName" => ['required',Rule::unique('inv__products', 'product_name')->ignore($inv_product->id)],
+            "category" => 'required',
+            "subCategory" => 'required',
+            "manufacturer" => 'required',
+            "size" => 'required',
+            "unit" => 'required',
+            "mrp" => 'required',
+            "user" => 'required',
+        ]);
+
+        $update = Inv_Product::findOrFail($id)->update([
             "product_name" => $request->productName,
             "category_id" => $request->category,
             "sub_category_id" => $request->subCategory,
@@ -599,16 +629,51 @@ class InventoryController extends Controller
             "status" => $request->status,
             "updated_at" => now()
         ]);
-        return redirect()->route('show.products');  
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        }
     }//End Method
-
 
 
     //Delete Product
     public function DeleteProducts($id){
         Inv_Product::findOrFail($id)->delete();
-        return redirect()->back();  
-    }
+        return response()->json([
+            'status'=>'success'
+        ]);
+    }//End Method
+
+
+    //product Pagination
+    public function ProductPagination(){
+        $inv_product = Inv_Product::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.product.productPagination', compact('inv_product'))->render();
+    }//End Method
+
+
+    //product Search
+    public function SearchProduct(Request $request){
+        $inv_product = Inv_Product::where('product_name', 'like', '%'.$request->search.'%')
+        ->orWhere('category_id', 'like','%'.$request->search.'%')
+        ->orWhere('id', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if($inv_product->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'pagination' => $inv_product->links()->toHtml(),
+                'data' => view('inventory.product.productPagination', compact('inv_product'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
 
 
     /////////////////////////// --------------- Inventory Products Methods end ---------- //////////////////////////
@@ -653,7 +718,7 @@ class InventoryController extends Controller
             $model::findOrFail($id)->update(['status'=>0]);
             return redirect()->back();
         }  
-    }
+    }//End Method
 
     /////////////////////////// --------------- Status Methods end ---------- //////////////////////////
 

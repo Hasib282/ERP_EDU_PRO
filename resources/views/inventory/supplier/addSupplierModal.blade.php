@@ -15,19 +15,19 @@
                             <div class="form-group">
                                 <label for="supplierName">Supplier Name</label>
                                 <input type="text" name="supplierName" class="form-control" id="supplierName">
-                                <span class="text-danger" id="supplierName_error"></span>
+                                <span class="text-danger error" id="supplierName_error"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="supplierEmail">Supplier Email</label>
                                 <input type="text" name="supplierEmail" class="form-control" id="supplierEmail">
-                                <span class="text-danger" id="supplierEmail_error"></span>
+                                <span class="text-danger error" id="supplierEmail_error"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="supplierContact">Supplier Contact</label>
                                 <input type="text" name="supplierContact" class="form-control" id="supplierContact">
-                                <span class="text-danger" id="supplierContact_error"></span>
+                                <span class="text-danger error" id="supplierContact_error"></span>
                             </div>
 
                             <div class="form-group">
@@ -38,7 +38,7 @@
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
                                 </select>
-                                <span class="text-danger" id="user_error"></span>
+                                <span class="text-danger error" id="user_error"></span>
                             </div>
 
                             <div class="center">

@@ -9,6 +9,9 @@ $(document).ready(function () {
             url: "/admin/inventory/insertProductSubCategory",
             method: 'Post',
             data: { subCategory: subCategory,category:category },
+            beforeSend:function name(params) {
+                $(document).find('span.error').text('');  
+            },
             success: function (res) {
                 if (res.status == "success") {
                     $('#addProductSubCategoryModal').hide();
@@ -71,6 +74,9 @@ $(document).ready(function () {
             url: `/admin/inventory/updateProductSubCategory/${id}`,
             method: 'Put',
             data: { subCategory: subCategory,category:category, status: status },
+            beforeSend:function name(params) {
+                $(document).find('span.error').text('');  
+            },
             success: function (res) {
                 if (res.status == "success") {
                     $('#editProductSubCategoryModal').hide();
