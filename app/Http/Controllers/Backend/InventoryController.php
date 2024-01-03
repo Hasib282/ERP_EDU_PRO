@@ -764,28 +764,26 @@ class InventoryController extends Controller
 
 
 
-    // //Insert Manufacturer
-    // public function InsertManufacturers(Request $request){
-    //     $request->validate([
-    //         "manufacturerName" => 'required|unique:inv__manufacturer__infos,manufacturer_name',
-    //         "manufacturerEmail" => 'required|email|unique:inv__manufacturer__infos,manufacturer_email',
-    //         "manufacturerContact" => 'required|numeric|unique:inv__manufacturer__infos,manufacturer_contact',
-    //         "user" => 'required',
-    //     ]);
+    //Insert Manufacturer
+    public function InsertClients(Request $request){
+        $request->validate([
+            "clientName" => 'required',
+            "contact" => 'required|numeric|unique:inv__client__infos,contact',
+            "user" => 'required',
+        ]);
 
-    //     $inv_manufacturer = Inv_Manufacturer_info::insert([
-    //         "manufacturer_name" => $request->manufacturerName,
-    //         "manufacturer_email" => $request->manufacturerEmail,
-    //         "manufacturer_contact" => $request->manufacturerContact,
-    //         "user_id" => $request->user,
-    //     ]);
+        $inv_client = Inv_Client_Info::insert([
+            "client_name" => $request->clientName,
+            "contact" => $request->contact,
+            "user_id" => $request->user,
+        ]);
         
-    //     if($inv_manufacturer){
-    //         return response()->json([
-    //             'status'=>'success',
-    //         ]); 
-    //     } 
-    // }//End Method
+        if($inv_client){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        } 
+    }//End Method
 
 
 
@@ -833,45 +831,45 @@ class InventoryController extends Controller
 
 
 
-    // //Delete Manufacturers
-    // public function DeleteManufacturers($id){
-    //     Inv_Manufacturer_Info::findOrFail($id)->delete();
-    //     return response()->json([
-    //         'status'=>'success'
-    //     ]); 
-    // }//End Method
+    //Delete Clients
+    public function DeleteClients($id){
+        Inv_Client_Info::findOrFail($id)->delete();
+        return response()->json([
+            'status'=>'success'
+        ]); 
+    }//End Method
 
 
 
-    // //Manufacturer Pagination
-    // public function ManufacturerPagination(){
-    //     $user_info = User_Info::get();
-    //     $inv_manufacturer = Inv_Manufacturer_Info::orderBy('added_at','desc')->paginate(5);
-    //     return view('inventory.manufacturer.manufacturerPagination', compact('inv_manufacturer','user_info'))->render();
-    // }//End Method
+    //Client Pagination
+    public function ClientPagination(){
+        $user_info = User_Info::get();
+        $inv_client = Inv_Client_Info::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.client.clientPagination', compact('user_info','inv_client'))->render();
+    }//End Method
 
 
 
-    // //Manufacturer Search
-    // public function SearchManufacturer(Request $request){
-    //     $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_name', 'like', '%'.$request->search.'%')
-    //     ->orWhere('id', 'like','%'.$request->search.'%')
-    //     ->orderBy('id','desc')
-    //     ->paginate(5);
+    //Client Search
+    public function SearchClients(Request $request){
+        $inv_client = Inv_Client_Info::where('client_name', 'like', '%'.$request->search.'%')
+        ->orWhere('id', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
         
-    //     if($inv_manufacturer->count() >= 1){
-    //         return response()->json([
-    //             'status' => 'success',
-    //             'pagination' => $inv_manufacturer->links()->toHtml(),
-    //             'data' => view('inventory.manufacturer.manufacturerPagination', compact('inv_manufacturer'))->render(),
-    //         ]);
-    //     }
-    //     else{
-    //         return response()->json([
-    //             'status'=>'null'
-    //         ]); 
-    //     }
-    // }//End Method
+        if($inv_client->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'pagination' => $inv_client->links()->toHtml(),
+                'data' => view('inventory.client.clientPagination', compact('inv_client'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
 
     /////////////////////////// --------------- Inventory Client Methods end---------- //////////////////////////
 
@@ -879,9 +877,81 @@ class InventoryController extends Controller
 
     /////////////////////////// --------------- Inventory Client Methods start---------- //////////////////////////
 
+    //Show Location
     public function ShowLocations(){
         $inv_location = Inv_Location::orderBy('added_at','desc')->paginate(5);
         return view('inventory.location.locations', compact('inv_location'));
+    }//End Method
+
+
+
+    //Insert Location
+    public function InsertLocations(Request $request){
+        $request->validate([
+            "division" => 'required',
+            "district" => 'required',
+            "city" => 'required',
+            "area" => 'required',
+        ]);
+
+        $inv_location = Inv_Location::insert([
+            "division" => $request->division,
+            "district_name" => $request->district,
+            "city_name" => $request->city,
+            "area" => $request->area,
+            "road_no" => $request->road,
+        ]);
+        
+        if($inv_location){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        } 
+    }//End Method
+
+
+
+
+
+    //Delete Locations
+    public function DeleteLocations($id){
+        Inv_Location::findOrFail($id)->delete();
+        return response()->json([
+            'status'=>'success'
+        ]); 
+    }//End Method
+
+
+
+    //Location Pagination
+    public function LocationPagination(){
+        $inv_location = Inv_Location::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.location.locationPagination', compact('inv_location'))->render();
+    }//End Method
+
+
+
+    //Location Search
+    public function SearchLocations(Request $request){
+        $inv_location = Inv_Location::where('district_name', 'like', '%'.$request->search.'%')
+        ->orWhere('division', 'like','%'.$request->search.'%')
+        ->orWhere('city_name', 'like','%'.$request->search.'%')
+        ->orWhere('id', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if($inv_location->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'pagination' => $inv_location->links()->toHtml(),
+                'data' => view('inventory.location.locationPagination', compact('inv_location'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
     }//End Method
 
 
@@ -892,10 +962,73 @@ class InventoryController extends Controller
 
 
     /////////////////////////// --------------- Inventory Store Methods start ---------- //////////////////////////
+    
+    //Show Store
     public function ShowStores(){
         $inv_location = Inv_Location::get();
         $inv_store = Inv_Store::orderBy('added_at','desc')->paginate(5);
         return view('inventory.store.stores', compact('inv_store','inv_location'));
+    }//End Method
+
+
+
+    //Insert Store
+    public function InsertStores(Request $request){
+        $request->validate([
+            "storeName" => 'required',
+            "locations" => 'required|numeric',
+        ]);
+
+        $inv_store = Inv_Store::insert([
+            "store_name" => $request->storeName,
+            "location_id" => $request->locations,
+        ]);
+        
+        if($inv_store){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        } 
+    }//End Method
+
+
+    //Delete Stores
+    public function DeleteStores($id){
+        Inv_Store::findOrFail($id)->delete();
+        return response()->json([
+            'status'=>'success'
+        ]); 
+    }//End Method
+
+
+    //Store Pagination
+    public function StorePagination(){
+        $inv_location = Inv_Location::get();
+        $inv_store = Inv_Store::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.store.storePagination', compact('inv_location','inv_store'))->render();
+    }//End Method
+
+
+    //Location Search
+    public function SearchStores(Request $request){
+        $inv_store = Inv_Store::where('store_name', 'like', '%'.$request->search.'%')
+        ->orWhere('location_id', 'like','%'.$request->search.'%')
+        ->orWhere('id', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if($inv_store->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'pagination' => $inv_store->links()->toHtml(),
+                'data' => view('inventory.store.storePagination', compact('inv_store'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
     }//End Method
     
     /////////////////////////// --------------- Inventory Store Methods end ---------- //////////////////////////

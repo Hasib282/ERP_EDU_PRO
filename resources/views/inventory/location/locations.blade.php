@@ -29,6 +29,6 @@
 
 
 {{-- ajax part start from here --}}
-{{-- @section('ajax')
+@section('ajax')
     <script src="{{ asset('js/ajax/Inv_Location.js') }}"></script>
-@endsection --}}
+@endsection
