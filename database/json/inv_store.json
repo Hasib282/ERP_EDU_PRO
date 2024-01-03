@@ -1,0 +1,22 @@
+[
+    {
+        "store_name":"abc Pharma",
+        "location_id":"1"
+    },
+    {
+        "store_name":"xyz",
+        "location_id":"2"
+    },
+    {
+        "store_name":"axe",
+        "location_id":"3"
+    },
+    {
+        "store_name":"fd",
+        "location_id":"4"
+    },
+    {
+        "store_name":"dd",
+        "location_id":"5"
+    }
+]

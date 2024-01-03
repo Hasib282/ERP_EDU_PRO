@@ -14,6 +14,15 @@ class InvClientInfoSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $json = File::get("database/json/inv_client_infos.json");
+        $clients = collect(json_decode($json));
+
+        $clients->each(function($client){
+            Inv_Client_Info::create([
+                "client_name"=>$client->client_name,
+                "contact"=>$client->contact,
+                "user_id"=>$client->user_id,
+            ]);
+        });
     }
 }

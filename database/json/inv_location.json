@@ -1,0 +1,37 @@
+[
+    {
+        "division":"Chittagong",
+        "district_name":"Cumilla",
+        "city_name":"Adarsha Shadar",
+        "area":"Monohorpur",
+        "road_no":"1"
+    },
+    {
+        "division":"Dahaka",
+        "district_name":"Dhaka",
+        "city_name":"Dhaka",
+        "area":"Mohammadpur",
+        "road_no":"27"
+    },
+    {
+        "division":"Barishal",
+        "district_name":"Barishal",
+        "city_name":"Barishal Shadar",
+        "area":"Lunch Ghat",
+        "road_no":""
+    },
+    {
+        "division":"Mymensing",
+        "district_name":"Netrokona",
+        "city_name":"Kolmakanda",
+        "area":"Bishorbasha",
+        "road_no":""
+    },
+    {
+        "division":"Dahaka",
+        "district_name":"Dhaka",
+        "city_name":"Dhaka",
+        "area":"Bashundhara",
+        "road_no":"8"
+    }
+]

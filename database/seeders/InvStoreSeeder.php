@@ -14,6 +14,14 @@ class InvStoreSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $json = File::get("database/json/inv_store.json");
+        $stores = collect(json_decode($json));
+
+        $stores->each(function($store){
+            Inv_Store::create([
+                "store_name"=>$store->store_name,
+                "location_id"=>$store->location_id,
+            ]);
+        });
     }
 }

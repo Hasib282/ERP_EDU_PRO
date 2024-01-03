@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
             InvProductCategorySeeder::class,
             InvProductSubCategorySeeder::class,
             InvProductSeeder::class,
+            InvLocationSeeder::class,
+            InvStoreSeeder::class,
+            InvClientInfoSeeder::class
             
         ]);
 

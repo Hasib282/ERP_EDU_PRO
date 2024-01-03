@@ -13,6 +13,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Inv_Product_Category;
 use App\Models\Inv_Manufacturer_info;
 use App\Models\Inv_Product_Sub_Category;
+use App\Models\Inv_Client_Info;
+use App\Models\Inv_Location;
+use App\Models\Inv_Store;
 
 class InventoryController extends Controller
 {
@@ -751,16 +754,151 @@ class InventoryController extends Controller
 
 
 
+    /////////////////////////// --------------- Inventory Client Methods start---------- //////////////////////////
 
-    /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
-    /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
+    public function ShowClients(){
+        $user_info = User_Info::get();
+        $inv_client = Inv_Client_Info::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.client.clients', compact('inv_client','user_info'));
+    }//End Method
+
+
+
+    // //Insert Manufacturer
+    // public function InsertManufacturers(Request $request){
+    //     $request->validate([
+    //         "manufacturerName" => 'required|unique:inv__manufacturer__infos,manufacturer_name',
+    //         "manufacturerEmail" => 'required|email|unique:inv__manufacturer__infos,manufacturer_email',
+    //         "manufacturerContact" => 'required|numeric|unique:inv__manufacturer__infos,manufacturer_contact',
+    //         "user" => 'required',
+    //     ]);
+
+    //     $inv_manufacturer = Inv_Manufacturer_info::insert([
+    //         "manufacturer_name" => $request->manufacturerName,
+    //         "manufacturer_email" => $request->manufacturerEmail,
+    //         "manufacturer_contact" => $request->manufacturerContact,
+    //         "user_id" => $request->user,
+    //     ]);
+        
+    //     if($inv_manufacturer){
+    //         return response()->json([
+    //             'status'=>'success',
+    //         ]); 
+    //     } 
+    // }//End Method
+
+
+
+    // //Edit Manufacturer
+    // public function EditManufacturers($id){
+    //     $inv_manufacturer = Inv_Manufacturer_info::findOrFail($id);
+    //     $user_info = User_Info::get();
+    //     return response()->json([
+    //         'inv_manufacturer'=>$inv_manufacturer,
+    //         'user_info'=>$user_info,
+    //     ]);
+    // }//End Method
+
+
+
+
+    // //Update Manufacturer
+    // public function UpdateManufacturers(Request $request,$id){
+    //     $inv_manufacturer = Inv_Manufacturer_info::findOrFail($id);
+
+    //     $request->validate([
+    //         "manufacturerName" => ['required',Rule::unique('inv__manufacturer__infos', 'manufacturer_name')->ignore($inv_manufacturer->id)],
+    //         "manufacturerEmail" => ['required','email',Rule::unique('inv__manufacturer__infos', 'manufacturer_email')->ignore($inv_manufacturer->id)],
+    //         "manufacturerContact" => ['required','numeric',Rule::unique('inv__manufacturer__infos', 'manufacturer_email')->ignore($inv_manufacturer->id)],
+    //         "user" => 'required',
+    //         'status' => 'required'
+    //     ]);
+
+
+    //     $update = Inv_Manufacturer_info::findOrFail($id)->update([
+    //         "manufacturer_name" => $request->manufacturerName,
+    //         "manufacturer_email" => $request->manufacturerEmail,
+    //         "manufacturer_contact" => $request->manufacturerContact,
+    //         "user_id" => $request->user,
+    //         "status" => $request->status,
+    //         "updated_at" => now()
+    //     ]);
+    //     if($update){
+    //         return response()->json([
+    //             'status'=>'success'
+    //         ]); 
+    //     } 
+    // }//End Method
+
+
+
+
+    // //Delete Manufacturers
+    // public function DeleteManufacturers($id){
+    //     Inv_Manufacturer_Info::findOrFail($id)->delete();
+    //     return response()->json([
+    //         'status'=>'success'
+    //     ]); 
+    // }//End Method
+
+
+
+    // //Manufacturer Pagination
+    // public function ManufacturerPagination(){
+    //     $user_info = User_Info::get();
+    //     $inv_manufacturer = Inv_Manufacturer_Info::orderBy('added_at','desc')->paginate(5);
+    //     return view('inventory.manufacturer.manufacturerPagination', compact('inv_manufacturer','user_info'))->render();
+    // }//End Method
+
+
+
+    // //Manufacturer Search
+    // public function SearchManufacturer(Request $request){
+    //     $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_name', 'like', '%'.$request->search.'%')
+    //     ->orWhere('id', 'like','%'.$request->search.'%')
+    //     ->orderBy('id','desc')
+    //     ->paginate(5);
+        
+    //     if($inv_manufacturer->count() >= 1){
+    //         return response()->json([
+    //             'status' => 'success',
+    //             'pagination' => $inv_manufacturer->links()->toHtml(),
+    //             'data' => view('inventory.manufacturer.manufacturerPagination', compact('inv_manufacturer'))->render(),
+    //         ]);
+    //     }
+    //     else{
+    //         return response()->json([
+    //             'status'=>'null'
+    //         ]); 
+    //     }
+    // }//End Method
+
+    /////////////////////////// --------------- Inventory Client Methods end---------- //////////////////////////
+
+
+
+    /////////////////////////// --------------- Inventory Client Methods start---------- //////////////////////////
+
+    public function ShowLocations(){
+        $inv_location = Inv_Location::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.location.locations', compact('inv_location'));
+    }//End Method
+
+
+    /////////////////////////// --------------- Inventory Client Methods end ---------- //////////////////////////
 
 
 
 
 
-    /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
-    /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
+    /////////////////////////// --------------- Inventory Store Methods start ---------- //////////////////////////
+    public function ShowStores(){
+        $inv_location = Inv_Location::get();
+        $inv_store = Inv_Store::orderBy('added_at','desc')->paginate(5);
+        return view('inventory.store.stores', compact('inv_store','inv_location'));
+    }//End Method
+    
+    /////////////////////////// --------------- Inventory Store Methods end ---------- //////////////////////////
 
 
 
