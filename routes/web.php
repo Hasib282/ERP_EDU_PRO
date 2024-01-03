@@ -76,12 +76,11 @@ Route::controller(InventoryController::class)->group(function(){
 
         ///////////// --------------- inventory manufacturer routes ----------- ///////////////////
         Route::get('/manufacturers', 'ShowManufacturers')->name('show.manufacturers');
-        Route::get('/addManufacturers', 'AddManufacturers')->name('add.manufacturers');
         Route::post('/insertManufacturers', 'InsertManufacturers')->name('insert.manufacturers');
         Route::get('/editManufacturers/{id}', 'EditManufacturers')->name('edit.manufacturers');
         Route::put('/updateManufacturers/{id}', 'UpdateManufacturers')->name('update.manufacturers');
         Route::delete('/deleteManufacturers/{id}', 'DeleteManufacturers')->name('delete.manufacturers');
-        Route::get('/searchManufacturer', 'SearchManufacturer')->name('search.manufacturers');
+        Route::get('/searchManufacturers', 'SearchManufacturer')->name('search.manufacturers');
         Route::get('/manufacturer/pagination', 'ManufacturerPagination');
         
 
