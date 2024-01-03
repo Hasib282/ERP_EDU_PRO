@@ -69,7 +69,7 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/editSuppliers/{id}', 'EditSuppliers')->name('edit.suppliers');
         Route::put('/updateSuppliers/{id}', 'UpdateSuppliers')->name('update.suppliers');
         Route::delete('/deleteSuppliers/{id}', 'DeleteSuppliers')->name('delete.suppliers');
-        Route::get('/searchSupplier', 'SearchSupplier')->name('search.suppliers');
+        Route::get('/searchSuppliers', 'SearchSupplier')->name('search.suppliers');
         Route::get('/supplier/pagination', 'SupplierPagination');
 
 

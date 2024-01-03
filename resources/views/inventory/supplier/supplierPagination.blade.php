@@ -9,23 +9,28 @@
                             aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">SL:
                         </th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                            aria-label="Browser: activate to sort column ascending">Supplier Name</th>
+                            aria-label="Browser: activate to sort column ascending">Supplier
+                            Name</th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                            aria-label="Browser: activate to sort column ascending">Supplier Email</th>
+                            aria-label="Browser: activate to sort column ascending">Supplier
+                            Email</th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                            aria-label="Browser: activate to sort column ascending">Supplier Contact</th>
+                            aria-label="Browser: activate to sort column ascending">Supplier
+                            Contact</th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                            aria-label="Browser: activate to sort column ascending">Inserted By</th>
+                            aria-label="Browser: activate to sort column ascending">Inserted By
+                        </th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                             aria-label="Browser: activate to sort column ascending">Status</th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                            aria-label="Engine version: activate to sort column ascending">Action</th>
+                            aria-label="Engine version: activate to sort column ascending">Action
+                        </th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($inv_supplier as $key => $item)
                         <tr class="odd">
-
                             <td class="dtr-control sorting_1" tabindex="0">{{ $inv_supplier->firstItem() + $key }}
                             </td>
                             <td>{{ $item->sup_name }}</td>
@@ -42,7 +47,6 @@
                                 @endif
                             </td>
                             <td style="display: flex;gap:5px;">
-
                                 <button class="btn btn-info btn-sm open-modal editSupplierModal"
                                     data-modal-id="editSupplierModal" data-id="{{ $item->id }}"><i
                                         class="fas fa-edit"></i>Edit</button>
@@ -69,4 +73,4 @@
             </div>
         </div>
     </div>
-<div>
+</div>

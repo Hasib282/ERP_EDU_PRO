@@ -124,9 +124,9 @@ class InventoryController extends Controller
     //Insert Supplier
     public function InsertSuppliers(Request $request){
         $request->validate([
-            "supplierName" => 'required',
-            "supplierEmail" => 'required',
-            "supplierContact" => 'required',
+            "supplierName" => 'required|unique:inv__supplier__infos,sup_name',
+            "supplierEmail" => 'required|email|unique:inv__supplier__infos,sup_email',
+            "supplierContact" => 'required|numeric|unique:inv__supplier__infos,sup_contact',
             "user" => 'required',
         ]);
         
@@ -158,7 +158,7 @@ class InventoryController extends Controller
 
     //Update Suppliers
     public function UpdateSuppliers(Request $request,$id){
-        $inv_unit = Inv_Supplier_info::findOrFail($id);
+        $inv_suplier = Inv_Supplier_info::findOrFail($id);
 
         $request->validate([
             "supplierName" => 'required',
@@ -166,6 +166,14 @@ class InventoryController extends Controller
             "supplierContact" => 'required',
             "user" => 'required',
             "status" => 'required'
+        ]);
+
+        $request->validate([
+            "supplierName" => ['required',Rule::unique('inv__supplier__infos', 'sup_name')->ignore($inv_suplier->id)],
+            "supplierEmail" => ['required','email',Rule::unique('inv__supplier__infos', 'sup_email')->ignore($inv_suplier->id)],
+            "supplierContact" => ['required','numeric',Rule::unique('inv__supplier__infos', 'sup_email')->ignore($inv_suplier->id)],
+            "user" => 'required',
+            'status' => 'required'
         ]);
 
         $update = Inv_Supplier_info::findOrFail($id)->update([
