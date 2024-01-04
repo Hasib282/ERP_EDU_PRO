@@ -33,7 +33,6 @@
                                 <select name="status" class="form-select " id="updateStatus">
                                     <option value="">Status</option>
                                     {{-- options will be display dynamically --}}
-
                                 </select>
                                 <span class="text-danger error" id="update_status_error"></span>
                             </div>

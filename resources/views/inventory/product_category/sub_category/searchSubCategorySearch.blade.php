@@ -1,5 +1,4 @@
 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-
     <div class="row">
         <div class="col-sm-12">
             <table id="example1" class="table table-bordered table-striped dataTable dtr-inline collapsed"role="grid"
@@ -17,13 +16,11 @@
                             aria-label="Browser: activate to sort column ascending">Status</th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                             aria-label="Engine version: activate to sort column ascending">Action</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($sub_category as $key => $item)
                         <tr class="odd">
-
                             <td class="dtr-control sorting_1" tabindex="0">{{ $sub_category->firstItem() + $key }}</td>
                             <td>{{ $item->sub_category_name }}</td>
                             <td>{{ $item->CategoryName->product_category_name }}</td>

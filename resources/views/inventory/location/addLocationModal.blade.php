@@ -12,7 +12,6 @@
                         <h3 class="card-title">Add Location</h3>
                     </div>
                 </div>
-                <!-- /.card-header -->
                 <!-- form start -->
                 <form id="AddLocationForm" method="POST">
                     @csrf

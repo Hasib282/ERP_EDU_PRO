@@ -12,7 +12,6 @@
                         <h3 class="card-title">Add Client</h3>
                     </div>
                 </div>
-                <!-- /.card-header -->
                 <!-- form start -->
                 <form id="AddClientForm" method="POST">
                     @csrf

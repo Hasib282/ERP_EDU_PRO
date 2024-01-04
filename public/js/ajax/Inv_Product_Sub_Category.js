@@ -116,7 +116,7 @@ $(document).ready(function () {
 
 
     /////////////// ------------------ Pagination Sub ajax part start ---------------- /////////////////////////////
-    $(document).on('click', '.pagination a', function (e) {
+    $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
         $.ajax({
@@ -143,7 +143,6 @@ $(document).ready(function () {
                 }
                 else {
                     $('.sub-category').html(res.data);
-                    $('.paginate').html(res.pagination);
                 }
             }
         });
@@ -154,17 +153,17 @@ $(document).ready(function () {
     /////////////// ------------------ Search Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.search-paginate a', function (e) {
         e.preventDefault();
+        $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
         $.ajax({
-            url: `/admin/inventory/subCategory/searchPagination?page=${page}`,
+            url: `/admin/inventory/productSubCategory/searchPagination?page=${page}`,
             data:{search:search},
             success: function (res) {
                 if (res.status == "null") {
                     $('.sub-category').html(`<span class="text-danger">Result not Found </span>`);
                 }
                 else {
-                    $('.sub-category').html('')
                     $('.sub-category').html(res.data);
                 }
             }

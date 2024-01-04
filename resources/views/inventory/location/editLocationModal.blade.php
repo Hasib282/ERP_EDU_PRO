@@ -12,7 +12,6 @@
                         <h3 class="card-title">Edit Location</h3>
                     </div>
                 </div>
-                <!-- /.card-header -->
                 <!-- form start -->
                 <form id="EditLocationForm" method="POST">
                     @csrf

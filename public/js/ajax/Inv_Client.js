@@ -123,7 +123,7 @@ $(document).ready(function () {
 
 
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
-    $(document).on('click', '.pagination a', function (e) {
+    $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
         $.ajax({
@@ -162,6 +162,7 @@ $(document).ready(function () {
     /////////////// ------------------ Search Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.search-paginate a', function (e) {
         e.preventDefault();
+        $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
         $.ajax({
@@ -172,7 +173,6 @@ $(document).ready(function () {
                     $('.client').html(`<span class="text-danger">Result not Found </span>`);
                 }
                 else {
-                    $('.client').html('')
                     $('.client').html(res.data);
                 }
             }
