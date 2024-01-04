@@ -114,12 +114,7 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        $.ajax({
-            url: `/admin/inventory/productCategory/pagination?page=${page}`,
-            success: function (res) {
-                $('.category').html(res);
-            }
-        });
+        loadProductCategoryData(`/admin/inventory/productCategory/pagination?page=${page}`, {}, '.category');
     });
 
 
@@ -128,20 +123,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        $.ajax({
-            url: `/admin/inventory/searchProductCategory`,
-            method: 'Get',
-            data: { search: search },
-            success: function (res) {
-                if (res.status == "null") {
-                    $('.category').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.category').html(res.data);
-                    $('.paginate').html(res.pagination);
-                }
-            }
-        });
+        loadProductCategoryData(`/admin/inventory/searchProductCategory`, {search:search}, '.category');
     });
 
 
@@ -153,18 +135,22 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
+        loadProductCategoryData(`/admin/inventory/productCategory/searchPagination?page=${page}`, {search:search}, '.category');
+    });
+
+    //product Category pagination data load function
+    function loadProductCategoryData(url, data, targetElement) {
         $.ajax({
-            url: `/admin/inventory/productCategory/searchPagination?page=${page}`,
-            data:{search:search},
+            url: url,
+            data: data,
             success: function (res) {
                 if (res.status == "null") {
-                    $('.category').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.category').html(res.data);
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } else {
+                    $(targetElement).html(res.data);
                 }
             }
         });
-    });
+    }
 
 });

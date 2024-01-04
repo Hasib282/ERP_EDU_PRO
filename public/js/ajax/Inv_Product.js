@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    /////////////// ------------------ Add Product Category ajax part start ---------------- /////////////////////////////
+    /////////////// ------------------ Add Product ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#addProduct', function (e) {
         e.preventDefault();
         let productName = $('#productName').val();
@@ -92,7 +92,7 @@ $(document).ready(function () {
 
 
 
-    /////////////// ------------------ Update Product Category ajax part start ---------------- /////////////////////////////
+    /////////////// ------------------ Update Product ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#updateProduct', function (e) {
         e.preventDefault();
         let id = $('#id').val();
@@ -131,7 +131,7 @@ $(document).ready(function () {
 
 
 
-    /////////////// ------------------ Delete Product Category ajax part start ---------------- /////////////////////////////
+    /////////////// ------------------ Delete Product ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.deleteProduct', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
@@ -154,12 +154,7 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        $.ajax({
-            url: `/admin/inventory/product/pagination?page=${page}`,
-            success: function (res) {
-                $('.product').html(res);
-            }
-        });
+        loadProductData(`/admin/inventory/product/pagination?page=${page}`, {}, '.product');
     });
 
 
@@ -168,20 +163,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        $.ajax({
-            url: `/admin/inventory/searchProducts`,
-            method: 'Get',
-            data: { search: search },
-            success: function (res) {
-                if (res.status == "null") {
-                    $('.product').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.product').html(res.data);
-                    $('.paginate').html(res.pagination);
-                }
-            }
-        });
+        loadProductData(`/admin/inventory/searchProducts`, {search:search}, '.product');
     });
 
 
@@ -192,18 +174,23 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
+        loadProductData(`/admin/inventory/product/searchPagination?page=${page}`, {search:search}, '.product');
+    });
+
+
+    //product pagination data load function
+    function loadProductData(url, data, targetElement) {
         $.ajax({
-            url: `/admin/inventory/product/searchPagination?page=${page}`,
-            data:{search:search},
+            url: url,
+            data: data,
             success: function (res) {
                 if (res.status == "null") {
-                    $('.product').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.product').html(res.data);
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } else {
+                    $(targetElement).html(res.data);
                 }
             }
         });
-    });
+    }
 
 });

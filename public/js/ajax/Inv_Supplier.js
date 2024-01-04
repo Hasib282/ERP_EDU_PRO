@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    /////////////// ------------------ Add Product Category ajax part start ---------------- /////////////////////////////
+    /////////////// ------------------ Add Supplier ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#addSupplier', function (e) {
         e.preventDefault();
         let supplierName = $('#supplierName').val();
@@ -34,7 +34,7 @@ $(document).ready(function () {
 
 
 
-    ///////////// ------------------ Edit Product Category ajax part start ---------------- /////////////////////////////
+    ///////////// ------------------ Edit Supplier ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.editSupplierModal', function () {
         let modalId = $(this).data('modal-id');
         let id = $(this).data('id');
@@ -72,7 +72,7 @@ $(document).ready(function () {
 
 
 
-    /////////////// ------------------ Update Product Category ajax part start ---------------- /////////////////////////////
+    /////////////// ------------------ Update Supplier ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#updateSupplier', function (e) {
         e.preventDefault();
         let id = $('#id').val();;
@@ -107,7 +107,7 @@ $(document).ready(function () {
 
 
 
-    /////////////// ------------------ Delete Product Category ajax part start ---------------- /////////////////////////////
+    /////////////// ------------------ Delete Supplier ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.deleteSupplier', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
@@ -130,12 +130,7 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        $.ajax({
-            url: `/admin/inventory/supplier/pagination?page=${page}`,
-            success: function (res) {
-                $('.supplier').html(res);
-            }
-        });
+        loadSupplierData(`/admin/inventory/supplier/pagination?page=${page}`, {}, '.supplier');
     });
 
 
@@ -144,20 +139,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        $.ajax({
-            url: `/admin/inventory/searchSuppliers`,
-            method: 'Get',
-            data: { search: search },
-            success: function (res) {
-                if (res.status == "null") {
-                    $('.supplier').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.supplier').html(res.data);
-                    $('.paginate').html(res.pagination);
-                }
-            }
-        });
+        loadSupplierData(`/admin/inventory/searchSuppliers`, {search:search}, '.supplier');
     });
 
 
@@ -168,18 +150,23 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
+        loadSupplierData(`/admin/inventory/supplier/searchPagination?page=${page}`, {search:search}, '.supplier');
+    });
+
+
+    //supplier pagination data load function
+    function loadSupplierData(url, data, targetElement) {
         $.ajax({
-            url: `/admin/inventory/supplier/searchPagination?page=${page}`,
-            data:{search:search},
+            url: url,
+            data: data,
             success: function (res) {
                 if (res.status == "null") {
-                    $('.supplier').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.supplier').html(res.data);
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } else {
+                    $(targetElement).html(res.data);
                 }
             }
         });
-    });
+    }
 
 });

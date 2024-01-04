@@ -87,7 +87,10 @@ class InventoryController extends Controller
     //Unit Pagination
     public function UnitPagination(){
         $inv_unit = Inv_Unit::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.unit.unitPagination', compact('inv_unit'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.unit.unitPagination', compact('inv_unit'))->render(),
+        ]);
     }//End Method
 
 
@@ -208,7 +211,10 @@ class InventoryController extends Controller
     public function SupplierPagination(){
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.supplier.supplierPagination', compact('inv_supplier','user_info'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.supplier.supplierPagination', compact('inv_supplier','user_info'))->render(),
+        ]);
     }//End Method
 
 
@@ -333,7 +339,10 @@ class InventoryController extends Controller
     public function ManufacturerPagination(){
         $user_info = User_Info::get();
         $inv_manufacturer = Inv_Manufacturer_Info::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.manufacturer.manufacturerPagination', compact('inv_manufacturer','user_info'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.manufacturer.manufacturerPagination', compact('inv_manufacturer','user_info'))->render(),
+        ]);
     }//End Method
 
 
@@ -438,7 +447,10 @@ class InventoryController extends Controller
     //product Category Pagination
     public function ProductCategoryPagination(){
         $inv_product_category = Inv_Product_Category::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.product_category.productCategoryPagination', compact('inv_product_category'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.product_category.productCategoryPagination', compact('inv_product_category'))->render(),
+        ]);
     }//End Method
 
 
@@ -569,7 +581,10 @@ class InventoryController extends Controller
     //product Category Pagination
     public function SubCategoryPagination(){
         $sub_category = Inv_Product_Sub_Category::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.product_category.sub_category.subCategoryPagination', compact('sub_category'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.product_category.sub_category.subCategoryPagination', compact('sub_category'))->render(),
+        ]);
     }//End Method
 
 
@@ -723,7 +738,10 @@ class InventoryController extends Controller
     //product Pagination
     public function ProductPagination(){
         $inv_product = Inv_Product::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.product.productPagination', compact('inv_product'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.product.productPagination', compact('inv_product'))->render(),
+        ]);
     }//End Method
 
 
@@ -843,7 +861,10 @@ class InventoryController extends Controller
     public function ClientPagination(){
         $user_info = User_Info::get();
         $inv_client = Inv_Client_Info::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.client.clientPagination', compact('user_info','inv_client'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.client.clientPagination', compact('user_info','inv_client'))->render(),
+        ]);
     }//End Method
 
 
@@ -959,7 +980,10 @@ class InventoryController extends Controller
     //Location Pagination
     public function LocationPagination(){
         $inv_location = Inv_Location::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.location.locationPagination', compact('inv_location'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.location.locationPagination', compact('inv_location'))->render(),
+        ]);
     }//End Method
 
 
@@ -1075,7 +1099,10 @@ class InventoryController extends Controller
     public function StorePagination(){
         $inv_location = Inv_Location::get();
         $inv_store = Inv_Store::orderBy('added_at','desc')->paginate(5);
-        return view('inventory.store.storePagination', compact('inv_location','inv_store'))->render();
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.store.storePagination', compact('inv_location','inv_store'))->render(),
+        ]);
     }//End Method
 
 

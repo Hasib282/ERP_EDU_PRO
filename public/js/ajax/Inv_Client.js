@@ -126,12 +126,7 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        $.ajax({
-            url: `/admin/inventory/client/pagination?page=${page}`,
-            success: function (res) {
-                $('.client').html(res);
-            }
-        });
+        loadClientData( `/admin/inventory/client/pagination?page=${page}`, {}, '.client');
     });
 
 
@@ -140,20 +135,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        $.ajax({
-            url: `/admin/inventory/searchClients`,
-            method: 'Get',
-            data: { search: search },
-            success: function (res) {
-                if (res.status == "null") {
-                    $('.client').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.client').html(res.data);
-                    $('.paginate').html(res.pagination);
-                }
-            }
-        });
+        loadClientData(`/admin/inventory/searchClients`, {search:search}, '.client');
     });
 
 
@@ -165,18 +147,24 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
+        loadClientData(`/admin/inventory/client/searchPagination?page=${page}`, {search:search}, '.client');
+    });
+
+
+
+    //Client data load function
+    function loadClientData(url, data, targetElement) {
         $.ajax({
-            url: `/admin/inventory/client/searchPagination?page=${page}`,
-            data:{search:search},
+            url: url,
+            data: data,
             success: function (res) {
                 if (res.status == "null") {
-                    $('.client').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.client').html(res.data);
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } else {
+                    $(targetElement).html(res.data);
                 }
             }
         });
-    });
+    }
 
 });

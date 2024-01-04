@@ -127,12 +127,7 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        $.ajax({
-            url: `/admin/inventory/location/pagination?page=${page}`,
-            success: function (res) {
-                $('.location').html(res);
-            }
-        });
+        loadLocationData(`/admin/inventory/location/pagination?page=${page}`, {}, '.location');
     });
 
 
@@ -141,20 +136,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        $.ajax({
-            url: `/admin/inventory/searchLocations`,
-            method: 'Get',
-            data: { search: search },
-            success: function (res) {
-                if (res.status == "null") {
-                    $('.location').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.location').html(res.data);
-                    $('.paginate').html(res.pagination);
-                }
-            }
-        });
+        loadLocationData(`/admin/inventory/searchLocations`, {search:search}, '.location');
     });
 
 
@@ -165,19 +147,24 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
+        loadLocationData(`/admin/inventory/location/searchPagination?page=${page}`, {search:search}, '.location');
+    });
+
+
+
+    //Location data load function
+    function loadLocationData(url, data, targetElement) {
         $.ajax({
-            url: `/admin/inventory/location/searchPagination?page=${page}`,
-            data:{search:search},
+            url: url,
+            data: data,
             success: function (res) {
                 if (res.status == "null") {
-                    $('.unit').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.location').html('')
-                    $('.location').html(res.data);
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } else {
+                    $(targetElement).html(res.data);
                 }
             }
         });
-    });
+    }
 
 });

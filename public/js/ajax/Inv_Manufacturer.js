@@ -130,12 +130,7 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        $.ajax({
-            url: `/admin/inventory/manufacturer/pagination?page=${page}`,
-            success: function (res) {
-                $('.manufacturer').html(res);
-            }
-        });
+        loadManufacturerData(`/admin/inventory/manufacturer/pagination?page=${page}`, {}, '.manufacturer');
     });
 
 
@@ -144,20 +139,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        $.ajax({
-            url: `/admin/inventory/searchManufacturers`,
-            method: 'Get',
-            data: { search: search },
-            success: function (res) {
-                if (res.status == "null") {
-                    $('.manufacturer').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.manufacturer').html(res.data);
-                    $('.paginate').html(res.pagination);
-                }
-            }
-        });
+        loadManufacturerData(`/admin/inventory/searchManufacturers`, {search:search}, '.manufacturer');
     });
 
 
@@ -167,18 +149,23 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
+        loadManufacturerData(`/admin/inventory/manufacturer/searchPagination?page=${page}`, {search:search}, '.manufacturer');
+    });
+
+
+    //product Manufacturer data load function
+    function loadManufacturerData(url, data, targetElement) {
         $.ajax({
-            url: `/admin/inventory/manufacturer/searchPagination?page=${page}`,
-            data:{search:search},
+            url: url,
+            data: data,
             success: function (res) {
                 if (res.status == "null") {
-                    $('.manufacturer').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.manufacturer').html(res.data);
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } else {
+                    $(targetElement).html(res.data);
                 }
             }
         });
-    });
+    }
 
 });

@@ -123,15 +123,7 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        $.ajax({
-            url: `/admin/inventory/store/pagination?page=${page}`,
-            success: function (res) {
-                $('.store').html(res);
-            },
-            error:function(res) {
-                console.log(res);
-            }
-        });
+        loadStoreData(`/admin/inventory/store/pagination?page=${page}`, {}, '.store');
     });
 
 
@@ -140,20 +132,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        $.ajax({
-            url: `/admin/inventory/searchStores`,
-            method: 'Get',
-            data: { search: search },
-            success: function (res) {
-                if (res.status == "null") {
-                    $('.store').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.store').html(res.data);
-                    $('.paginate').html(res.pagination);
-                }
-            }
-        });
+        loadStoreData(`/admin/inventory/searchStores`, {search:search}, '.store');
     });
 
 
@@ -164,19 +143,23 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
+        loadStoreData(`/admin/inventory/store/searchPagination?page=${page}`, {search:search}, '.store');
+    });
+
+
+    //store pagination data load function
+    function loadStoreData(url, data, targetElement) {
         $.ajax({
-            url: `/admin/inventory/store/searchPagination?page=${page}`,
-            data:{search:search},
+            url: url,
+            data: data,
             success: function (res) {
                 if (res.status == "null") {
-                    $('.store').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.store').html('')
-                    $('.store').html(res.data);
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } else {
+                    $(targetElement).html(res.data);
                 }
             }
         });
-    });
+    }
 
 });

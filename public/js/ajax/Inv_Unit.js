@@ -114,12 +114,7 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        $.ajax({
-            url: `/admin/inventory/unit/pagination?page=${page}`,
-            success: function (res) {
-                $('.unit').html(res);
-            }
-        });
+        loadUnitData(`/admin/inventory/unit/pagination?page=${page}`, {}, '.unit');
     });
 
 
@@ -128,19 +123,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        $.ajax({
-            url: `/admin/inventory/searchUnits`,
-            method: 'Get',
-            data: { search: search },
-            success: function (res) {
-                if (res.status == "null") {
-                    $('.unit').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.unit').html(res.data);
-                }
-            }
-        });
+        loadUnitData(`/admin/inventory/searchUnits`, {search:search}, '.unit');
     });
 
 
@@ -152,19 +135,23 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
+        loadUnitData(`/admin/inventory/unit/searchPagination?page=${page}`, {search:search}, '.unit');
+    });
+
+
+    //unit pagination data load function
+    function loadUnitData(url, data, targetElement) {
         $.ajax({
-            url: `/admin/inventory/unit/searchPagination?page=${page}`,
-            data:{search:search},
+            url: url,
+            data: data,
             success: function (res) {
                 if (res.status == "null") {
-                    $('.unit').html(`<span class="text-danger">Result not Found </span>`);
-                }
-                else {
-                    $('.unit').html('')
-                    $('.unit').html(res.data);
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } else {
+                    $(targetElement).html(res.data);
                 }
             }
         });
-    });
+    }
 
 });
