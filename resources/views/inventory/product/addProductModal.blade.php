@@ -117,9 +117,7 @@
                                 <button type="submit" id="addProduct" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
-
                     </div>
-
                 </form>
             </div>
         </div>

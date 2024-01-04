@@ -14,8 +14,8 @@ $(document).ready(function () {
         $.ajax({
             url: "/admin/inventory/insertProducts",
             method: 'Post',
-            data: { productName: productName,manufacturer:manufacturer,category:category,subCategory:subCategory,size:size,unit:unit,mrp:mrp,user:user },
-            beforeSend:function name(params) {
+            data: { productName: productName, manufacturer:manufacturer, category:category, subCategory:subCategory, size:size, unit:unit, mrp:mrp, user:user },
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {

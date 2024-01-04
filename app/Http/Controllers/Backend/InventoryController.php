@@ -639,7 +639,7 @@ class InventoryController extends Controller
     //Insert Product
     public function InsertProducts(Request $request){
         $request->validate([
-            "productName" => 'required|unique:inv__product__sub__categories,sub_category_name',
+            "productName" => 'required|unique:inv__products,product_name',
             "category" => 'required',
             "subCategory" => 'required',
             "manufacturer" => 'required',
@@ -665,9 +665,6 @@ class InventoryController extends Controller
             ]); 
         }  
     }//End Method
-
-
-    
 
 
 
