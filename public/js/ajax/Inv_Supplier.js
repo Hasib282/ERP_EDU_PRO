@@ -160,4 +160,26 @@ $(document).ready(function () {
         });
     });
 
+
+
+    /////////////// ------------------ Search Pagination ajax part start ---------------- /////////////////////////////
+    $(document).on('click', '.search-paginate a', function (e) {
+        e.preventDefault();
+        let search = $('#search').val();
+        let page = $(this).attr('href').split('page=')[1];
+        $.ajax({
+            url: `/admin/inventory/supplier/searchPagination?page=${page}`,
+            data:{search:search},
+            success: function (res) {
+                if (res.status == "null") {
+                    $('.supplier').html(`<span class="text-danger">Result not Found </span>`);
+                }
+                else {
+                    $('.supplier').html('')
+                    $('.supplier').html(res.data);
+                }
+            }
+        });
+    });
+
 });

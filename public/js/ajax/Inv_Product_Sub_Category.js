@@ -139,11 +139,33 @@ $(document).ready(function () {
             data: { search: search },
             success: function (res) {
                 if (res.status == "null") {
-                    $('.product-category').html(`<span class="text-danger">Result not Found </span>`);
+                    $('.sub-category').html(`<span class="text-danger">Result not Found </span>`);
                 }
                 else {
-                    $('.product-category').html(res.data);
+                    $('.sub-category').html(res.data);
                     $('.paginate').html(res.pagination);
+                }
+            }
+        });
+    });
+
+
+
+    /////////////// ------------------ Search Pagination ajax part start ---------------- /////////////////////////////
+    $(document).on('click', '.search-paginate a', function (e) {
+        e.preventDefault();
+        let search = $('#search').val();
+        let page = $(this).attr('href').split('page=')[1];
+        $.ajax({
+            url: `/admin/inventory/subCategory/searchPagination?page=${page}`,
+            data:{search:search},
+            success: function (res) {
+                if (res.status == "null") {
+                    $('.sub-category').html(`<span class="text-danger">Result not Found </span>`);
+                }
+                else {
+                    $('.sub-category').html('')
+                    $('.sub-category').html(res.data);
                 }
             }
         });

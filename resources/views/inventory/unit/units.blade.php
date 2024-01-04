@@ -8,7 +8,7 @@
                         <button class="open-modal add" data-modal-id="addUnitModal">Add Unit</button>
                     </div>
                     <div class="col-md-10 text-right">
-                        <input type="text" name="searchUnit" id="searchUnit" class="form-control form-control-sm"
+                        <input type="text" name="search" id="search" class="form-control form-control-sm"
                             placeholder="Search here..." style="width: 40%;">
                     </div>
                 </div>
@@ -16,7 +16,7 @@
         </div>
 
         <!-- /.card-header -->
-        <div class="card-body inv-unit">
+        <div class="card-body unit">
             @include('inventory.unit.UnitPagination')
         </div>
     </div>

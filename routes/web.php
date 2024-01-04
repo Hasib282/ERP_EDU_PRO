@@ -52,25 +52,27 @@ Route::controller(AdminController::class)->group(function(){
 Route::controller(InventoryController::class)->group(function(){
     Route::prefix('/admin/inventory')->group(function(){
 
-        ///////////// --------------- Inventory unit routes ----------- ///////////////////
+        ///////////// --------------- Inventory Unit routes ----------- ///////////////////
         Route::get('/units', 'ShowUnits')->name('show.units');
         Route::post('/insertUnits', 'InsertUnits')->name('insert.units');
         Route::get('/editUnits/{id}', 'EditUnits')->name('edit.units');
         Route::put('/updateUnits/{id}', 'UpdateUnits')->name('update.units');
         Route::delete('/deleteUnits/{id}', 'DeleteUnits')->name('delete.units');
-        Route::get('/searchUnit', 'SearchUnit')->name('search.units');
+        Route::get('/searchUnits', 'SearchUnits')->name('search.units');
         Route::get('/unit/pagination', 'UnitPagination');
+        Route::get('/unit/searchPagination', 'SearchUnits');
         
 
         
-        ///////////// --------------- Inventory suppliers routes ----------- ///////////////////
+        ///////////// --------------- Inventory Suppliers routes ----------- ///////////////////
         Route::get('/suppliers', 'ShowSuppliers')->name('show.suppliers');
         Route::post('/insertSuppliers', 'InsertSuppliers')->name('insert.suppliers');
         Route::get('/editSuppliers/{id}', 'EditSuppliers')->name('edit.suppliers');
         Route::put('/updateSuppliers/{id}', 'UpdateSuppliers')->name('update.suppliers');
         Route::delete('/deleteSuppliers/{id}', 'DeleteSuppliers')->name('delete.suppliers');
-        Route::get('/searchSuppliers', 'SearchSupplier')->name('search.suppliers');
+        Route::get('/searchSuppliers', 'SearchSuppliers')->name('search.suppliers');
         Route::get('/supplier/pagination', 'SupplierPagination');
+        Route::get('/supplier/searchPagination', 'SearchSuppliers');
 
 
 
@@ -82,6 +84,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::delete('/deleteManufacturers/{id}', 'DeleteManufacturers')->name('delete.manufacturers');
         Route::get('/searchManufacturers', 'SearchManufacturer')->name('search.manufacturers');
         Route::get('/manufacturer/pagination', 'ManufacturerPagination');
+        Route::get('/manufacturer/searchPagination', 'SearchManufacturer');
+
         
 
         ///////////// --------------- Inventory product category routes ----------- ///////////////////
@@ -92,6 +96,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::delete('/deleteProductCategory/{id}', 'DeleteProductCategory')->name('delete.productCatagory');
         Route::get('/searchProductCategory', 'SearchProductCategory')->name('search.productCategory');
         Route::get('/productCategory/pagination', 'ProductCategoryPagination');
+        Route::get('/productCategory/searchPagination', 'SearchProductCategory');
+
 
 
         ///////////// --------------- Inventory product Sub Category routes ----------- ///////////////////
@@ -102,6 +108,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::delete('/deleteProductSubCategory/{id}', 'DeleteSubCategory')->name('delete.subCatagory');
         Route::get('/searchProductSubCategory', 'SearchSubCategory')->name('search.subCategory');
         Route::get('/productSubCategory/pagination', 'SubCategoryPagination');
+        Route::get('/productSubCategory/searchPagination', 'SearchSubCategory');
+
 
         
         ///////////// --------------- Inventory products routes ----------- ///////////////////
@@ -112,6 +120,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::delete('/deleteProducts/{id}', 'DeleteProducts')->name('delete.products');
         Route::get('/searchProducts', 'SearchProduct')->name('search.products');
         Route::get('/product/pagination', 'ProductPagination');
+        Route::get('/product/searchPagination', 'SearchProduct');
+
 
 
         ///////////// --------------- Inventory Clients routes ----------- ///////////////////
@@ -122,6 +132,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::delete('/deleteClients/{id}', 'DeleteClients')->name('delete.clients');
         Route::get('/searchClients', 'SearchClients')->name('search.clients');
         Route::get('/client/pagination', 'ClientPagination');
+        Route::get('/client/searchPagination', 'SearchClients');
+
 
 
         ///////////// --------------- Inventory Location routes ----------- ///////////////////
@@ -132,6 +144,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::delete('/deleteLocations/{id}', 'DeleteLocations')->name('delete.locations');
         Route::get('/searchLocations', 'SearchLocations')->name('search.locations');
         Route::get('/location/pagination', 'LocationPagination');
+        Route::get('/location/searchPagination', 'SearchLocations');
+
 
 
         ///////////// --------------- Inventory Store routes ----------- ///////////////////
@@ -142,6 +156,11 @@ Route::controller(InventoryController::class)->group(function(){
         Route::delete('/deleteStores/{id}', 'DeleteStores')->name('delete.stores');
         Route::get('/searchStores', 'SearchStores')->name('search.stores');
         Route::get('/store/pagination', 'StorePagination');
+        Route::get('/store/searchPagination', 'SearchStores');
+        
+
+
+
 
     });
 

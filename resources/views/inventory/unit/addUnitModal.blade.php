@@ -12,7 +12,7 @@
                         <h3 class="card-title">Add Units</h3>
                     </div>
                 </div>
-                <!-- /.card-header -->
+                
                 <!-- form start -->
                 <form id="AddUnitForm" method="post">
                     @csrf

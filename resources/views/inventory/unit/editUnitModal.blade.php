@@ -15,7 +15,7 @@
                 <!-- form start -->
                 <form id="EditUnitForm" method="post">
                     @csrf
-                    @method('Put')
+                    @method('PUT')
                     <div class="center">
                         <div class="card-body">
                             <input type="hidden" name="unitId" class="form-control" id="updateUnitId">
@@ -30,7 +30,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="status">Status:</label>
-                                <select name="status" class="form-control" id="updateStatus">
+                                <select name="status" class="form-select " id="updateStatus">
+                                    <option value="">Status</option>
                                     {{-- options will be display dynamically --}}
 
                                 </select>

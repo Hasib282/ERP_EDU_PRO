@@ -15,7 +15,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addProductCategoryModal').hide();
                     $('#AddProductCategoryForm')[0].reset();
-                    $('.product-category').load(location.href + ' .product-category');
+                    $('.category').load(location.href + ' .category');
                     toastr.success('Product Category Added Successfully', 'Added!');
                 }
             },
@@ -76,7 +76,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editProductCategoryModal').hide();
                     $('#EditProductCategoryForm')[0].reset();
-                    $('.product-category').load(location.href + ' .product-category');
+                    $('.category').load(location.href + ' .category');
                     toastr.success('Product Category Updated Successfully', 'Updated!');
                 }
             },
@@ -101,7 +101,7 @@ $(document).ready(function () {
                 method: 'Delete',
                 success: function (res) {
                     if (res.status == "success") {
-                        $('.product-category').load(location.href + ' .product-category');
+                        $('.category').load(location.href + ' .category');
                         toastr.success('Product Category Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -117,7 +117,7 @@ $(document).ready(function () {
         $.ajax({
             url: `/admin/inventory/productCategory/pagination?page=${page}`,
             success: function (res) {
-                $('.product-category').html(res);
+                $('.category').html(res);
             }
         });
     });
@@ -134,11 +134,34 @@ $(document).ready(function () {
             data: { search: search },
             success: function (res) {
                 if (res.status == "null") {
-                    $('.product-category').html(`<span class="text-danger">Result not Found </span>`);
+                    $('.category').html(`<span class="text-danger">Result not Found </span>`);
                 }
                 else {
-                    $('.product-category').html(res.data);
+                    $('.category').html(res.data);
                     $('.paginate').html(res.pagination);
+                }
+            }
+        });
+    });
+
+
+
+
+    /////////////// ------------------ Search Pagination ajax part start ---------------- /////////////////////////////
+    $(document).on('click', '.search-paginate a', function (e) {
+        e.preventDefault();
+        let search = $('#search').val();
+        let page = $(this).attr('href').split('page=')[1];
+        $.ajax({
+            url: `/admin/inventory/category/searchPagination?page=${page}`,
+            data:{search:search},
+            success: function (res) {
+                if (res.status == "null") {
+                    $('.category').html(`<span class="text-danger">Result not Found </span>`);
+                }
+                else {
+                    $('.category').html('')
+                    $('.category').html(res.data);
                 }
             }
         });

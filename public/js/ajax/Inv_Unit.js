@@ -8,15 +8,15 @@ $(document).ready(function () {
             url: "/admin/inventory/insertUnits",
             method: 'post',
             data: { unitName: unitName },
-            beforeSend:function name(params) {
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {
                 if (res.status == "success") {
                     $('#addUnitModal').hide();
                     $('#AddUnitForm')[0].reset();
-                    $('.inv-unit').load(location.href + ' .inv-unit');
-                    toastr.success('Unit Added!', 'Unit Added Successfully');
+                    $('.unit').load(location.href + ' .unit');
+                    toastr.success('Unit Added Successfully', 'Added!');
                 }
             },
             error: function (err) {
@@ -42,8 +42,9 @@ $(document).ready(function () {
                 $('#updateUnitName').val(res.inv_unit.unit_name);
 
                 // Create options dynamically based on the status value
-                $('#updateStatus').html(`<option value="1" ${res.inv_unit.status === 1 ? 'selected' : ''}>Active</option>
-                                         <option value="0" ${res.inv_unit.status === 0 ? 'selected' : ''}>Inactive</option>`);
+                $('#updateStatus').append(`<option value="1" ${res.inv_unit.status === 1 ? 'selected' : ''}>Active</option>
+                                        <option value="0" ${res.inv_unit.status === 0 ? 'selected' : ''}>Inactive</option>`);
+                
                 var modal = document.getElementById(modalId);
 
                 if (modal) {
@@ -68,15 +69,15 @@ $(document).ready(function () {
             url: `/admin/inventory/updateUnits/${id}`,
             method: 'Put',
             data: { unitName: unitName, status: status },
-            beforeSend:function name(params) {
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {
                 if (res.status == "success") {
                     $('#editUnitModal').hide();
                     $('#EditUnitForm')[0].reset();
-                    $('.inv-unit').load(location.href + " .inv-unit")
-                    toastr.success('Unit Updated!', 'Unit Updated Successfully');
+                    $('.unit').load(location.href + " .unit")
+                    toastr.success('Unit Updated Successfully', 'Updated!');
                 }
             },
             error: function (err) {
@@ -100,8 +101,8 @@ $(document).ready(function () {
                 method: 'Delete',
                 success: function (res) {
                     if (res.status == "success") {
-                        $('.inv-unit').load(location.href + " .inv-unit");
-                        toastr.success('Unit Deleted!', 'Unit Deleted Successfully');
+                        $('.unit').load(location.href + " .unit");
+                        toastr.success('Unit Deleted Successfully', 'Deleted!');
                     }
                 }
             });
@@ -116,7 +117,7 @@ $(document).ready(function () {
         $.ajax({
             url: `/admin/inventory/unit/pagination?page=${page}`,
             success: function (res) {
-                $('.inv-unit').html(res);
+                $('.unit').html(res);
             }
         });
     });
@@ -124,20 +125,42 @@ $(document).ready(function () {
 
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
-    $(document).on('keyup', '#searchUnit', function (e) {
+    $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
         $.ajax({
-            url: `/admin/inventory/searchUnit`,
+            url: `/admin/inventory/searchUnits`,
             method: 'Get',
             data: { search: search },
             success: function (res) {
                 if (res.status == "null") {
-                    $('.inv-unit').html(`<span class="text-danger">Result not Found </span>`);
+                    $('.unit').html(`<span class="text-danger">Result not Found </span>`);
                 }
                 else {
-                    $('.inv-unit').html(res.data);
-                    $('.paginate').html(res.pagination);
+                    $('.unit').html(res.data);
+                }
+            }
+        });
+    });
+
+
+
+
+    /////////////// ------------------ Search Pagination ajax part start ---------------- /////////////////////////////
+    $(document).on('click', '.search-paginate a', function (e) {
+        e.preventDefault();
+        let search = $('#search').val();
+        let page = $(this).attr('href').split('page=')[1];
+        $.ajax({
+            url: `/admin/inventory/unit/searchPagination?page=${page}`,
+            data:{search:search},
+            success: function (res) {
+                if (res.status == "null") {
+                    $('.unit').html(`<span class="text-danger">Result not Found </span>`);
+                }
+                else {
+                    $('.unit').html('')
+                    $('.unit').html(res.data);
                 }
             }
         });

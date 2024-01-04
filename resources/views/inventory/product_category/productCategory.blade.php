@@ -16,7 +16,7 @@
         </div>
 
         <!-- /.card-header -->
-        <div class="card-body product-category">
+        <div class="card-body category">
             @include('inventory.product_category.productCategoryPagination')
         </div>
     </div>

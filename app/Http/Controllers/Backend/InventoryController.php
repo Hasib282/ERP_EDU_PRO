@@ -36,6 +36,7 @@ class InventoryController extends Controller
         Inv_Unit::insert([
             "unit_name" => $request->unitName,
         ]);
+
         return response()->json([
             'status'=>'success',
         ]);  
@@ -49,7 +50,6 @@ class InventoryController extends Controller
             'inv_unit'=>$inv_unit,
         ]);
     }//End Method
-
 
 
     //Update Unit
@@ -75,7 +75,7 @@ class InventoryController extends Controller
 
 
 
-    //Delete Units
+    //Delete Unit
     public function DeleteUnits($id){
         Inv_Unit::findOrFail($id)->delete();
         return response()->json([
@@ -84,14 +84,15 @@ class InventoryController extends Controller
     }//End Method
 
 
+    //Unit Pagination
     public function UnitPagination(){
         $inv_unit = Inv_Unit::orderBy('added_at','desc')->paginate(5);
         return view('inventory.unit.unitPagination', compact('inv_unit'))->render();
     }//End Method
 
 
-
-    public function SearchUnit(Request $request){
+    //Unit Search
+    public function SearchUnits(Request $request){
         $inv_unit = Inv_Unit::where('unit_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
         ->orderBy('id','desc')
@@ -100,8 +101,8 @@ class InventoryController extends Controller
         if($inv_unit->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $inv_unit->links()->toHtml(),
-                'data' => view('inventory.unit.unitPagination', compact('inv_unit'))->render(),
+                // 'pagination' => $inv_unit->links()->toHtml(),
+                'data' => view('inventory.unit.searchUnit', compact('inv_unit'))->render(),
             ]);
         }
         else{
@@ -109,7 +110,6 @@ class InventoryController extends Controller
                 'status'=>'null'
             ]); 
         }
-        
     }//End Method
 
     /////////////////////////// --------------- Inventory Units Methods end ---------- //////////////////////////
@@ -212,7 +212,7 @@ class InventoryController extends Controller
     }//End Method
 
 
-    public function SearchSupplier(Request $request){
+    public function SearchSuppliers(Request $request){
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::where('id', 'like', '%'.$request->search.'%')
         ->orWhere('sup_name', 'like','%'.$request->search.'%')
@@ -224,8 +224,8 @@ class InventoryController extends Controller
         if($inv_supplier->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $inv_supplier->links()->toHtml(),
-                'data' => view('inventory.supplier.supplierPagination', compact('inv_supplier','user_info'))->render(),
+                // 'pagination' => $inv_supplier->links()->toHtml(),
+                'data' => view('inventory.supplier.searchSupplier', compact('inv_supplier','user_info'))->render(),
             ]);
         }
         else{
@@ -348,8 +348,8 @@ class InventoryController extends Controller
         if($inv_manufacturer->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $inv_manufacturer->links()->toHtml(),
-                'data' => view('inventory.manufacturer.manufacturerPagination', compact('inv_manufacturer'))->render(),
+                // 'pagination' => $inv_manufacturer->links()->toHtml(),
+                'data' => view('inventory.manufacturer.searchManufacturer', compact('inv_manufacturer'))->render(),
             ]);
         }
         else{
@@ -452,8 +452,8 @@ class InventoryController extends Controller
         if($inv_product_category->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $inv_product_category->links()->toHtml(),
-                'data' => view('inventory.product_category.productCategoryPagination', compact('inv_product_category'))->render(),
+                // 'pagination' => $inv_product_category->links()->toHtml(),
+                'data' => view('inventory.product_category.searchProductCategory', compact('inv_product_category'))->render(),
             ]);
         }
         else{
@@ -584,8 +584,8 @@ class InventoryController extends Controller
         if($sub_category->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $sub_category->links()->toHtml(),
-                'data' => view('inventory.product_category.sub_category.subCategoryPagination', compact('sub_category'))->render(),
+                // 'pagination' => $sub_category->links()->toHtml(),
+                'data' => view('inventory.product_category.sub_category.searchSubCategory', compact('sub_category'))->render(),
             ]);
         }
         else{
@@ -738,8 +738,8 @@ class InventoryController extends Controller
         if($inv_product->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $inv_product->links()->toHtml(),
-                'data' => view('inventory.product.productPagination', compact('inv_product'))->render(),
+                // 'pagination' => $inv_product->links()->toHtml(),
+                'data' => view('inventory.product.searchProduct', compact('inv_product'))->render(),
             ]);
         }
         else{
@@ -787,46 +787,44 @@ class InventoryController extends Controller
 
 
 
-    // //Edit Manufacturer
-    // public function EditManufacturers($id){
-    //     $inv_manufacturer = Inv_Manufacturer_info::findOrFail($id);
-    //     $user_info = User_Info::get();
-    //     return response()->json([
-    //         'inv_manufacturer'=>$inv_manufacturer,
-    //         'user_info'=>$user_info,
-    //     ]);
-    // }//End Method
+    //Edit Client
+    public function EditClients($id){
+        $user_info = User_Info::get();
+        $inv_client = Inv_Client_Info::findOrFail($id);
+        return response()->json([
+            'inv_client'=>$inv_client,
+            'user_info'=>$user_info,
+        ]);
+    }//End Method
 
 
 
 
-    // //Update Manufacturer
-    // public function UpdateManufacturers(Request $request,$id){
-    //     $inv_manufacturer = Inv_Manufacturer_info::findOrFail($id);
+    //Update client
+    public function UpdateClients(Request $request,$id){
+        $inv_client = Inv_Client_Info::findOrFail($id);
 
-    //     $request->validate([
-    //         "manufacturerName" => ['required',Rule::unique('inv__manufacturer__infos', 'manufacturer_name')->ignore($inv_manufacturer->id)],
-    //         "manufacturerEmail" => ['required','email',Rule::unique('inv__manufacturer__infos', 'manufacturer_email')->ignore($inv_manufacturer->id)],
-    //         "manufacturerContact" => ['required','numeric',Rule::unique('inv__manufacturer__infos', 'manufacturer_email')->ignore($inv_manufacturer->id)],
-    //         "user" => 'required',
-    //         'status' => 'required'
-    //     ]);
+        $request->validate([
+            "clientName" => 'required',
+            "contact" => ['required','numeric',Rule::unique('inv__client__infos', 'contact')->ignore($inv_client->id)],
+            "user" => 'required',
+            "status" => 'required'
+        ]);
 
 
-    //     $update = Inv_Manufacturer_info::findOrFail($id)->update([
-    //         "manufacturer_name" => $request->manufacturerName,
-    //         "manufacturer_email" => $request->manufacturerEmail,
-    //         "manufacturer_contact" => $request->manufacturerContact,
-    //         "user_id" => $request->user,
-    //         "status" => $request->status,
-    //         "updated_at" => now()
-    //     ]);
-    //     if($update){
-    //         return response()->json([
-    //             'status'=>'success'
-    //         ]); 
-    //     } 
-    // }//End Method
+        $update = Inv_Client_Info::findOrFail($id)->update([
+            "client_name" => $request->clientName,
+            "contact" => $request->contact,
+            "user_id" => $request->user,
+            "status" => $request->status,
+            "updated_at" => now()
+        ]);
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        } 
+    }//End Method
 
 
 
@@ -860,8 +858,8 @@ class InventoryController extends Controller
         if($inv_client->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $inv_client->links()->toHtml(),
-                'data' => view('inventory.client.clientPagination', compact('inv_client'))->render(),
+                // 'pagination' => $inv_client->links()->toHtml(),
+                'data' => view('inventory.client.searchClient', compact('inv_client'))->render(),
             ]);
         }
         else{
@@ -875,7 +873,7 @@ class InventoryController extends Controller
 
 
 
-    /////////////////////////// --------------- Inventory Client Methods start---------- //////////////////////////
+    /////////////////////////// --------------- Inventory Location Methods start---------- //////////////////////////
 
     //Show Location
     public function ShowLocations(){
@@ -910,7 +908,42 @@ class InventoryController extends Controller
     }//End Method
 
 
+    //Edit Locations
+    public function EditLocations($id){
+        $inv_location = Inv_Location::findOrFail($id);
+        return response()->json([
+            'inv_location'=>$inv_location,
+        ]);
+    }//End Method
 
+
+
+    //Update Locations
+    public function UpdateLocations(Request $request,$id){
+        $request->validate([
+            "division" => 'required',
+            "district" => 'required',
+            "city" => 'required',
+            "area" => 'required',
+            "status" => 'required'
+        ]);
+
+
+        $update = Inv_Location::findOrFail($id)->update([
+            "division" => $request->division,
+            "district_name" => $request->district,
+            "city_name" => $request->city,
+            "area" => $request->area,
+            "road_no" => $request->road,
+            "status" => $request->status,
+            "updated_at" => now()
+        ]);
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        } 
+    }//End Method
 
 
     //Delete Locations
@@ -943,8 +976,8 @@ class InventoryController extends Controller
         if($inv_location->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $inv_location->links()->toHtml(),
-                'data' => view('inventory.location.locationPagination', compact('inv_location'))->render(),
+                // 'pagination' => $inv_location->links()->toHtml(),
+                'data' => view('inventory.location.searchLocation', compact('inv_location'))->render(),
             ]);
         }
         else{
@@ -955,7 +988,7 @@ class InventoryController extends Controller
     }//End Method
 
 
-    /////////////////////////// --------------- Inventory Client Methods end ---------- //////////////////////////
+    /////////////////////////// --------------- Inventory Location Methods end ---------- //////////////////////////
 
 
 
@@ -992,6 +1025,43 @@ class InventoryController extends Controller
     }//End Method
 
 
+
+    //Edit Stores
+    public function EditStores($id){
+        $inv_location = Inv_Location::get();
+        $inv_store = Inv_Store::findOrFail($id);
+        return response()->json([
+            'inv_store'=>$inv_store,
+            'inv_location'=>$inv_location,
+        ]);
+    }//End Method
+
+
+    //Update Stores
+    public function UpdateStores(Request $request,$id){
+        $inv_store = Inv_Store::findOrFail($id);
+
+        $request->validate([
+            "storeName" => 'required',
+            "locations" => 'required|numeric',
+            "status" => 'required'
+        ]);
+
+
+        $update = Inv_Store::findOrFail($id)->update([
+            "store_name" => $request->storeName,
+            "location_id" => $request->locations,
+            "status" => $request->status,
+            "updated_at" => now()
+        ]);
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        } 
+    }//End Method
+
+
     //Delete Stores
     public function DeleteStores($id){
         Inv_Store::findOrFail($id)->delete();
@@ -1020,8 +1090,8 @@ class InventoryController extends Controller
         if($inv_store->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                'pagination' => $inv_store->links()->toHtml(),
-                'data' => view('inventory.store.storePagination', compact('inv_store'))->render(),
+                // 'pagination' => $inv_store->links()->toHtml(),
+                'data' => view('inventory.store.searchStore', compact('inv_store'))->render(),
             ]);
         }
         else{
@@ -1049,8 +1119,8 @@ class InventoryController extends Controller
 
 
     /////////////////////////// --------------- Status Methods start ---------- //////////////////////////
-    public function Status($table_name,$id,$status)
-    {
+    
+    public function Status($table_name,$id,$status){
         $model = "App\\Models\\" . $table_name;
         if($status==0){
             $model::findOrFail($id)->update(['status'=>1]);
@@ -1064,12 +1134,5 @@ class InventoryController extends Controller
 
     /////////////////////////// --------------- Status Methods end ---------- //////////////////////////
 
-    /////////////////////////// --------------- Pagination Method start ---------- //////////////////////////
-
-    // public function Pagination(Request $request){
-
-    // }
-
-    /////////////////////////// --------------- Units Methods start ---------- //////////////////////////
 
 }
