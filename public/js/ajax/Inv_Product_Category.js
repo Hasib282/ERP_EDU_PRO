@@ -69,7 +69,7 @@ $(document).ready(function () {
             url: `/admin/inventory/updateProductCategory/${id}`,
             method: 'Put',
             data: { categoryName: categoryName, status: status },
-            beforeSend:function name(params) {
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {

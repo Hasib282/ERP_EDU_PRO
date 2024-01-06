@@ -10,11 +10,12 @@ $(document).ready(function () {
         let size = $('#size').val();
         let unit = $('#unit').val();
         let mrp = $('#mrp').val();
+        let expiry = $('#expiry').val();
         let user = $('#user').val();
         $.ajax({
             url: "/admin/inventory/insertProducts",
             method: 'Post',
-            data: { productName: productName, manufacturer:manufacturer, category:category, subCategory:subCategory, size:size, unit:unit, mrp:mrp, user:user },
+            data: { productName: productName, manufacturer:manufacturer, category:category, subCategory:subCategory, size:size, unit:unit, mrp:mrp, expiry:expiry, user:user },
             beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
@@ -69,6 +70,7 @@ $(document).ready(function () {
                 });
 
                 $('#updateMrp').val(res.inv_product.mrp);
+                $('#updateExpiry').val(res.inv_product.expiry_date);
 
                 $.each(res.user_info, function(key,user) {
                     $('#updateUser').append(`<option value="${user.id}" ${res.inv_product.user_id === user.id ? 'selected' : ''}>${user.name}</option>`);
@@ -103,13 +105,14 @@ $(document).ready(function () {
         let size = $('#updateSize').val();
         let unit = $('#updateUnit').val();
         let mrp = $('#updateMrp').val();
+        let expiry = $('#updateExpiry').val();
         let user = $('#updateUser').val();
         let status = $('#updateStatus').val();
         $.ajax({
             url: `/admin/inventory/updateProducts/${id}`,
             method: 'Put',
-            data: { productName: productName,manufacturer:manufacturer,category:category,subCategory:subCategory,size:size,unit:unit,mrp:mrp,user:user, status: status },
-            beforeSend:function name(params) {
+            data: { productName: productName, manufacturer:manufacturer, category:category, subCategory:subCategory, size:size, unit:unit, mrp:mrp, expiry:expiry, user:user, status: status },
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {

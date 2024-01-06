@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('city_name');
             $table->string('area');
             $table->string('road_no')->nullable();
-            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

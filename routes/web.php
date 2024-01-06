@@ -159,7 +159,15 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/store/searchPagination', 'SearchStores');
         
 
-
+        //////////// -------------- Inventory Receive Details Routes ------------ ///////////////////////
+        Route::get('/receiveDetails', 'ShowReceiveDetails')->name('show.receive.details');
+        Route::post('/insertReceiveDetails', 'InsertReceiveDetails')->name('insert.receive.details');
+        Route::get('/editReceiveDetails/{id}', 'EditReceiveDetails')->name('edit.receive.details');
+        Route::put('/updateReceiveDetails/{id}', 'UpdateReceiveDetails')->name('update.receive.details');
+        Route::delete('/deleteReceiveDetails/{id}', 'DeleteReceiveDetails')->name('delete.receive.details');
+        Route::get('/searchReceiveDetails', 'SearchReceiveDetails')->name('search.receive.details');
+        Route::get('/receiveDetail/pagination', 'ReceiveDetailPagination');
+        Route::get('/receiveDetail/searchPagination', 'SearchReceiveDetails');
 
 
     });

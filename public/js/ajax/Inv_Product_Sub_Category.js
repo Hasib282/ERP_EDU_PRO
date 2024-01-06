@@ -9,7 +9,7 @@ $(document).ready(function () {
             url: "/admin/inventory/insertProductSubCategory",
             method: 'Post',
             data: { subCategory: subCategory,category:category },
-            beforeSend:function name(params) {
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {
@@ -74,7 +74,7 @@ $(document).ready(function () {
             url: `/admin/inventory/updateProductSubCategory/${id}`,
             method: 'Put',
             data: { subCategory: subCategory,category:category, status: status },
-            beforeSend:function name(params) {
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {

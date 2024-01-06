@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('net_amount');
             $table->string('batch_id');
             $table->date('issue_date');
-            $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
             $table->unsignedBigInteger('user_id');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();

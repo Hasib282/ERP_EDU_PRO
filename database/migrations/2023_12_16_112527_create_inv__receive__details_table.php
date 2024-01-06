@@ -13,17 +13,20 @@ return new class extends Migration
     {
         Schema::create('inv__receive__details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('receive_id');
+            $table->unsignedBigInteger('supplier_id');
+            $table->float('invoice_no')->unique();
             $table->unsignedBigInteger('product_id');
+            $table->float('batch_no');
+            $table->float('cp');
+            $table->float('discount');
+            $table->date('expiry_date');
             $table->float('quantity');
-            $table->float('cost_price');
             $table->float('mrp');
-            $table->float('profit');
-            $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
             $table->unsignedBigInteger('user_id');
-            $table->timestamp('added_at')->useCurrent();
+            $table->timestamp('receive_date')->useCurrent();
             $table->timestamp('updated_at')->nullable();
-            $table->foreign('receive_id')->references('id')->on('inv__receive__main__infos')
+            $table->foreign('supplier_id')->references('id')->on('inv__supplier__infos')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('inv__products')
@@ -32,8 +35,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('user__infos')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-
-
         });
     }
 

@@ -85,7 +85,7 @@ $(document).ready(function () {
             url: `/admin/inventory/updateSuppliers/${id}`,
             method: 'Put',
             data: { supplierName: supplierName, supplierEmail:supplierEmail, supplierContact: supplierContact, user:user, status: status },
-            beforeSend:function name(params) {
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('location_id')->references('id')->on('inv__locations')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Incative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

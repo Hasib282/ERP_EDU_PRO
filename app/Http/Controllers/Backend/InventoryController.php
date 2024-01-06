@@ -16,6 +16,7 @@ use App\Models\Inv_Product_Sub_Category;
 use App\Models\Inv_Client_Info;
 use App\Models\Inv_Location;
 use App\Models\Inv_Store;
+use App\Models\Inv_Receive_Detail;
 
 class InventoryController extends Controller
 {
@@ -646,6 +647,7 @@ class InventoryController extends Controller
             "size" => 'required',
             "unit" => 'required',
             "mrp" => 'required',
+            "expiry" => 'required',
             "user" => 'required',
         ]);
 
@@ -657,6 +659,7 @@ class InventoryController extends Controller
             "size" => $request->size,
             "unit" => $request->unit,
             "mrp" => $request->mrp,
+            "expiry_date" => $request->expiry,
             "user_id" => $request->user,
         ]);
         if($inv_product){
@@ -700,6 +703,7 @@ class InventoryController extends Controller
             "size" => 'required',
             "unit" => 'required',
             "mrp" => 'required',
+            "expiry" => 'required',
             "user" => 'required',
         ]);
 
@@ -711,6 +715,7 @@ class InventoryController extends Controller
             "size" => $request->size,
             "unit" => $request->unit,
             "mrp" => $request->mrp,
+            "expiry_date" => $request->expiry,
             "user_id" => $request->user,
             "status" => $request->status,
             "updated_at" => now()
@@ -1131,8 +1136,166 @@ class InventoryController extends Controller
 
 
 
-    /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
-    /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
+    /////////////////////////// --------------- Inventory Receive Details Methods start ---------- //////////////////////////
+    //Show Receive Details
+    public function ShowReceiveDetails(){
+        $inv_supplier = Inv_Supplier_Info::get();
+        $inv_product = Inv_Product::get();
+        $user_info = User_Info::get();
+        $inv_receive_details = Inv_Receive_Detail::orderBy('receive_date','desc')->paginate(5);
+        return view('inventory.receive_detail.receiveDetails', compact('inv_supplier','inv_product','user_info','inv_receive_details'));
+    }//End Method
+
+
+    //Insert Receive Details
+    public function InsertReceiveDetails(Request $request){
+        $request->validate([
+            "supplier" => 'required',
+            'invoice' => 'required|unique:inv__receive__details,invoice_no',
+            'product' => 'required',
+            'batch' => 'required',
+            'cp' => 'required',
+            'discount' => 'required',
+            'expiry' => 'required',
+            'quantity' => 'required',
+            'mrp' => 'required',
+            'user' => 'required',
+        ]);
+
+        $inv_receive_details = Inv_Receive_Detail::insert([
+            'supplier_id' => $request->supplier,
+            'invoice_no' => $request->invoice,
+            'product_id' => $request->product,
+            'batch_no' => $request->batch,
+            'cp' => $request->cp,
+            'discount' => $request->discount,
+            'expiry_date' => $request->expiry,
+            'quantity' => $request->quantity,
+            'mrp' => $request->mrp,
+            'user_id' => $request->user,
+        ]);
+        
+        if($inv_receive_details){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        } 
+    }//End Method
+
+
+
+
+
+
+    //Edit Receive Details
+    public function EditReceiveDetails($id){
+        $inv_supplier = Inv_Supplier_Info::get();
+        $inv_product = Inv_Product::get();
+        $user_info = User_Info::get();
+        $inv_receive_details = Inv_Receive_Detail::findOrFail($id);
+        return response()->json([
+            'inv_supplier'=>$inv_supplier,
+            'inv_product'=>$inv_product,
+            'user_info'=>$user_info,
+            'inv_receive_details'=>$inv_receive_details,
+        ]);
+    }//End Method
+
+
+
+    //Update Receive Details
+    public function UpdateReceiveDetails(Request $request,$id){
+        $inv_receive_details = Inv_Receive_Detail::findOrFail($id);
+
+        $request->validate([
+            "supplier" => 'required',
+            'invoice' => ['required','numeric',Rule::unique('inv__receive__details', 'invoice_no')->ignore($inv_receive_details->id)],
+            'product' => 'required',
+            'batch' => 'required',
+            'cp' => 'required',
+            'discount' => 'required',
+            'expiry' => 'required',
+            'quantity' => 'required',
+            'mrp' => 'required',
+            'user' => 'required',
+            "status" => 'required'
+        ]);
+
+
+        $update = Inv_Receive_Detail::findOrFail($id)->update([
+            'supplier_id' => $request->supplier,
+            'invoice_no' => $request->invoice,
+            'product_id' => $request->product,
+            'batch_no' => $request->batch,
+            'cp' => $request->cp,
+            'discount' => $request->discount,
+            'expiry_date' => $request->expiry,
+            'quantity' => $request->quantity,
+            'mrp' => $request->mrp,
+            'user_id' => $request->user,
+            "status" => $request->status,
+            "updated_at" => now()
+        ]);
+
+
+
+        
+        if($update){
+            return response()->json([
+                'status'=>'success'
+            ]); 
+        } 
+    }//End Method
+
+
+    //Delete Receive Details
+    public function DeleteReceiveDetails($id){
+        Inv_Receive_Detail::findOrFail($id)->delete();
+        return response()->json([
+            'status'=>'success'
+        ]); 
+    }//End Method
+
+
+
+    //Receive Details Pagination
+    public function ReceiveDetailPagination(){
+        $inv_supplier = Inv_Supplier_Info::get();
+        $inv_product = Inv_Product::get();
+        $user_info = User_Info::get();
+        $inv_receive_details = Inv_Receive_Detail::orderBy('receive_date','desc')->paginate(5);
+        return response()->json([
+            'status' => 'success',
+            'data' => view('inventory.receive_detail.receiveDetailPagination', compact('inv_supplier','inv_product','user_info','inv_receive_details'))->render(),
+        ]);
+    }//End Method
+
+
+
+    //Receive Details Search
+    public function SearchReceiveDetails(Request $request){
+        $inv_receive_details = Inv_Receive_Detail::where('supplier_id', 'like', '%'.$request->search.'%')
+        ->orWhere('product_id', 'like','%'.$request->search.'%')
+        ->orWhere('id', 'like','%'.$request->search.'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if($inv_receive_details->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                // 'pagination' => $inv_store->links()->toHtml(),
+                'data' => view('inventory.receive_detail.searchReceiveDetail', compact('inv_receive_details'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+    /////////////////////////// --------------- Inventory Receive Details Methods end ---------- //////////////////////////
 
 
 

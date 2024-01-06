@@ -30,7 +30,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <input type="hidden" name="id" class="form-control" id="id">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updateProductName">Product Name</label>
                                         <input type="text" name="productName" class="form-control"
@@ -38,7 +38,7 @@
                                         <span class="text-danger error" id="update_productName_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updateManufacturer">Manufacturer:</label>
                                         <select name="manufacturer" class="form-control" id="updateManufacturer">
@@ -48,7 +48,7 @@
                                         <span class="text-danger error" id="update_manufacturer_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updateCategory">Category:</label>
                                         <select name="category" class="form-control" id="updateCategory">
@@ -58,7 +58,7 @@
                                         <span class="text-danger error" id="update_category_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group" id="subCategorySelect">
                                         <label for="updateSubCategory">Sub Category:</label>
                                         <select name="subCategory" class="form-control" id="updateSubCategory">
@@ -68,14 +68,14 @@
                                         <span class="text-danger error" id="update_subCategory_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updateSize">Size</label>
                                         <input type="text" name="size" class="form-control" id="updateSize">
                                         <span class="text-danger error" id="update_size_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updateUnit">Unit:</label>
                                         <select name="unit" class="form-control" id="updateUnit">
@@ -90,6 +90,13 @@
                                         <label for="updateMrp">MRP</label>
                                         <input type="text" name="mrp" class="form-control" id="updateMrp">
                                         <span class="text-danger error" id="update_mrp_error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="updateExpiry">Expiry Date</label>
+                                        <input type="text" name="expiry" class="form-control" id="updateExpiry">
+                                        <span class="text-danger error" id="update_expiry_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
