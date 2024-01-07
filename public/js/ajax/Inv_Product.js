@@ -1,4 +1,49 @@
 $(document).ready(function () {
+    /////////////// ------------------ Select Sub category by category ajax part start ---------------- /////////////////////////////
+    $(document).on('change', '#category', function () {
+        let category = $(this).val();
+        loadSubCategoryByCategory(category,'#subCategory')
+    });
+
+    $(document).on('change', '#updateCategory', function () {
+        let category = $(this).val();
+        loadSubCategoryByCategory(category,'#updateSubCategory')
+    });
+
+
+    function loadSubCategoryByCategory(category, targetElement, edit) {
+        // let
+        $.ajax({
+            url: `/admin/inventory/productSubCategoryByCategory/${category}`,
+            method: 'get',
+            success: function (res) {
+                if (res.status == "success") {
+                    if(edit != null){
+                        $(targetElement).html('');
+                        $(targetElement).append(`<option value=""> Sub Category </option>`);
+                        
+                        $.each(res.sub_category, function (key, subCategory) {
+                            $(targetElement).append(`<option value="${subCategory.id}" ${edit === subCategory.id ? 'selected' : ''}> ${subCategory.sub_category_name} </option>`);
+                        });
+                    }
+                    else{
+                        $(targetElement).html('');
+                        $(targetElement).append(`<option value=""> Sub Category </option>`);
+                        $.each(res.sub_category, function (key, subCategory) {
+                            $(targetElement).append(`<option value="${subCategory.id}"> ${subCategory.sub_category_name} </option>`);
+                        });
+                        
+                        
+                    }
+                    
+                }
+            }
+        });
+    }
+
+    /////////////// ------------------ Select Sub category by category ajax part end ---------------- /////////////////////////////
+
+
 
     /////////////// ------------------ Add Product ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#addProduct', function (e) {
@@ -15,9 +60,9 @@ $(document).ready(function () {
         $.ajax({
             url: "/admin/inventory/insertProducts",
             method: 'Post',
-            data: { productName: productName, manufacturer:manufacturer, category:category, subCategory:subCategory, size:size, unit:unit, mrp:mrp, expiry:expiry, user:user },
-            beforeSend:function() {
-                $(document).find('span.error').text('');  
+            data: { productName: productName, manufacturer: manufacturer, category: category, subCategory: subCategory, size: size, unit: unit, mrp: mrp, expiry: expiry, user: user },
+            beforeSend: function () {
+                $(document).find('span.error').text('');
             },
             success: function (res) {
                 if (res.status == "success") {
@@ -51,35 +96,45 @@ $(document).ready(function () {
 
                 $('#updateProductName').val(res.inv_product.product_name);
 
-                $.each(res.inv_manufacturer, function(key,manufacturer) {
+                $('#updateManufacturer').html('');
+                $('#updateManufacturer').append(`<option value="" >Manufacturer</option>`);
+                $.each(res.inv_manufacturer, function (key, manufacturer) {
                     $('#updateManufacturer').append(`<option value="${manufacturer.id}" ${res.inv_product.manufacturer_id === manufacturer.id ? 'selected' : ''}>${manufacturer.manufacturer_name}</option>`);
                 });
 
-                $.each(res.inv_product_category, function(key,category) {
+                $('#updateCategory').html('');
+                $('#updateCategory').append(`<option value="" >Category</option>`);
+                $.each(res.inv_product_category, function (key, category) {
                     $('#updateCategory').append(`<option value="${category.id}" ${res.inv_product.category_id === category.id ? 'selected' : ''}>${category.product_category_name}</option>`);
                 });
 
-                $.each(res.sub_category, function(key,subCategory) {
-                    $('#updateSubCategory').append(`<option value="${subCategory.id}" ${res.inv_product.sub_category_id === subCategory.id ? 'selected' : ''}>${subCategory.sub_category_name}</option>`);
-                });
+
+                
+                loadSubCategoryByCategory(res.inv_product.category_id, '#updateSubCategory', res.inv_product.sub_category_id);
 
                 $('#updateSize').val(res.inv_product.size);
 
-                $.each(res.inv_unit, function(key,unit) {
+
+                $('#updateUnit').html('');
+                $('#updateUnit').append(`<option value="" >Unit</option>`);
+                $.each(res.inv_unit, function (key, unit) {
                     $('#updateUnit').append(`<option value="${unit.id}" ${res.inv_product.unit === unit.id ? 'selected' : ''}>${unit.unit_name}</option>`);
                 });
 
                 $('#updateMrp').val(res.inv_product.mrp);
                 $('#updateExpiry').val(res.inv_product.expiry_date);
 
-                $.each(res.user_info, function(key,user) {
+
+                $('#updateUser').html('');
+                $('#updateUser').append(`<option value="" >User</option>`);
+                $.each(res.user_info, function (key, user) {
                     $('#updateUser').append(`<option value="${user.id}" ${res.inv_product.user_id === user.id ? 'selected' : ''}>${user.name}</option>`);
                 });
-                
+
                 // Create options dynamically based on the status value
                 $('#updateStatus').html(`<option value="1" ${res.inv_product.status === 1 ? 'selected' : ''}>Active</option>
                                          <option value="0" ${res.inv_product.status === 0 ? 'selected' : ''}>Inactive</option>`);
-                
+
                 var modal = document.getElementById(modalId);
 
                 if (modal) {
@@ -111,9 +166,9 @@ $(document).ready(function () {
         $.ajax({
             url: `/admin/inventory/updateProducts/${id}`,
             method: 'Put',
-            data: { productName: productName, manufacturer:manufacturer, category:category, subCategory:subCategory, size:size, unit:unit, mrp:mrp, expiry:expiry, user:user, status: status },
-            beforeSend:function() {
-                $(document).find('span.error').text('');  
+            data: { productName: productName, manufacturer: manufacturer, category: category, subCategory: subCategory, size: size, unit: unit, mrp: mrp, expiry: expiry, user: user, status: status },
+            beforeSend: function () {
+                $(document).find('span.error').text('');
             },
             success: function (res) {
                 if (res.status == "success") {
@@ -166,7 +221,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadProductData(`/admin/inventory/searchProducts`, {search:search}, '.product');
+        loadProductData(`/admin/inventory/searchProducts`, { search: search }, '.product');
     });
 
 
@@ -177,7 +232,7 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadProductData(`/admin/inventory/product/searchPagination?page=${page}`, {search:search}, '.product');
+        loadProductData(`/admin/inventory/product/searchPagination?page=${page}`, { search: search }, '.product');
     });
 
 

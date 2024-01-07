@@ -64,12 +64,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group" id="subCategorySelect">
                                         <label for="subCategory">Sub Category:</label>
-                                        <select name="subCategory" class="form-control" id="subCategory">
-                                            <option value="">Sub Category</option>
-                                            @foreach ($sub_category as $subCategory)
-                                                <option value="{{ $subCategory->id }}">
-                                                    {{ $subCategory->sub_category_name }}</option>
-                                            @endforeach
+                                        <select name="subCategory" class="form-control" id="subCategory" >
+                                            {{-- options will be display dynamically --}}
                                         </select>
                                         <span class="text-danger error" id="subCategory_error"></span>
                                     </div>

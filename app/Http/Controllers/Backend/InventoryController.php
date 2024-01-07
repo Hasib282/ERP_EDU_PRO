@@ -521,15 +521,25 @@ class InventoryController extends Controller
 
 
 
-    // public function GetSubcategory(Request $request)
-    // {
-    //     $categoryId = $request->input('category_id');
-    //     $subcategories = Subcategory::select('id', 'sub_category_name')
-    //     ->where('category_id', $categoryId)
-    //     ->get();
-    //     // dd($sub_category);
-    //     return response()->json($subcategories);
-    // }
+    //show sub category by category id
+    public function ShowSubCategoryByCategory($category){
+        $sub_category = Inv_Product_Sub_Category::where('category_id','=', $category)
+        ->orderBy('added_at','desc')
+        ->get();
+
+        if($sub_category->count() >= 1){
+            return response()->json([
+                'status'=>'success',
+                'sub_category'=>$sub_category
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'fail',
+            ]);
+        }
+         
+    }//End Method
 
 
     
@@ -635,6 +645,27 @@ class InventoryController extends Controller
         return view('inventory.product.products', compact('inv_product','inv_product_category','inv_manufacturer','inv_unit','user_info','sub_category'));
     }//End Method
 
+
+    //show product by id
+    public function GetProductByID($id){
+        $inv_product = Inv_Product::where('id','=', $id)
+        ->orderBy('added_at','desc')
+        ->first();
+
+        if($inv_product->count() >= 1){
+            return response()->json([
+                'status'=>'success',
+                'inv_product'=>$inv_product
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'fail',
+            ]);
+        }
+         
+    }//End Method
+    
 
 
     //Insert Product

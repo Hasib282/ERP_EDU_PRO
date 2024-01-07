@@ -61,7 +61,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group" id="subCategorySelect">
                                         <label for="updateSubCategory">Sub Category:</label>
-                                        <select name="subCategory" class="form-control" id="updateSubCategory">
+                                        <select name="subCategory" class="form-control" id="updateSubCategory" >
                                             <option value="">Sub Category</option>
                                             {{-- options will be display dynamically --}}
                                         </select>

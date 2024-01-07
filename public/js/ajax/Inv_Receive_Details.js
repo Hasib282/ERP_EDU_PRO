@@ -1,4 +1,45 @@
 $(document).ready(function () {
+    /////////////// ------------------ Select product by id ajax part start ---------------- /////////////////////////////
+    $(document).on('change', '#product', function () {
+        let id = $(this).val();
+        getProductById(id, '#mrp', '#expiry')
+    });
+
+    $(document).on('change', '#updateProduct', function () {
+        let id = $(this).val();
+        getProductById(id, '#updateMrp', '#updateExpiry')
+    });
+
+
+    function getProductById(id, targetElement1, targetElement2) {
+        if(id==""){
+            $(targetElement1).val('');
+            $(targetElement2).val('');
+        }
+        else{
+            $.ajax({
+                url: `/admin/inventory/getProductById/${id}`,
+                method: 'get',
+                success: function (res) {
+                    if (res.status == "success") {
+                        $(targetElement1).val(res.inv_product.mrp);
+                        $(targetElement2).val(res.inv_product.expiry_date);
+                    }
+                }
+            });
+        }
+
+        
+    }
+
+    /////////////// ------------------ Select produuct by id ajax part end ---------------- /////////////////////////////
+
+
+
+
+
+
+
 
     /////////////// ------------------ Add Receive Details ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#addReceiveDetail', function (e) {
@@ -16,8 +57,8 @@ $(document).ready(function () {
         $.ajax({
             url: "/admin/inventory/insertReceiveDetails",
             method: 'Post',
-            data: { supplier: supplier, invoice:invoice, product:product, batch:batch, cp:cp, discount:discount, expiry:expiry, mrp:mrp, quantity:quantity, user:user },
-            beforeSend:function() {
+            data: { supplier: supplier, invoice: invoice, product: product, batch: batch, cp: cp, discount: discount, expiry: expiry, mrp: mrp, quantity: quantity, user: user },
+            beforeSend: function () {
                 $(document).find('span.error').text('');
             },
             success: function (res) {
@@ -55,14 +96,14 @@ $(document).ready(function () {
                 $('#id').val(res.inv_receive_details.id);
                 $('#updateReceive').val(datePart);
 
-                $.each(res.inv_supplier, function(key,supplier) {
+                $.each(res.inv_supplier, function (key, supplier) {
                     $('#updateSupplier').append(`<option value="${supplier.id}" ${res.inv_receive_details.supplier_id === supplier.id ? 'selected' : ''}>${supplier.sup_name}</option>`);
                 });
 
                 $('#updateInvoice').val(res.inv_receive_details.invoice_no);
 
                 $('#updateProduct').val();
-                $.each(res.inv_product, function(key,product) {
+                $.each(res.inv_product, function (key, product) {
                     $('#updateProduct').append(`<option value="${product.id}" ${res.inv_receive_details.product_id === product.id ? 'selected' : ''}>${product.product_name}</option>`);
                 });
 
@@ -73,17 +114,17 @@ $(document).ready(function () {
                 $('#updateExpiry').val(res.inv_receive_details.expiry_date);
                 $('#updateQuantity').val(res.inv_receive_details.quantity);
                 $('#updateMrp').val(res.inv_receive_details.mrp);
-                
 
-                $.each(res.user_info, function(key,user) {
+
+                $.each(res.user_info, function (key, user) {
                     $('#updateUser').append(`<option value="${user.id}" ${res.inv_receive_details.user_id === user.id ? 'selected' : ''}>${user.name}</option>`);
                 });
-                
+
                 // Create options dynamically based on the status value
                 $('#updateStatus').html(`<option value="1" ${res.inv_receive_details.status === 1 ? 'selected' : ''}>Active</option>
                                          <option value="0" ${res.inv_receive_details.status === 0 ? 'selected' : ''}>Inactive</option>`);
-                
-                
+
+
 
                 let total = res.inv_receive_details.cp * res.inv_receive_details.quantity;
                 $('.total').text(total)
@@ -121,9 +162,9 @@ $(document).ready(function () {
         $.ajax({
             url: `/admin/inventory/updateReceiveDetails/${id}`,
             method: 'Put',
-            data: { supplier: supplier, invoice:invoice, product:product, batch:batch, cp:cp, discount:discount, expiry:expiry, mrp:mrp, quantity:quantity, user:user, status: status },
-            beforeSend:function() {
-                $(document).find('span.error').text('');  
+            data: { supplier: supplier, invoice: invoice, product: product, batch: batch, cp: cp, discount: discount, expiry: expiry, mrp: mrp, quantity: quantity, user: user, status: status },
+            beforeSend: function () {
+                $(document).find('span.error').text('');
             },
             success: function (res) {
                 if (res.status == "success") {
@@ -176,7 +217,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadReceiveDetailsData(`/admin/inventory/searchReceiveDetails`, {search:search}, '.receive-detail');
+        loadReceiveDetailsData(`/admin/inventory/searchReceiveDetails`, { search: search }, '.receive-detail');
     });
 
 
@@ -187,7 +228,7 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadReceiveDetailsData(`/admin/inventory/receiveDetail/searchPagination?page=${page}`, {search:search}, '.receive-detail');
+        loadReceiveDetailsData(`/admin/inventory/receiveDetail/searchPagination?page=${page}`, { search: search }, '.receive-detail');
     });
 
 

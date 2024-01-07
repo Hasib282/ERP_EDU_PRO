@@ -102,6 +102,7 @@ Route::controller(InventoryController::class)->group(function(){
 
         ///////////// --------------- Inventory product Sub Category routes ----------- ///////////////////
         Route::get('/productSubCategory', 'ShowSubCategory')->name('show.subCatagory');
+        Route::get('/productSubCategoryByCategory/{category}', 'ShowSubCategoryByCategory')->name('show.subCatagory.by.category');
         Route::post('/insertProductSubCategory', 'InsertSubCategory')->name('insert.subCatagory');
         Route::get('/editProductSubCategory/{id}', 'EditSubCategory')->name('edit.subCatagory');
         Route::put('/updateProductSubCategory/{id}', 'UpdateSubCategory')->name('update.subCatagory');
@@ -114,6 +115,7 @@ Route::controller(InventoryController::class)->group(function(){
         
         ///////////// --------------- Inventory products routes ----------- ///////////////////
         Route::get('/products', 'ShowProducts')->name('show.products');
+        Route::get('/getProductById/{id}', 'GetProductByID')->name('get.product.by.id');
         Route::post('/insertProducts', 'InsertProducts')->name('insert.products');
         Route::get('/editProducts/{id}', 'EditProducts')->name('edit.products');
         Route::put('/updateProducts/{id}', 'UpdateProducts')->name('update.products');
