@@ -1,13 +1,25 @@
 $(document).ready(function () {
-    /////////////// ------------------ Select product by id ajax part start ---------------- /////////////////////////////
-    $(document).on('change', '#product', function () {
+    /////////////// ------------------ Search product by name ajax part start ---------------- /////////////////////////////
+    $(document).on('keyup', '#product', function (e) {
+        e.preventDefault();
         let id = $(this).val();
-        getProductById(id, '#mrp', '#expiry')
+        $.ajax({
+            url: "/admin/inventory/getProductByName",
+            method: 'get',
+            data: {name:id},
+            success: function (res) {
+                $('#product-list').html(res);
+            }
+        });
     });
 
-    $(document).on('change', '#updateProduct', function () {
-        let id = $(this).val();
-        getProductById(id, '#updateMrp', '#updateExpiry')
+    $(document).on('click', 'li', function () {
+        let value = $(this).text();
+        let id = $(this).data('id');
+        $('#product').val(value);
+        $('#product').attr('data-id', id);
+        $('#product-list').html('');
+        getProductById(id, '#mrp', '#expiry');
     });
 
 
@@ -28,17 +40,11 @@ $(document).ready(function () {
                 }
             });
         }
-
-        
     }
 
-    /////////////// ------------------ Select produuct by id ajax part end ---------------- /////////////////////////////
+    // /////////////// ------------------ Search product by name ajax part end ---------------- /////////////////////////////
 
-
-
-
-
-
+    
 
 
     /////////////// ------------------ Add Receive Details ajax part start ---------------- /////////////////////////////
@@ -46,7 +52,8 @@ $(document).ready(function () {
         e.preventDefault();
         let supplier = $('#supplier').val();
         let invoice = $('#invoice').val();
-        let product = $('#product').val();
+        let product = $('#product').attr('data-id');
+        // let product = $('#product').val();
         let batch = $('#batch').val();
         let cp = $('#cp').val();
         let discount = $('#discount').val();

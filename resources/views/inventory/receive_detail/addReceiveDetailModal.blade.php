@@ -66,13 +66,9 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="product">Product Name</label>
-                                        <select name="product" class="form-control" id="product">
-                                            <option value="">Product Name</option>
-                                            @foreach ($inv_product as $product)
-                                                <option value="{{ $product->id }}">{{ $product->product_name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="product" class="form-control" id="product" autocomplete="off">
                                         <span class="text-danger error" id="product_error"></span>
+                                        <div id="product-list"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">

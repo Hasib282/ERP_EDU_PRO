@@ -80,3 +80,15 @@
 
 /* modal part css end here */
 
+
+
+
+/*   */
+#product-list li{
+    padding: 10px;
+}
+
+#product-list li:hover{
+    background-color: #00afffb0;
+    cursor: pointer;
+}

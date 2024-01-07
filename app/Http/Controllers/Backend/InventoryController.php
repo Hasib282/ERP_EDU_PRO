@@ -646,7 +646,34 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //show product by id
+    //get product by id
+    public function GetProductByName(Request $request){
+        if($request->name != ""){
+            $inv_product = Inv_Product::where('product_name', 'like', '%'.$request->name.'%')
+            ->orderBy('product_name','asc')
+            ->take(5)
+            ->get();
+
+            if($inv_product->count() > 0){
+                $list = '<ul className="list-group" style="display:block;position:relative;z-index: index 1;padding:0;">';
+                    foreach($inv_product as $product) {
+                        $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$product->id.'">'.$product->product_name.'</li>';
+                    }
+                $list .= '</ul>';
+                
+            }
+            else{
+                $list = '<li class="list-group-item list-group-item-primary">No Data Found</li>';
+                // return $list;
+            }
+            return $list;
+        }else{
+            return "";
+        } 
+    }//End Method
+
+
+    //get product by id
     public function GetProductByID($id){
         $inv_product = Inv_Product::where('id','=', $id)
         ->orderBy('added_at','desc')

@@ -123,6 +123,7 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/searchProducts', 'SearchProduct')->name('search.products');
         Route::get('/product/pagination', 'ProductPagination');
         Route::get('/product/searchPagination', 'SearchProduct');
+        Route::get('/getProductByName', 'GetProductByName')->name('get.product.by.name');
 
 
 
