@@ -85,7 +85,7 @@
 
 /*   */
 
-#product-list{
+#product-list,#update-product{
     max-height: 220px;
     overflow-y: auto;
     position: absolute;
@@ -94,25 +94,21 @@
 }
 
 
-#product-list ul{
+#product-list ul,#update-product ul{
     padding:0;
     margin: 0;
     width: 100%;
 }
 
-#product-list li{
+#product-list li,#update-product li{
     padding: 10px;
     width: 100%;
 }
 
-#product-list li:hover{
+#product-list li:hover, #update-product li:hover{
     background-color: #00afffb0;
     cursor: pointer;
 }
 
-#advance{
-    width: 80px;
-    display: inline;
-}
 
 

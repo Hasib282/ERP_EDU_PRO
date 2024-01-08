@@ -33,7 +33,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="receive">Receive Date</label>
-                                        <input type="text" name="receive" class="form-control" id="receive" value="{{ date('Y-m-d') }}" readonly>
+                                        <input type="text" name="receive" class="form-control" id="receive" value="{{ date('Y-m-d') }}" disabled>
                                         <span class="text-danger error" id="receive_error"></span>
                                     </div>
                                 </div>

@@ -1,19 +1,14 @@
 $(document).ready(function () {
-    /////////////// ------------------ Search product by name ajax part start ---------------- /////////////////////////////
-    $(document).on('keyup', '#product', function (e) {
-        e.preventDefault();
-        let id = $(this).val();
-        $.ajax({
-            url: "/admin/inventory/getProductByName",
-            method: 'get',
-            data: {name:id},
-            success: function (res) {
-                $('#product-list ul').html(res);
-            }
-        });
+    /////////////// ------------------ Search product by name and add value to input ajax part start ---------------- /////////////////////////////
+    //search product on add modal
+    $(document).on('keyup', '#product', function () {
+        let name = $(this).val();
+        $('#product').removeAttr('data-id');
+        getProductByName(name, '#product-list ul');
     });
 
-    $(document).on('click', 'li', function () {
+    //add list value in product input of add modal
+    $(document).on('click', '#product-list li', function () {
         let value = $(this).text();
         let id = $(this).data('id');
         $('#product').val(value);
@@ -22,8 +17,27 @@ $(document).ready(function () {
         getProductById(id, '#mrp', '#expiry');
     });
 
+    //search product on edit modal
+    $(document).on('keyup', '#updateProduct', function () {
+        let name = $(this).val();
+        $('#updateProduct').removeAttr('data-id');
+        getProductByName(name, '#update-product ul');
+    });
 
-    function getProductById(id, targetElement1, targetElement2) {
+
+    //add list value in product input of add modal
+    $(document).on('click', '#update-product li', function () {
+        let value = $(this).text();
+        let id = $(this).data('id');
+        $('#updateProduct').val(value);
+        $('#updateProduct').attr('data-id', id);
+        $('#update-product ul').html('');
+        getProductById(id, '#updateMrp', '#updateExpiry');
+    });
+
+
+    //search product by id
+    function getProductById(id, targetElement1, targetElement2,targetElement3="") {
         if(id==""){
             $(targetElement1).val('');
             $(targetElement2).val('');
@@ -36,13 +50,27 @@ $(document).ready(function () {
                     if (res.status == "success") {
                         $(targetElement1).val(res.inv_product.mrp);
                         $(targetElement2).val(res.inv_product.expiry_date);
+                        $(targetElement3).val(res.inv_product.product_name);
                     }
                 }
             });
         }
     }
 
-    /////////////// ------------------ Search product by name ajax part end ---------------- /////////////////////////////
+    //search product by name
+    function getProductByName(name, targetElement1) {
+        $.ajax({
+            url: "/admin/inventory/getProductByName",
+            method: 'get',
+            data: {name:name},
+            success: function (res) {
+                $(targetElement1).html(res);
+            }
+        });
+    }
+
+
+    /////////////// ------------------ Search product by name and add value to input ajax part end ---------------- /////////////////////////////
 
     
 
@@ -102,27 +130,26 @@ $(document).ready(function () {
 
                 $('#id').val(res.inv_receive_details.id);
                 $('#updateReceive').val(datePart);
-
+                
+                $('#updateSupplier').html('')
+                $('#updateSupplier').append('<option>Supplier</option>')
                 $.each(res.inv_supplier, function (key, supplier) {
                     $('#updateSupplier').append(`<option value="${supplier.id}" ${res.inv_receive_details.supplier_id === supplier.id ? 'selected' : ''}>${supplier.sup_name}</option>`);
                 });
 
                 $('#updateInvoice').val(res.inv_receive_details.invoice_no);
-
-                $('#updateProduct').val();
-                $.each(res.inv_product, function (key, product) {
-                    $('#updateProduct').append(`<option value="${product.id}" ${res.inv_receive_details.product_id === product.id ? 'selected' : ''}>${product.product_name}</option>`);
-                });
+                
+                getProductById(res.inv_receive_details.product_id, "#updateMrp", "#updateExpiry","#updateProduct")
+                $('#updateProduct').attr('data-id', res.inv_receive_details.product_id);
 
                 $('#updateBatch').val(res.inv_receive_details.batch_no);
 
                 $('#updateCp').val(res.inv_receive_details.cp);
                 $('#updateDiscount').val(res.inv_receive_details.discount);
-                $('#updateExpiry').val(res.inv_receive_details.expiry_date);
                 $('#updateQuantity').val(res.inv_receive_details.quantity);
-                $('#updateMrp').val(res.inv_receive_details.mrp);
 
-
+                $('#updateUser').html('')
+                $('#updateUser').append('<option>User</option>')
                 $.each(res.user_info, function (key, user) {
                     $('#updateUser').append(`<option value="${user.id}" ${res.inv_receive_details.user_id === user.id ? 'selected' : ''}>${user.name}</option>`);
                 });
@@ -132,10 +159,12 @@ $(document).ready(function () {
                                          <option value="0" ${res.inv_receive_details.status === 0 ? 'selected' : ''}>Inactive</option>`);
 
 
-
                 let total = res.inv_receive_details.cp * res.inv_receive_details.quantity;
-                $('.total').text(total)
-
+                let netTotal = total - total*(res.inv_receive_details.discount/100); 
+                $('#updateTotal').val(total);
+                $('#updateTotalDiscount').val(res.inv_receive_details.discount);
+                $('#updateNetTotal').val(netTotal);
+                $('#updateBalance').val(netTotal);
 
                 var modal = document.getElementById(modalId);
 
@@ -157,7 +186,7 @@ $(document).ready(function () {
         let id = $('#id').val();
         let supplier = $('#updateSupplier').val();
         let invoice = $('#updateInvoice').val();
-        let product = $('#updateProduct').val();
+        let product = $('#updateProduct').data('id');
         let batch = $('#updateBatch').val();
         let cp = $('#updateCp').val();
         let discount = $('#updateDiscount').val();
@@ -186,6 +215,7 @@ $(document).ready(function () {
                 $.each(error.errors, function (key, value) {
                     $('#update_' + key + "_error").text(value);
                 })
+                toastr.error('error.errors', 'Error!');
             }
         });
     });
@@ -257,7 +287,7 @@ $(document).ready(function () {
     /////////////// ------------------ Calculation ajax part start ---------------- /////////////////////////////
 
     $('#cp, #discount, #quantity, #paid').on('input', function () {
-        let cp = parseFloat($('#cp').val());
+        let cp = parseFloat($('#cp').val())||"";
         let discount = parseFloat($('#discount').val()) || "";
         let quantity = parseFloat($('#quantity').val()) || "";
         let paid = parseFloat($('#paid').val()) || "";
@@ -269,6 +299,22 @@ $(document).ready(function () {
         $('#totalDiscount').val(discount)
         $('#netTotal').val(netTotal)
         $('#balance').val(due)
+    });
+
+
+    $('#updateCp, #updateDiscount, #updateQuantity, #updatePaid').on('input', function () {
+        let cp = parseFloat($('#updateCp').val())||"";
+        let discount = parseFloat($('#updateDiscount').val()) || "";
+        let quantity = parseFloat($('#updateQuantity').val()) || "";
+        let paid = parseFloat($('#updatePaid').val()) || "";
+        let total = cp * quantity;
+        let netTotal = total - total*(discount/100);
+        let due = netTotal - paid;
+        
+        $('#updateTotal').val(total)
+        $('#updateTotalDiscount').val(discount)
+        $('#updateNetTotal').val(netTotal)
+        $('#updateBalance').val(due)
     });
 
 

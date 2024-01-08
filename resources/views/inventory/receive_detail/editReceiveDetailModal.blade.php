@@ -22,7 +22,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="updateReceive">Receive Date</label>
-                                        <input type="text" name="receive" class="form-control" id="updateReceive" readonly>
+                                        <input type="text" name="receive" class="form-control" id="updateReceive" disabled>
                                         <span class="text-danger error" id="update_receive_error"></span>
                                     </div>
                                 </div>
@@ -52,23 +52,26 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="updateProduct">Product Name</label>
-                                        <select name="product" class="form-control" id="updateProduct">
-                                            <option value="">Product Name</option>
-                                        </select>
+                                        <input type="search" name="product" class="form-control" id="updateProduct" autocomplete="off">
+                                        <div id="update-product">
+                                            <ul class="list-group">
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="update_product_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="updateMrp">MRP</label>
-                                        <input type="text" name="mrp" class="form-control" id="updateMrp" readonly>
+                                        <input type="text" name="mrp" class="form-control" id="updateMrp" disabled>
                                         <span class="text-danger error" id="update_mrp_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="updateExpiry">Expiry Date</label>
-                                        <input type="text" name="expiry" class="form-control" id="updateExpiry" readonly>
+                                        <input type="text" name="expiry" class="form-control" id="updateExpiry" disabled>
                                         <span class="text-danger error" id="update_expiry_error"></span>
                                     </div>
                                 </div>
@@ -117,49 +120,33 @@
                                 <button type="submit" id="updateReceiveDetail" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
-                        
                     </div>
                     <div class="calculation">
                         <div class="row">
-                            <div class="col-md-8"></div>
-                            <div class="col-md-4">
-                                <ul>
-                                    <li>
-                                        Total: <span class="total"></span>
-                                        {{-- <div class="form-group">
-                                            <label for="total">Total</label>
-                                            <input type="text" name="total" class="form-control" id="quantity" readonly>
-                                        </div> --}}
-                                    </li>
-                                    <li>
-                                        Discount: <span class="discount"></span>
-                                        {{-- <div class="form-group">
-                                            <label for="totalDiscount">Discount</label>
-                                            <input type="text" name="totalDiscount" class="form-control" id="totalDiscount" readonly>
-                                        </div> --}}
-                                    </li>
-                                    <li>
-                                        Net Total: <span class="netTotal"></span>
-                                        {{-- <div class="form-group">
-                                            <label for="netTotal">Net Total</label>
-                                            <input type="text" name="netTotal" class="form-control" id="netTotal" readonly>
-                                        </div> --}}
-                                    </li>
-                                    <li>
-                                        Advance: <span class="advance"></span>
-                                        {{-- <div class="form-group">
-                                            <label for="paid">Advance/Paid</label>
-                                            <input type="text" name="paid" class="form-control" id="paid" readonly>
-                                        </div> --}}
-                                    </li>
-                                    <li>
-                                        Due/Balance: <span class="balance"></span>
-                                        {{-- <div class="form-group">
-                                            <label for="balance">Due/Balance</label>
-                                            <input type="text" name="balance" class="form-control" id="balance" readonly>
-                                        </div> --}}
-                                    </li>
-                                </ul>
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td><label for="updateTotal">Total:</label></td>
+                                        <td><input type="text" name="total" class="form-control" id="updateTotal" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="updateTotalDiscount">Total Discount:</label></td>
+                                        <td><input type="text" name="totalDiscount" class="form-control" id="updateTotalDiscount" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="updateNetTotal">Net Total:</label></td>
+                                        <td><input type="text" name="netTotal" class="form-control" id="updateNetTotal" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="updatePaid">Advance/Paid:</label></td>
+                                        <td><input type="text" name="paid" class="form-control" id="updatePaid"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="updateBalance">Due/Balance:</label></td>
+                                        <td><input type="text" name="balance" class="form-control" id="updateBalance" disabled></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
