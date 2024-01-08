@@ -8,7 +8,7 @@ $(document).ready(function () {
             method: 'get',
             data: {name:id},
             success: function (res) {
-                $('#product-list').html(res);
+                $('#product-list ul').html(res);
             }
         });
     });
@@ -18,7 +18,7 @@ $(document).ready(function () {
         let id = $(this).data('id');
         $('#product').val(value);
         $('#product').attr('data-id', id);
-        $('#product-list').html('');
+        $('#product-list ul').html('');
         getProductById(id, '#mrp', '#expiry');
     });
 
@@ -42,7 +42,7 @@ $(document).ready(function () {
         }
     }
 
-    // /////////////// ------------------ Search product by name ajax part end ---------------- /////////////////////////////
+    /////////////// ------------------ Search product by name ajax part end ---------------- /////////////////////////////
 
     
 
@@ -253,5 +253,25 @@ $(document).ready(function () {
             }
         });
     }
+
+    /////////////// ------------------ Calculation ajax part start ---------------- /////////////////////////////
+
+    $('#cp, #discount, #quantity, #paid').on('input', function () {
+        let cp = parseFloat($('#cp').val());
+        let discount = parseFloat($('#discount').val()) || "";
+        let quantity = parseFloat($('#quantity').val()) || "";
+        let paid = parseFloat($('#paid').val()) || "";
+        let total = cp * quantity;
+        let netTotal = total - total*(discount/100);
+        let due = netTotal - paid;
+        
+        $('#total').val(total)
+        $('#totalDiscount').val(discount)
+        $('#netTotal').val(netTotal)
+        $('#balance').val(due)
+    });
+
+
+    /////////////// ------------------ Calculation ajax part end ---------------- /////////////////////////////
 
 });

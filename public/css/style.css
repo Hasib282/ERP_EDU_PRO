@@ -84,11 +84,35 @@
 
 
 /*   */
+
+#product-list{
+    max-height: 220px;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+
+#product-list ul{
+    padding:0;
+    margin: 0;
+    width: 100%;
+}
+
 #product-list li{
     padding: 10px;
+    width: 100%;
 }
 
 #product-list li:hover{
     background-color: #00afffb0;
     cursor: pointer;
 }
+
+#advance{
+    width: 80px;
+    display: inline;
+}
+
+
