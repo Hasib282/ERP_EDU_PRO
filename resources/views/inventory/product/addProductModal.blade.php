@@ -98,13 +98,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="expiry">Expiry Date</label>
-                                        <input type="text" name="expiry" class="form-control" id="expiry">
-                                        <span class="text-danger error" id="expiry_error"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
                                         <label for="user">User id:</label>
                                         <select name="user" class="form-control" id="user">
                                             <option value="">User id</option>

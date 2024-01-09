@@ -94,13 +94,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="updateExpiry">Expiry Date</label>
-                                        <input type="text" name="expiry" class="form-control" id="updateExpiry">
-                                        <span class="text-danger error" id="update_expiry_error"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
                                         <label for="updateUser">User id:</label>
                                         <select name="user" class="form-control" id="updateUser">
                                             <option value="">User id</option>

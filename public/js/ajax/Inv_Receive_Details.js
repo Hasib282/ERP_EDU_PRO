@@ -4,6 +4,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#product', function () {
         let name = $(this).val();
         $('#product').removeAttr('data-id');
+        $('#mrp').val('');
         getProductByName(name, '#product-list ul');
     });
 
@@ -14,12 +15,13 @@ $(document).ready(function () {
         $('#product').val(value);
         $('#product').attr('data-id', id);
         $('#product-list ul').html('');
-        getProductById(id, '#mrp', '#expiry');
+        getProductById(id, '#mrp');
     });
 
     //search product on edit modal
     $(document).on('keyup', '#updateProduct', function () {
         let name = $(this).val();
+        $('#updateMrp').val('');
         $('#updateProduct').removeAttr('data-id');
         getProductByName(name, '#update-product ul');
     });
@@ -32,12 +34,12 @@ $(document).ready(function () {
         $('#updateProduct').val(value);
         $('#updateProduct').attr('data-id', id);
         $('#update-product ul').html('');
-        getProductById(id, '#updateMrp', '#updateExpiry');
+        getProductById(id, '#updateMrp');
     });
 
 
     //search product by id
-    function getProductById(id, targetElement1, targetElement2,targetElement3="") {
+    function getProductById(id, targetElement1, targetElement2="") {
         if(id==""){
             $(targetElement1).val('');
             $(targetElement2).val('');
@@ -49,8 +51,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $(targetElement1).val(res.inv_product.mrp);
-                        $(targetElement2).val(res.inv_product.expiry_date);
-                        $(targetElement3).val(res.inv_product.product_name);
+                        $(targetElement2).val(res.inv_product.product_name);
                     }
                 }
             });
@@ -136,13 +137,15 @@ $(document).ready(function () {
                 $.each(res.inv_supplier, function (key, supplier) {
                     $('#updateSupplier').append(`<option value="${supplier.id}" ${res.inv_receive_details.supplier_id === supplier.id ? 'selected' : ''}>${supplier.sup_name}</option>`);
                 });
-
+                $('#updateBatch').val(res.inv_receive_details.batch_no);
                 $('#updateInvoice').val(res.inv_receive_details.invoice_no);
+                $('#updateExpiry').val(res.inv_receive_details.expiry_date);
                 
-                getProductById(res.inv_receive_details.product_id, "#updateMrp", "#updateExpiry","#updateProduct")
+                
+                getProductById(res.inv_receive_details.product_id, "#updateMrp","#updateProduct")
                 $('#updateProduct').attr('data-id', res.inv_receive_details.product_id);
 
-                $('#updateBatch').val(res.inv_receive_details.batch_no);
+                
 
                 $('#updateCp').val(res.inv_receive_details.cp);
                 $('#updateDiscount').val(res.inv_receive_details.discount);

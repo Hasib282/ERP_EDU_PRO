@@ -17,7 +17,6 @@
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                         aria-label="Browser: activate to sort column ascending">Size</th>
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"aria-label="Browser: activate to sort column ascending">MRP</th>
-                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"aria-label="Browser: activate to sort column ascending">Expiry</th>
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                         aria-label="Browser: activate to sort column ascending">Inserted By</th>
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
@@ -36,7 +35,6 @@
                         <td>{{ $item->ManufacturerName->manufacturer_name }}</td>
                         <td>{{ $item->size }}{{ $item->UnitName->unit_name }}</td>
                         <td>{{ $item->mrp }}Tk.</td>
-                        <td>{{ $item->expiry_date }}</td>
                         <td>{{ $item->UserName->name }}</td>
                         <td>
                             @if ($item->status == 1)
@@ -67,7 +65,6 @@
                     <th rowspan="1" colspan="1">Manufacturer</th>
                     <th rowspan="1" colspan="1">Size</th>
                     <th rowspan="1" colspan="1">MRP</th>
-                    <th rowspan="1" colspan="1">Expiry</th>
                     <th rowspan="1" colspan="1">Inserted By</th>
                     <th rowspan="1" colspan="1">Status</th>
                     <th rowspan="1" colspan="1">Action</th>

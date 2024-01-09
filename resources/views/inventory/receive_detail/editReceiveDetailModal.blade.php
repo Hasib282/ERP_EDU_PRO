@@ -71,7 +71,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="updateExpiry">Expiry Date</label>
-                                        <input type="text" name="expiry" class="form-control" id="updateExpiry" disabled>
+                                        <input type="text" name="expiry" class="form-control" id="updateExpiry">
                                         <span class="text-danger error" id="update_expiry_error"></span>
                                     </div>
                                 </div>

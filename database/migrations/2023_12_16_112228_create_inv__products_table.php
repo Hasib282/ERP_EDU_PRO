@@ -20,7 +20,6 @@ return new class extends Migration
             $table->float('size');
             $table->unsignedBigInteger('unit');
             $table->float('mrp');
-            $table->date('expiry_date');
             $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
             $table->unsignedBigInteger('user_id');
             $table->timestamp('added_at')->useCurrent();

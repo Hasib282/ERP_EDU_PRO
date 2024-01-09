@@ -702,7 +702,6 @@ class InventoryController extends Controller
             "size" => 'required',
             "unit" => 'required',
             "mrp" => 'required',
-            "expiry" => 'required',
             "user" => 'required',
         ]);
 
@@ -714,7 +713,6 @@ class InventoryController extends Controller
             "size" => $request->size,
             "unit" => $request->unit,
             "mrp" => $request->mrp,
-            "expiry_date" => $request->expiry,
             "user_id" => $request->user,
         ]);
         if($inv_product){
@@ -758,7 +756,6 @@ class InventoryController extends Controller
             "size" => 'required',
             "unit" => 'required',
             "mrp" => 'required',
-            "expiry" => 'required',
             "user" => 'required',
         ]);
 
@@ -770,7 +767,6 @@ class InventoryController extends Controller
             "size" => $request->size,
             "unit" => $request->unit,
             "mrp" => $request->mrp,
-            "expiry_date" => $request->expiry,
             "user_id" => $request->user,
             "status" => $request->status,
             "updated_at" => now()
