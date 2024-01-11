@@ -38,7 +38,6 @@
                             <div class="form-group">
                                 <label for="updateUser">User id:</label>
                                 <select name="user" class="form-control" id="updateUser">
-                                    <option value="">User id</option>
                                     {{-- options will be display dynamically --}}
                                 </select>
                                 <span class="text-danger error" id="update_user_error"></span>

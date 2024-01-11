@@ -21,7 +21,7 @@ $(document).ready(function () {
     //search product on edit modal
     $(document).on('keyup', '#updateProduct', function () {
         let name = $(this).val();
-        $('#updateMrp').val('');
+        $('#updateMrp').empty();
         $('#updateProduct').removeAttr('data-id');
         getProductByName(name, '#update-product ul');
     });
@@ -101,6 +101,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addReceiveDetailModal').hide();
                     $('#AddReceiveDetailForm')[0].reset();
+                    $('#product').removeAttr('data-id');
                     $('.receive-detail').load(location.href + ' .receive-detail');
                     toastr.success('Receive Details Added Successfully', 'Added!');
                 }
@@ -209,6 +210,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editReceiveDetailModal').hide();
                     $('#EditReceiveDetailForm')[0].reset();
+                    $('#updateProduct').removeAttr('data-id');
                     $('.receive-detail').load(location.href + ' .receive-detail');
                     toastr.success('Receive Details Updated Successfully', 'Updated!');
                 }

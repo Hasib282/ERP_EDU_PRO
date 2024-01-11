@@ -37,9 +37,9 @@
                                 <label for="user">User id:</label>
                                 <select name="user" class="form-control" id="user">
                                     <option value="">User id</option>
-                                @foreach($user_info as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
+                                    @foreach($user_info as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
                                 </select>
                                 <span class="text-danger error" id="user_error"></span>
                             </div>

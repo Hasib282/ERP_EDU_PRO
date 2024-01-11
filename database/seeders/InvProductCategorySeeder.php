@@ -22,5 +22,7 @@ class InvProductCategorySeeder extends Seeder
                 "product_category_name"=>$user->product_category_name
             ]);
         });
+
+        Inv_Product_category::factory()->count(50000)->create();
     }
 }

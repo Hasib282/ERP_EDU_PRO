@@ -42,14 +42,15 @@ $(document).ready(function () {
             success: function (res) {
                 $('#id').val(res.inv_store.id);
                 $('#updateStoreName').val(res.inv_store.store_name);
-                $('#updateLocation').empty();
-
+                
                 // Create options dynamically based on the user value
+                $('#updateLocation').empty();
                 $.each(res.inv_location, function(key,location) {
-                    $('#updateLocation').append(`<option value="${location.id}" ${res.inv_store.location_id === location.id ? 'selected' : ''}>${location.district_name}</option>`);
+                    $('#updateLocation').append(`<option value="${location.id}" ${res.inv_store.location_id === location.id ? 'selected' : ''}>${location.division}</option>`);
                 });
 
                 // Create options dynamically based on the status value
+                $('#updateStatus').empty()
                 $('#updateStatus').append(`<option value="1" ${res.inv_store.status === 1 ? 'selected' : ''}>Active</option>
                                          <option value="0" ${res.inv_store.status === 0 ? 'selected' : ''}>Inactive</option>`);
 
@@ -68,7 +69,7 @@ $(document).ready(function () {
 
 
     /////////////// ------------------ Update Stores ajax part start ---------------- /////////////////////////////
-    $(document).on('click', '#editStore', function (e) {
+    $(document).on('click', '#updateStore', function (e) {
         e.preventDefault();
         let id = $('#id').val();
         let storeName = $('#updateStoreName').val();

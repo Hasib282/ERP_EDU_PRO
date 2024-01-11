@@ -30,7 +30,7 @@
                                 <select name="location" class="form-control" id="location">
                                     <option value="">Location</option>
                                     @foreach ($inv_location as $location)
-                                        <option value="{{ $location->id }}">{{ $location->district_name }}</option>
+                                        <option value="{{ $location->id }}">{{ $location->division }}</option>
                                     @endforeach
                                 </select>
                                 <span class="text-danger error" id="location_error"></span>

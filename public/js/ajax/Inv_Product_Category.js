@@ -8,7 +8,7 @@ $(document).ready(function () {
             url: "/admin/inventory/insertProductCategory",
             method: 'Post',
             data: { categoryName: categoryName },
-            beforeSend:function name(params) {
+            beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
             success: function (res) {
@@ -43,6 +43,7 @@ $(document).ready(function () {
                 $('#updateCategoryName').val(res.inv_product_category.product_category_name);
 
                 // Create options dynamically based on the status value
+                $('#updateStatus').empty();
                 $('#updateStatus').html(`<option value="1" ${res.inv_product_category.status === 1 ? 'selected' : ''}>Active</option>
                                          <option value="0" ${res.inv_product_category.status === 0 ? 'selected' : ''}>Inactive</option>`);
                 var modal = document.getElementById(modalId);

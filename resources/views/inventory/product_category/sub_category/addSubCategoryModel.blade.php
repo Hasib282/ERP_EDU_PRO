@@ -29,12 +29,18 @@
 
                                     <div class="form-group">
                                         <label for="category">Category Name</label>
-                                        <select name="category" class="form-control" id="category">
+                                        <input type="text" name="category" class="form-control" id="category" autocomplete="off">
+                                        <div id="category-list">
+                                            <ul class="list-group">
+
+                                            </ul>
+                                        </div>
+                                        {{-- <select name="category" class="form-control" id="category">
                                             <option value="">Category Name</option>
                                             @foreach ($inv_product_category as $category)
                                                 <option value="{{ $category->id }}">{{ $category->product_category_name }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
                                         <span class="text-danger error" id="category_error"></span>
                                     </div>
                                 </div>

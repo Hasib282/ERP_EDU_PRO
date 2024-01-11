@@ -51,7 +51,7 @@
                                     <div class="form-group">
                                         <label for="area">Area Name</label>
                                         <input type="text" name="area" class="form-control" id="area">
-                                        <span class="text-danger error" id="area"></span>
+                                        <span class="text-danger error" id="area_error"></span>
                                     </div>
                                 </div>
 

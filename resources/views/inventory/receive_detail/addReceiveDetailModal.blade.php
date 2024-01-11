@@ -85,7 +85,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="expiry">Expiry Date</label>
-                                        <input type="text" name="expiry" class="form-control" id="expiry">
+                                        <input type="date" name="expiry" class="form-control" id="expiry">
                                         <span class="text-danger error" id="expiry_error"></span>
                                     </div>
                                 </div>

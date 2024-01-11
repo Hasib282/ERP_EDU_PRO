@@ -33,7 +33,6 @@
                             <div class="form-group">
                                 <label for="updateUser">User:</label>
                                 <select name="user" class="form-control" id="updateUser">
-                                    <option value="">User</option>
                                     {{-- options will be display dynamically --}}
                                 </select>
                                 <span class="text-danger error" id="update_user_error"></span>
@@ -41,7 +40,6 @@
                             <div class="form-group">
                                 <label for="updateStatus">Status:</label>
                                 <select name="status" class="form-control" id="updateStatus">
-                                    <option value="">Status</option>
                                     {{-- options will be display dynamically --}}
                                 </select>
                                 <span class="text-danger error" id="update_status_error"></span>

@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+// use App\Models\Inv_Product_Category;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             
         ]);
 
+        // Inv_Product_category::factory()->count(50000)->unique()->create();
 
 
 

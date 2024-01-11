@@ -4,7 +4,7 @@ $(document).ready(function () {
     $(document).on('click', '#addProductSubCategory', function (e) {
         e.preventDefault();
         let subCategory = $('#subCategory').val();
-        let category = $('#category').val();
+        let category = $('#category').data('id');
         $.ajax({
             url: "/admin/inventory/insertProductSubCategory",
             method: 'Post',
@@ -31,6 +31,25 @@ $(document).ready(function () {
     });
 
 
+    //search product by id
+    function getCategoryById(id, targetElement1) {
+        if(id==""){
+            $(targetElement1).val('');
+        }
+        else{
+            $.ajax({
+                url: `/admin/inventory/getCategoryById/${id}`,
+                method: 'get',
+                success: function (res) {
+                    if (res.status == "success") {
+                        $(targetElement1).val(res.inv_category.product_category_name);
+                    }
+                }
+            });
+        }
+    }
+
+
 
     /////////////// ------------------ Edit Product Sub Category ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.editProductSubCategoryModal', function () {
@@ -42,9 +61,9 @@ $(document).ready(function () {
             success: function (res) {
                 $('#updateSubCategoryId').val(res.sub_category.id);
                 $('#updateSubCategoryName').val(res.sub_category.sub_category_name);
-                $.each(res.inv_product_category, function(key,category) {
-                    $('#updateCategory').append(`<option value="${category.id}" ${res.sub_category.category_id === category.id ? 'selected' : ''}>${category.product_category_name}</option>`);
-                });
+
+                getCategoryById(res.sub_category.category_id,'#updateCategory');
+                $('#updateCategory').attr('data-id',res.sub_category.category_id);
 
                 // Create options dynamically based on the status value
                 $('#updateStatus').html(`<option value="1" ${res.sub_category.status === 1 ? 'selected' : ''}>Active</option>
@@ -68,12 +87,14 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $('#updateSubCategoryId').val();
         let subCategory = $('#updateSubCategoryName').val();
-        let category = $('#updateCategory').val();
+        let category = $('#updateCategory').data('id');
         let status = $('#updateStatus').val();
+        alert(id+"sub"+subCategory+"cat"+category+"status"+status)
+        alert()
         $.ajax({
             url: `/admin/inventory/updateProductSubCategory/${id}`,
             method: 'Put',
-            data: { subCategory: subCategory,category:category, status: status },
+            data: { subCategory: subCategory, category:category, status: status },
             beforeSend:function() {
                 $(document).find('span.error').text('');  
             },

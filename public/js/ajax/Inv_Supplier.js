@@ -46,14 +46,16 @@ $(document).ready(function () {
                 $('#updateSupplierName').val(res.inv_supplier.sup_name);
                 $('#updateSupplierEmail').val(res.inv_supplier.sup_email);
                 $('#updateSupplierContact').val(res.inv_supplier.sup_contact);
-                $('#updateUser').empty();
+                
 
                 // Create options dynamically based on the user value
+                $('#updateUser').empty();
                 $.each(res.user_info, function(key,user) {
                     $('#updateUser').append(`<option value="${user.id}" ${res.inv_supplier.user_id === user.id ? 'selected' : ''}>${user.name}</option>`);
                 });
 
                 // Create options dynamically based on the status value
+                $('#updateStatus').empty();
                 $('#updateStatus').append(`<option value="1" ${res.inv_supplier.status === 1 ? 'selected' : ''}>Active</option>
                                          <option value="0" ${res.inv_supplier.status === 0 ? 'selected' : ''}>Inactive</option>`);
                 

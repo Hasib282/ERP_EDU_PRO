@@ -22,7 +22,7 @@
                                 <div class="col-md-12">
                                     <input type="hidden" name="id" class="form-control"  id="updateSubCategoryId">
                                     <div class="form-group">
-                                        <label for="updateSubCategoryName">Category Name</label>
+                                        <label for="updateSubCategoryName">Sub Category Name</label>
                                         <input type="text" name="subCategory" class="form-control"  id="updateSubCategoryName">
                                         <span class="text-danger error" id="update_subCategory_error"></span>
                                     </div>
@@ -30,9 +30,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="updateCategory">Category:</label>
-                                <select name="category" class="form-control" id="updateCategory">
-                                    {{-- options will be display dynamically --}}
-                                </select>
+                                <input type="text" name="category" class="form-control" id="updateCategory" autocomplete="off">
+                                <div id="update-category">
+                                    <ul class="list-group">
+
+                                    </ul>
+                                </div>
                                 <span class="text-danger error" id="update_category_error"></span>
                             </div>
                             <div class="form-group">

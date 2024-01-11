@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     /////////////// ------------------ Add Client ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#addClient', function (e) {
         e.preventDefault();
@@ -44,15 +43,17 @@ $(document).ready(function () {
                 $('#id').val(res.inv_client.id);
                 $('#updateClientName').val(res.inv_client.client_name);
                 $('#updateContact').val(res.inv_client.contact);
-                $('#updateUser').empty();
+                
 
                 // Create options dynamically based on the user value
+                $('#updateUser').empty();
                 $.each(res.user_info, function(key,user) {
-                    $('#updateUser').append(`<option value="${user.id}" ${res.inv_client.user_id === user.id ? 'selected' : ''}>${user.name}</option>`);
+                    $('#updateUser').html(`<option value="${user.id}" ${res.inv_client.user_id === user.id ? 'selected' : ''}>${user.name}</option>`);
                 });
 
                 // Create options dynamically based on the status value
-                $('#updateStatus').append(`<option value="1" ${res.inv_client.status === 1 ? 'selected' : ''}>Active</option>
+                $('#updateStatus').empty();
+                $('#updateStatus').html(`<option value="1" ${res.inv_client.status === 1 ? 'selected' : ''}>Active</option>
                                          <option value="0" ${res.inv_client.status === 0 ? 'selected' : ''}>Inactive</option>`);
                 
                 var modal = document.getElementById(modalId);

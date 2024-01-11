@@ -27,5 +27,6 @@
 {{-- ajax part start from here --}}
 @section('ajax')
     <script src="{{ asset('js/ajax/Inv_Supplier.js') }}"></script>
+    <script src="{{ asset('js/ajax/toggle_status.js') }}"></script>
 @endsection
 

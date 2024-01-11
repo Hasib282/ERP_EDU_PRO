@@ -97,6 +97,9 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/searchProductCategory', 'SearchProductCategory')->name('search.productCategory');
         Route::get('/productCategory/pagination', 'ProductCategoryPagination');
         Route::get('/productCategory/searchPagination', 'SearchProductCategory');
+        Route::get('/getCategoryByName', 'GetCategoryByName')->name('get.category.by.name');
+        Route::get('/getCategoryById/{id}', 'GetCategoryById')->name('get.category.by.id');
+
 
 
 
@@ -173,8 +176,10 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/receiveDetail/searchPagination', 'SearchReceiveDetails');
 
 
+        Route::put('/status','Status')->name('status');
+
     });
 
-    Route::get('admin/status/{table_name}/{id}/{status}','Status')->name('status');
+    
 });
 

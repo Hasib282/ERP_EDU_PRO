@@ -42,6 +42,7 @@ $(document).ready(function () {
                 $('#updateUnitName').val(res.inv_unit.unit_name);
 
                 // Create options dynamically based on the status value
+                $('#updateStatus').empty();
                 $('#updateStatus').append(`<option value="1" ${res.inv_unit.status === 1 ? 'selected' : ''}>Active</option>
                                         <option value="0" ${res.inv_unit.status === 0 ? 'selected' : ''}>Inactive</option>`);
                 

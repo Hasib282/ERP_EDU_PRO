@@ -29,7 +29,6 @@
                             <div class="form-group">
                                 <label for="updateLocation">Location:</label>
                                 <select name="location" class="form-control" id="updateLocation">
-                                    <option value="">Location</option>
                                     {{-- options will be display dynamically --}}
                                 </select>
                                 <span class="text-danger error" id="update_location_error"></span>
@@ -38,14 +37,13 @@
                             <div class="form-group">
                                 <label for="updateStatus">Status:</label>
                                 <select name="status" class="form-control" id="updateStatus">
-                                    <option value="">Status</option>
                                     {{-- options will be display dynamically --}}
                                 </select>
                                 <span class="text-danger error" id="update_status_error"></span>
                             </div>
 
                             <div class="center">
-                                <button type="submit" class="btn btn-primary" id="editStore">Submit</button>
+                                <button type="submit" class="btn btn-primary" id="updateStore">Submit</button>
                             </div>
                         </div>
                     </div>

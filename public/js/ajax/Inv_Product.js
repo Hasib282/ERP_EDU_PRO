@@ -33,9 +33,7 @@ $(document).ready(function () {
                             $(targetElement).append(`<option value="${subCategory.id}"> ${subCategory.sub_category_name} </option>`);
                         });
                         
-                        
-                    }
-                    
+                    } 
                 }
             }
         });
