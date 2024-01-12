@@ -18,15 +18,15 @@ return new class extends Migration
             $table->unsignedBigInteger('sub_category_id');
             $table->unsignedBigInteger('manufacturer_id');
             $table->float('size');
-            $table->unsignedBigInteger('unit');
+            $table->unsignedBigInteger('unit')->nullable();
             $table->float('mrp');
-            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
-            $table->unsignedBigInteger('user_id');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inactive');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
             $table->foreign('unit')->references('id')->on('inv__units')
                     ->onUpdate('cascade')
-                    ->onDelete('cascade');
+                    ->onDelete('set null');
             $table->foreign('category_id')->references('id')->on('inv__product__categories')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
@@ -37,8 +37,8 @@ return new class extends Migration
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('user__infos')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+                    ->cascadeOnUpdate()
+                    ->nullOnDelete();
         });
     }
 

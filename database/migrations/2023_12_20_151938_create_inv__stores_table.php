@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('inv__stores', function (Blueprint $table) {
             $table->id();
             $table->string('store_name');
-            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('inv__locations')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
-            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
+                   ->cascadeOnUpdate()
+                   ->nullOnDelete();
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inactive');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

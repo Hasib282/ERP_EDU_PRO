@@ -5,6 +5,8 @@
             <th>SL:</th>
             <th>Client Name</th>
             <th>Contact</th>
+            <th>Email</th>
+            <th>Address</th>
             <th>Insertd By</th>
             <th>Status</th>
             <th>Action</th>
@@ -15,7 +17,9 @@
             <tr>
                 <td>{{ $inv_client->firstItem() + $key }}</td>
                 <td>{{ $item->client_name }}</td>
-                <td>{{ $item->contact }}</td>
+                <td>{{ $item->client_contact }}</td>
+                <td>{{ $item->client_email }}</td>
+                <td>{{ $item->client_address }}</td>
                 <td>{{ $item->UserName->name }}</td>
                 <td>
                     @if ($item->status == 1)
@@ -38,6 +42,8 @@
             <th>SL:</th>
             <th>Client Name</th>
             <th>Contact</th>
+            <th>Email</th>
+            <th>Address</th>
             <th>Insertd By</th>
             <th>Status</th>
             <th>Action</th>

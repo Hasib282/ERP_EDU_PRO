@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inv__units', function (Blueprint $table) {
             $table->id();
             $table->string('unit_name')->unique();
-            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inactive');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

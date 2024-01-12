@@ -31,6 +31,16 @@
                                 <span class="text-danger error" id="update_contact_error"></span>
                             </div>
                             <div class="form-group">
+                                <label for="updateEmail">Email</label>
+                                <input type="text" name="email" class="form-control" id="updateEmail">
+                                <span class="text-danger error" id="update_email_error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateAddress">Address</label>
+                                <input type="text" name="address" class="form-control" id="updateAddress">
+                                <span class="text-danger error" id="update_address_error"></span>
+                            </div>
+                            <div class="form-group">
                                 <label for="updateUser">User:</label>
                                 <select name="user" class="form-control" id="updateUser">
                                     {{-- options will be display dynamically --}}

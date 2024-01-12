@@ -34,6 +34,11 @@
                                 <span class="text-danger error" id="supplierContact_error"></span>
                             </div>
                             <div class="form-group">
+                                <label for="supplierAddress">Supplier Address</label>
+                                <input type="text" name="supplierAddress" class="form-control"  id="supplierAddress">
+                                <span class="text-danger error" id="supplierAddress_error"></span>
+                            </div>
+                            <div class="form-group">
                                 <label for="user">User id:</label>
                                 <select name="user" class="form-control" id="user">
                                     <option value="">User id</option>

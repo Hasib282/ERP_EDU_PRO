@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('manufacturer_name');
             $table->string('manufacturer_email');
             $table->string('manufacturer_contact');
-            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
-            $table->unsignedBigInteger('user_id');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inactive');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('user__infos')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

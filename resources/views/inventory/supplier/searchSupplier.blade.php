@@ -4,8 +4,9 @@
         <tr>
             <th>SL:</th>
             <th>Supplier Name</th>
-            <th>Supplier Email</th>
-            <th>Supplier Contact</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Address</th>
             <th>Inserted By</th>
             <th>Status</th>
             <th>Action</th>
@@ -19,6 +20,7 @@
                 <td>{{ $item->sup_name }}</td>
                 <td>{{ $item->sup_email }}</td>
                 <td>{{ $item->sup_contact }}</td>
+                <td>{{ $item->sup_address }}</td>
                 <td>{{ $item->UserName->name }}</td>
                 <td>
                     @if ($item->status == 1)
@@ -40,8 +42,9 @@
         <tr>
             <th>SL:</th>
             <th>Supplier Name</th>
-            <th>Supplier Email</th>
-            <th>Supplier Contact</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Address</th>
             <th>Inserted By</th>
             <th>Status</th>
             <th>Action</th>

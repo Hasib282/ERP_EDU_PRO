@@ -4,11 +4,13 @@ $(document).ready(function () {
         e.preventDefault();
         let clientName = $('#clientName').val();
         let contact = $('#contact').val();
+        let email = $('#email').val();
+        let address = $('#address').val();
         let user = $('#user').val();
         $.ajax({
             url: "/admin/inventory/insertClients",
             method: 'Post',
-            data: { clientName: clientName,contact: contact,user:user },
+            data: { clientName: clientName,contact: contact, email:email, address:address, user:user },
             beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
@@ -42,7 +44,9 @@ $(document).ready(function () {
             success: function (res) {
                 $('#id').val(res.inv_client.id);
                 $('#updateClientName').val(res.inv_client.client_name);
-                $('#updateContact').val(res.inv_client.contact);
+                $('#updateContact').val(res.inv_client.client_contact);
+                $('#updateEmail').val(res.inv_client.client_email);
+                $('#updateAddress').val(res.inv_client.client_contact);
                 
 
                 // Create options dynamically based on the user value
@@ -76,12 +80,14 @@ $(document).ready(function () {
         let id = $('#id').val();;
         let clientName = $('#updateClientName').val();
         let contact = $('#updateContact').val();
+        let email = $('#updateEmail').val();
+        let address = $('#updateAddress').val();
         let user = $('#updateUser').val();
         let status = $('#updateStatus').val();
         $.ajax({
             url: `/admin/inventory/updateClients/${id}`,
             method: 'Put',
-            data: { clientName: clientName, contact:contact, user:user, status: status },
+            data: { clientName: clientName, contact:contact, email:email, address:address, user:user, status: status },
             beforeSend:function() {
                 $(document).find('span.error').text('');  
             },

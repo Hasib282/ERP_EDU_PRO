@@ -45,8 +45,8 @@ $(document).ready(function () {
             success: function (res) {
                 $('#id').val(res.inv_location.id);
                 $('#updateDivision').val(res.inv_location.division);
-                $('#updateDistrict').val(res.inv_location.district_name);
-                $('#updateCity').val(res.inv_location.city_name);
+                $('#updateDistrict').val(res.inv_location.district);
+                $('#updateCity').val(res.inv_location.city);
                 $('#updateArea').val(res.inv_location.area);
                 $('#updateRoad').val(res.inv_location.road_no);
 

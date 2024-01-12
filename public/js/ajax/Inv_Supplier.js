@@ -6,11 +6,12 @@ $(document).ready(function () {
         let supplierName = $('#supplierName').val();
         let supplierEmail = $('#supplierEmail').val();
         let supplierContact = $('#supplierContact').val();
+        let supplierAddress = $('#supplierAddress').val();
         let user = $('#user').val();
         $.ajax({
             url: "/admin/inventory/insertSuppliers",
             method: 'Post',
-            data: { supplierName: supplierName,supplierEmail: supplierEmail,supplierContact: supplierContact,user:user },
+            data: { supplierName:supplierName, supplierEmail:supplierEmail, supplierContact:supplierContact, supplierAddress:supplierAddress, user:user },
             beforeSend:function() {
                 $(document).find('span.error').text('');  
             },
@@ -46,6 +47,7 @@ $(document).ready(function () {
                 $('#updateSupplierName').val(res.inv_supplier.sup_name);
                 $('#updateSupplierEmail').val(res.inv_supplier.sup_email);
                 $('#updateSupplierContact').val(res.inv_supplier.sup_contact);
+                $('#updateSupplierAddress').val(res.inv_supplier.sup_address);
                 
 
                 // Create options dynamically based on the user value
@@ -81,12 +83,13 @@ $(document).ready(function () {
         let supplierName = $('#updateSupplierName').val();
         let supplierEmail = $('#updateSupplierEmail').val();
         let supplierContact = $('#updateSupplierContact').val();
+        let supplierAddress = $('#updateSupplierAddress').val();
         let user = $('#updateUser').val();
         let status = $('#updateStatus').val();
         $.ajax({
             url: `/admin/inventory/updateSuppliers/${id}`,
             method: 'Put',
-            data: { supplierName: supplierName, supplierEmail:supplierEmail, supplierContact: supplierContact, user:user, status: status },
+            data: { supplierName: supplierName, supplierEmail:supplierEmail, supplierContact: supplierContact, supplierAddress:supplierAddress, user:user, status: status },
             beforeSend:function() {
                 $(document).find('span.error').text('');  
             },

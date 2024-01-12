@@ -22,6 +22,7 @@ class InvSupplierInfoSeeder extends Seeder
                 "sup_name"=>$user->sup_name,
                 "sup_email"=>$user->sup_email,
                 "sup_contact"=>$user->sup_contact,
+                "sup_address"=>$user->sup_address,
                 "user_id"=>$user->user_id,
             ]);
         });

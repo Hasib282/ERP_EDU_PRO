@@ -20,7 +20,9 @@ class InvClientInfoSeeder extends Seeder
         $clients->each(function($client){
             Inv_Client_Info::create([
                 "client_name"=>$client->client_name,
-                "contact"=>$client->contact,
+                "client_contact"=>$client->client_contact,
+                "client_email"=>$client->client_email,
+                "client_address"=>$client->client_address,
                 "user_id"=>$client->user_id,
             ]);
         });

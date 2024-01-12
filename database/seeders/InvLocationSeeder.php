@@ -20,8 +20,8 @@ class InvLocationSeeder extends Seeder
         $locations->each(function($location){
             Inv_Location::create([
                 "division"=>$location->division,
-                "district_name"=>$location->district_name,
-                "city_name"=>$location->city_name,
+                "district"=>$location->district,
+                "city"=>$location->city,
                 "area"=>$location->area,
                 "road_no"=>$location->road_no
             ]);

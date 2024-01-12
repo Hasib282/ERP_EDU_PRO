@@ -17,8 +17,8 @@
             <tr>
                 <td>{{ $inv_location->firstItem() + $key }}</td>
                 <td>{{ $item->division }}</td>
-                <td>{{ $item->district_name }}</td>
-                <td>{{ $item->city_name }}</td>
+                <td>{{ $item->district }}</td>
+                <td>{{ $item->city }}</td>
                 <td>{{ $item->area }}</td>
                 <td>
                     @if ($item->road_no == '' || $item->road_no == null)

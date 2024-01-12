@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user__categories', function (Blueprint $table) {
             $table->id();
-            $table->string('category_name');
-            $table->boolean('status')->default('0')->comment('1 for Active 0 for Inacative');
+            $table->string('category_name')->unique();
+            $table->boolean('status')->default('0')->comment('1 for Active 0 for Inactive');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

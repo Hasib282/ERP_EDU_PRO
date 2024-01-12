@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('inv__locations', function (Blueprint $table) {
             $table->id();
             $table->string('division');
-            $table->string('district_name');
-            $table->string('city_name');
+            $table->string('district');
+            $table->string('city');
             $table->string('area');
             $table->string('road_no')->nullable();
-            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inactive');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

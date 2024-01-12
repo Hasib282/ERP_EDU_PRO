@@ -29,6 +29,16 @@
                                 <span class="text-danger error" id="contact_error"></span>
                             </div>
                             <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" name="email" class="form-control" id="email">
+                                <span class="text-danger error" id="email_error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" name="address" class="form-control" id="address">
+                                <span class="text-danger error" id="address_error"></span>
+                            </div>
+                            <div class="form-group">
                                 <label for="user">User:</label>
                                 <select name="user" class="form-control" id="user">
                                     <option value="">User</option>

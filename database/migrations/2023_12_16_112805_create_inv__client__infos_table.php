@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('inv__client__infos', function (Blueprint $table) {
             $table->id();
             $table->string('client_name');
-            $table->string('contact');
-            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inacative');
-            $table->unsignedBigInteger('user_id');
+            $table->string('client_contact');
+            $table->string('client_email');
+            $table->string('client_address');
+            $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inactive');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('user__infos')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+                   ->cascadeOnUpdate()
+                   ->nullOnDelete();
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

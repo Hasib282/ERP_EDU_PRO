@@ -46,6 +46,53 @@ class InventoryController extends Controller
 
 
 
+    //Get Unit by name
+    public function GetUnitByName(Request $request){
+        if($request->unit != ""){
+            $inv_unit = Inv_unit::where('unit_name', 'like', '%'.$request->unit.'%')
+            ->orderBy('unit_name','asc')
+            ->take(10)
+            ->get();
+
+            if($inv_unit->count() > 0){
+                $list = "";
+                foreach($inv_unit as $unit) {
+                    $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$unit->id.'">'.$unit->unit_name.'</li>';
+                }
+            }
+            else{
+                $list = '<li class="list-group-item list-group-item-primary">No Data Found</li>';
+            }
+            return $list;
+        }else{
+            return "";
+        } 
+    }//End Method
+
+
+
+    //Get Unit by id
+    public function GetUnitByID($id){
+        $inv_unit = Inv_Unit::where('id','=', $id)
+        ->orderBy('added_at','asc')
+        ->first();
+
+        if($inv_unit->count() >= 1){
+            return response()->json([
+                'status'=>'success',
+                'inv_unit'=>$inv_unit
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'fail',
+            ]);
+        }
+         
+    }//End Method
+
+
+
     //Edit Unit
     public function EditUnits($id){
         $inv_unit = Inv_Unit::findOrFail($id);
@@ -104,7 +151,7 @@ class InventoryController extends Controller
     public function SearchUnits(Request $request){
         $inv_unit = Inv_Unit::where('unit_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('unit_name','asc')
         ->paginate(15);
         
         if($inv_unit->count() >= 1){
@@ -140,6 +187,7 @@ class InventoryController extends Controller
             "supplierName" => 'required|unique:inv__supplier__infos,sup_name',
             "supplierEmail" => 'required|email',
             "supplierContact" => 'required|numeric',
+            "supplierAddress" => 'required',
             "user" => 'required',
         ]);
         
@@ -147,6 +195,7 @@ class InventoryController extends Controller
             "sup_name" => $request->supplierName,
             "sup_email" => $request->supplierEmail,
             "sup_contact" => $request->supplierContact,
+            "sup_address" => $request->supplierAddress,
             "user_id" => $request->user,
         ]);
 
@@ -177,6 +226,7 @@ class InventoryController extends Controller
             "supplierName" => ['required',Rule::unique('inv__supplier__infos', 'sup_name')->ignore($inv_suplier->id)],
             "supplierEmail" => 'required|email',
             "supplierContact" => 'required|numeric',
+            "supplierAddress" => 'required',
             "user" => 'required',
             'status' => 'required'
         ]);
@@ -185,6 +235,7 @@ class InventoryController extends Controller
             "sup_name" => $request->supplierName,
             "sup_email" => $request->supplierEmail,
             "sup_contact" => $request->supplierContact,
+            "sup_address" => $request->supplierAddress,
             "user_id" => $request->user,
             "status" => $request->status,
             "updated_at" => now()
@@ -225,9 +276,7 @@ class InventoryController extends Controller
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::where('id', 'like', '%'.$request->search.'%')
         ->orWhere('sup_name', 'like','%'.$request->search.'%')
-        ->orWhere('sup_email', 'like','%'.$request->search.'%')
-        ->orWhere('sup_contact', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('sup_name','asc')
         ->paginate(15);
         
         if($inv_supplier->count() >= 1){
@@ -351,7 +400,7 @@ class InventoryController extends Controller
     public function SearchManufacturer(Request $request){
         $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('manufacturer_name','asc')
         ->paginate(15);
         
         if($inv_manufacturer->count() >= 1){
@@ -509,7 +558,7 @@ class InventoryController extends Controller
     public function SearchProductCategory(Request $request){
         $inv_product_category = Inv_Product_Category::where('product_category_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('product_category_name','asc')
         ->paginate(15);
         
         if($inv_product_category->count() >= 1){
@@ -652,9 +701,8 @@ class InventoryController extends Controller
     //product category Search
     public function SearchSubCategory(Request $request){
         $sub_category = Inv_Product_Sub_Category::where('sub_category_name', 'like', '%'.$request->search.'%')
-        ->orWhere('category_id', 'like','%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('sub_category_name','asc')
         ->paginate(15);
         
         if($sub_category->count() >= 1){
@@ -846,15 +894,13 @@ class InventoryController extends Controller
     //product Search
     public function SearchProduct(Request $request){
         $inv_product = Inv_Product::where('product_name', 'like', '%'.$request->search.'%')
-        ->orWhere('category_id', 'like','%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('product_name','asc')
         ->paginate(15);
         
         if($inv_product->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                // 'pagination' => $inv_product->links()->toHtml(),
                 'data' => view('inventory.product.searchProduct', compact('inv_product'))->render(),
             ]);
         }
@@ -884,13 +930,17 @@ class InventoryController extends Controller
     public function InsertClients(Request $request){
         $request->validate([
             "clientName" => 'required',
-            "contact" => 'required|numeric|unique:inv__client__infos,contact',
+            "contact" => 'required|numeric|unique:inv__client__infos,client_contact',
+            "email" => 'required|email',
+            "address" => 'required',
             "user" => 'required',
         ]);
 
         $inv_client = Inv_Client_Info::insert([
             "client_name" => $request->clientName,
-            "contact" => $request->contact,
+            "client_contact" => $request->contact,
+            "client_email" => $request->email,
+            "client_address" => $request->address,
             "user_id" => $request->user,
         ]);
         
@@ -921,7 +971,9 @@ class InventoryController extends Controller
 
         $request->validate([
             "clientName" => 'required',
-            "contact" => ['required','numeric',Rule::unique('inv__client__infos', 'contact')->ignore($inv_client->id)],
+            "contact" => ['required','numeric',Rule::unique('inv__client__infos', 'client_contact')->ignore($inv_client->id)],
+            "email" => 'required|email',
+            "address" => 'required',
             "user" => 'required',
             "status" => 'required'
         ]);
@@ -929,7 +981,9 @@ class InventoryController extends Controller
 
         $update = Inv_Client_Info::findOrFail($id)->update([
             "client_name" => $request->clientName,
-            "contact" => $request->contact,
+            "client_contact" => $request->contact,
+            "client_email" => $request->email,
+            "client_address" => $request->address,
             "user_id" => $request->user,
             "status" => $request->status,
             "updated_at" => now()
@@ -969,7 +1023,7 @@ class InventoryController extends Controller
     public function SearchClients(Request $request){
         $inv_client = Inv_Client_Info::where('client_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('client_name','asc')
         ->paginate(15);
         
         if($inv_client->count() >= 1){
@@ -1009,8 +1063,8 @@ class InventoryController extends Controller
 
         $inv_location = Inv_Location::insert([
             "division" => $request->division,
-            "district_name" => $request->district,
-            "city_name" => $request->city,
+            "district" => $request->district,
+            "city" => $request->city,
             "area" => $request->area,
             "road_no" => $request->road,
         ]);
@@ -1046,8 +1100,8 @@ class InventoryController extends Controller
 
         $update = Inv_Location::findOrFail($id)->update([
             "division" => $request->division,
-            "district_name" => $request->district,
-            "city_name" => $request->city,
+            "district" => $request->district,
+            "city" => $request->city,
             "area" => $request->area,
             "road_no" => $request->road,
             "status" => $request->status,
@@ -1084,11 +1138,9 @@ class InventoryController extends Controller
 
     //Location Search
     public function SearchLocations(Request $request){
-        $inv_location = Inv_Location::where('district_name', 'like', '%'.$request->search.'%')
-        ->orWhere('division', 'like','%'.$request->search.'%')
-        ->orWhere('city_name', 'like','%'.$request->search.'%')
+        $inv_location = Inv_Location::where('division', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('division','asc')
         ->paginate(15);
         
         if($inv_location->count() >= 1){
