@@ -16,6 +16,7 @@ $(document).ready(function () {
                     $('#addProductCategoryModal').hide();
                     $('#AddProductCategoryForm')[0].reset();
                     $('.category').load(location.href + ' .category');
+                    $('#search').val('');
                     toastr.success('Product Category Added Successfully', 'Added!');
                 }
             },
@@ -78,6 +79,7 @@ $(document).ready(function () {
                     $('#editProductCategoryModal').hide();
                     $('#EditProductCategoryForm')[0].reset();
                     $('.category').load(location.href + ' .category');
+                    $('#search').val('');
                     toastr.success('Product Category Updated Successfully', 'Updated!');
                 }
             },
@@ -103,6 +105,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.category').load(location.href + ' .category');
+                        $('#search').val('');
                         toastr.success('Product Category Deleted Successfully', 'Deleted!');
                     }
                 }

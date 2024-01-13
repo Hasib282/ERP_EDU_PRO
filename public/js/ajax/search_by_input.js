@@ -47,24 +47,9 @@ $(document).ready(function () {
         });
     }
 
-    //search product by id
-    function getCategoryById(id, targetElement1) {
-        if(id==""){
-            $(targetElement1).val('');
-        }
-        else{
-            $.ajax({
-                url: `/admin/inventory/getCategoryById/${id}`,
-                method: 'get',
-                success: function (res) {
-                    if (res.status == "success") {
-                        $(targetElement1).val(res.inv_category.product_category_name);
-                    }
-                }
-            });
-        }
-    }
-
-
+    /////////////// ------------------ Search category by name and add value to input ajax part end ---------------- /////////////////////////////
+    
+    
+    
     /////////////// ------------------ Search category by name and add value to input ajax part end ---------------- /////////////////////////////
 });

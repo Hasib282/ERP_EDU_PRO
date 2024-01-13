@@ -4,7 +4,7 @@ $(document).ready(function () {
     $(document).on('click', '#addProductSubCategory', function (e) {
         e.preventDefault();
         let subCategory = $('#subCategory').val();
-        let category = $('#category').data('id');
+        let category = $('#category').attr('data-id');
         $.ajax({
             url: "/admin/inventory/insertProductSubCategory",
             method: 'Post',
@@ -16,6 +16,8 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addProductSubCategoryModal').hide();
                     $('#AddProductSubCategoryForm')[0].reset();
+                    $('#category').removeAttr('data-id');
+                    $('#search').val('')
                     $('.sub-category').load(location.href+' .sub-category');
                     toastr.success('Product Sub Category Added Successfully', 'Added!');
                 }
@@ -31,7 +33,7 @@ $(document).ready(function () {
     });
 
 
-    //search product by id
+    //search category by id
     function getCategoryById(id, targetElement1) {
         if(id==""){
             $(targetElement1).val('');
@@ -87,7 +89,7 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $('#updateSubCategoryId').val();
         let subCategory = $('#updateSubCategoryName').val();
-        let category = $('#updateCategory').data('id');
+        let category = $('#updateCategory').attr('data-id');
         let status = $('#updateStatus').val();
         alert(id+"sub"+subCategory+"cat"+category+"status"+status)
         alert()
@@ -103,6 +105,8 @@ $(document).ready(function () {
                     $('#editProductSubCategoryModal').hide();
                     $('#EditProductSubCategoryForm')[0].reset();
                     $('.sub-category').load(location.href + ' .sub-category');
+                    $('#search').val('')
+                    $('#updateCategory').removeAttr('data-id');
                     toastr.success('Product Sub Category Updated Successfully', 'Updated!');
                 }
             },
@@ -128,6 +132,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.sub-category').load(location.href + ' .sub-category');
+                        $('#search').val('');
                         toastr.success('Product Sub Category Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -140,32 +145,48 @@ $(document).ready(function () {
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
-        loadProductCategoryData(`/admin/inventory/productSubCategory/pagination?page=${page}`, {}, '.sub-category');
+        loadProductSubCategoryData(`/admin/inventory/productSubCategory/pagination?page=${page}`, {}, '.sub-category');
     });
 
 
 
-    /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
+    //////////////////////////// ------------------ Search part ajax start ---------------- /////////////////////////////
+    //search main mechanism
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadProductCategoryData(`/admin/inventory/searchProductSubCategory`, {search:search}, '.sub-category');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == "1"){
+            loadProductSubCategoryData(`/admin/inventory/searchProductSubCategory/name`, {search:search, searchOption:searchOption}, '.sub-category');
+        }
+        else if(searchOption == "2"){
+            loadProductSubCategoryByCategory(`/admin/inventory/productSubCategory/categoryName`, {search:search}, '.sub-category');
+        }
     });
 
 
-
-    /////////////// ------------------ Search Pagination ajax part start ---------------- /////////////////////////////
+    //Search by Name Pagination ajax part
     $(document).on('click', '.search-paginate a', function (e) {
         e.preventDefault();
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadProductCategoryData(`/admin/inventory/productSubCategory/searchPagination?page=${page}`, {search:search}, '.sub-category');
+        loadProductSubCategoryData(`/admin/inventory/productSubCategory/namePagination?page=${page}`, {search:search}, '.sub-category');
     });
 
 
-    //product Sub Category pagination data load function
-    function loadProductCategoryData(url, data, targetElement) {
+    //Search by Category Name Pagination ajax part
+    $(document).on('click', '.searchCategory-paginate a', function (e) {
+        e.preventDefault();
+        $('.paginate').addClass('hidden');
+        let search = $('#search').val();
+        let page = $(this).attr('href').split('page=')[1];
+        loadProductSubCategoryByCategory(`/admin/inventory/productSubCategory/categoryNamePagination?page=${page}`, {search:search}, '.sub-category');
+    });
+
+
+    //product Sub Category by name pagination data load function
+    function loadProductSubCategoryData(url, data, targetElement) {
         $.ajax({
             url: url,
             data: data,
@@ -174,8 +195,32 @@ $(document).ready(function () {
                     $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
                 } else {
                     $(targetElement).html(res.data);
+                    if(res.paginate){
+                        $(targetElement).append('<div class="center search-paginate" id="paginate">' + res.paginate + '</div>');
+                    }
                 }
             }
         });
     }
+
+
+    //product Sub Category by Category name pagination data load function
+    function loadProductSubCategoryByCategory(url, data, targetElement) {
+        $.ajax({
+            url: url,
+            data: data,
+            success: function (res) {
+                if (res.status == "null") {
+                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
+                } 
+                else {
+                    $(targetElement).html(res.data);
+                    $(targetElement).append('<div class="center searchCategory-paginate" id="paginate">' + res.paginate + '</div>');
+                }
+            }
+        });
+    }
+
+
+    ///////////////////////// ------------------ Search part ajax end ---------------- /////////////////////////////////
 });

@@ -1,48 +1,18 @@
-/* table design start */
-.show-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+.content-wrapper{
+    background: transparent;
 }
 
-.caption{
-    caption-side:top; 
-    text-align:center;
-    border:1px solid #dddddd;
-    background: green;
-    color: white;
+.add-search{
+    margin: 15px 12px;
 }
 
-
-.show-table td,th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 2px 10px;
-}
-
-.show-table tbody tr:nth-child(odd) {
-    background-color: #F2F2F2;
-}
-/* table design end */
-
-.heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 40px;
-}
-
-.title {
-    font-size: 22px;
-    font-weight: bold;
-}
 
 .add {
     background-color: green;
     color: white;
     border: none;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 20px;
+    padding: 8px 15px;
 }
 
 .center {
@@ -56,10 +26,45 @@
     display: none;
 }
 
+#paginate {
+    margin-top: 20px;
+}
 
 
-/* modal part css start here */
+/* -------------------------------------- Table custom design starts --------------------------------------------------- */
+.show-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+.caption {
+    caption-side: top;
+    text-align: center;
+    border: 1px solid #dddddd;
+    background: green;
+    color: white;
+}
+
+
+.show-table td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 2px 10px;
+}
+
+.show-table tbody tr:nth-child(odd) {
+    background-color: #F2F2F2;
+}
+
+/* ---------------------------------------- Table custom design end ----------------------------------------------------- */
+
+
+
+
+
+
+/* -------------------------------------- Modal part css start here --------------------------------------------------- */
 .modal-container {
     display: none;
     width: 100%;
@@ -103,21 +108,60 @@
     color: black;
 }
 
-/* modal part css end here */
+/* -------------------------------------- Modal part css end here --------------------------------------------------- */
 
-.paginate,.search-paginate{
-    margin-top: 20px;
+
+
+
+/* -------------------------------------- Form inputs custom design starts --------------------------------------------------- */
+.form-input, select {
+    font-size: 14px;
+    border: 1px solid rgb(222, 226, 230);
+    padding: 4px 8px;
+    height: 31px;
+    border-radius: 4px;
+}
+
+.form-input:focus,select:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
 }
 
 
 
-/* search by input css start here */
+/* Hide the default dropdown arrow and add background image in it*/
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 4px 18px 8px 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 33px;
+    background: url('../images/angle-arrow-down.png') no-repeat right 4px center #fff;
+    background-size: 10px;
+}
+
+#search{
+    width: 40%;
+}
+
+/* -------------------------------------- Form inputs custom design end ----------------------------------------------------- */
+
+
+
+
+/* -------------------------------------- Search by input css start here -------------------------------------------------*/
 
 /* select all the div ends with id '-list' and all the div starts with id 'update-' */
 div[id$="-list"], div[id^="update-"] {
-    max-height: 220px;
+    max-height: 110px;
     overflow-y: auto;
     position: absolute;
+    background: #fff;
     width: 92%;
     z-index: 10000;
 }
@@ -126,11 +170,14 @@ div[id$="-list"], div[id^="update-"] {
 div[id$="-list"] ul, div[id^="update-"] ul {
     padding: 0;
     margin: 0;
+    font-size: 14px;
+    line-height: 21px;
+    border: 1px solid gray;
     width: 100%;
 }
 
 div[id$="-list"] li, div[id^="update-"] li {
-    padding: 10px;
+    padding: 0 10px;
     width: 100%;
     z-index: 1000;
 }
@@ -140,6 +187,4 @@ div[id$="-list"] li:hover, div[id^="update-"] li:hover {
     cursor: pointer;
 }
 
-/* search by input css start here */
-
-
+/* -------------------------------------- Search by input css end here -------------------------------------------------*/

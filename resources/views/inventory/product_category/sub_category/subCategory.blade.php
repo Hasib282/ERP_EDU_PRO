@@ -1,25 +1,26 @@
 @extends('admin.layouts/layout')
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <div class="title">
-                <div class="row center">
-                    <div class="col-md-4">
-                        <button class="open-modal add" data-modal-id="addProductSubCategoryModal">Add Sub Category</button>
-                    </div>
-                    <div class="col-md-8 text-right">
-                        <input type="text" name="search" id="search" class="form-control form-control-sm"
-                            placeholder="Search here..." style="width: 40%;">
-                    </div>
-                </div>
+    <div class="add-search">
+        <div class="row">
+            <div class="col-md-3">
+                <button class="open-modal add" data-modal-id="addProductSubCategoryModal">Add Sub Category</button>
+            </div>
+            <div class="col-md-9 search">
+                <select name="search-option" id="searchOption" class="select">
+                    <option value="1">Sub Category</option>
+                    <option value="2">Category</option>
+                </select>
+                <input type="text" name="search" id="search" class="form-input" placeholder="Search here...">
             </div>
         </div>
-
-        <!-- /.card-header -->
-        <div class="card-body sub-category">
-            @include('inventory.product_category.sub_category.subCategoryPagination')
-        </div>
     </div>
+
+
+    <!-- table show -->
+    <div class="sub-category">
+        @include('inventory.product_category.sub_category.subCategoryPagination')
+    </div>
+
 
     @include('inventory.product_category.sub_category.addSubCategoryModel')
 

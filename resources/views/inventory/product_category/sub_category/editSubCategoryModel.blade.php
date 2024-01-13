@@ -32,7 +32,7 @@
                                 <label for="updateCategory">Category:</label>
                                 <input type="text" name="category" class="form-control" id="updateCategory" autocomplete="off">
                                 <div id="update-category">
-                                    <ul class="list-group">
+                                    <ul>
 
                                     </ul>
                                 </div>

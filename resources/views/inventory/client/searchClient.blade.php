@@ -4,8 +4,8 @@
         <tr>
             <th>SL:</th>
             <th>Client Name</th>
-            <th>Contact</th>
             <th>Email</th>
+            <th>Contact</th>
             <th>Address</th>
             <th>Insertd By</th>
             <th>Status</th>
@@ -17,8 +17,8 @@
             <tr>
                 <td>{{ $inv_client->firstItem() + $key }}</td>
                 <td>{{ $item->client_name }}</td>
-                <td>{{ $item->client_contact }}</td>
                 <td>{{ $item->client_email }}</td>
+                <td>{{ $item->client_contact }}</td>
                 <td>{{ $item->client_address }}</td>
                 <td>{{ $item->UserName->name }}</td>
                 <td>
@@ -41,8 +41,8 @@
         <tr>
             <th>SL:</th>
             <th>Client Name</th>
-            <th>Contact</th>
             <th>Email</th>
+            <th>Contact</th>
             <th>Address</th>
             <th>Insertd By</th>
             <th>Status</th>

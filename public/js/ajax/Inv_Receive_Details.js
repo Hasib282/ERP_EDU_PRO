@@ -190,7 +190,7 @@ $(document).ready(function () {
         let id = $('#id').val();
         let supplier = $('#updateSupplier').val();
         let invoice = $('#updateInvoice').val();
-        let product = $('#updateProduct').data('id');
+        let product = $('#updateProduct').attr('data-id');
         let batch = $('#updateBatch').val();
         let cp = $('#updateCp').val();
         let discount = $('#updateDiscount').val();

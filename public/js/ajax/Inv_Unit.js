@@ -16,6 +16,7 @@ $(document).ready(function () {
                     $('#addUnitModal').hide();
                     $('#AddUnitForm')[0].reset();
                     $('.unit').load(location.href + ' .unit');
+                    $('#search').val('');
                     toastr.success('Unit Added Successfully', 'Added!');
                 }
             },
@@ -78,6 +79,7 @@ $(document).ready(function () {
                     $('#editUnitModal').hide();
                     $('#EditUnitForm')[0].reset();
                     $('.unit').load(location.href + " .unit")
+                    $('#search').val('');
                     toastr.success('Unit Updated Successfully', 'Updated!');
                 }
             },
@@ -103,6 +105,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.unit').load(location.href + " .unit");
+                        $('#search').val('');
                         toastr.success('Unit Deleted Successfully', 'Deleted!');
                     }
                 }

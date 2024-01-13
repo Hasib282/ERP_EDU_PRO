@@ -427,6 +427,7 @@ class InventoryController extends Controller
 
 
     /////////////////////////// --------------- Inventory Product Categorys Methods start---------- //////////////////////////
+    //Show Product Categories
     public function ShowProductCategory(){
         $inv_product_category = Inv_Product_Category::orderBy('added_at','desc')->paginate(15);;
         return view('inventory.product_category.productCategory', compact('inv_product_category'));
@@ -445,11 +446,11 @@ class InventoryController extends Controller
             if($inv_product_category->count() > 0){
                 $list = "";
                 foreach($inv_product_category as $category) {
-                    $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$category->id.'">'.$category->product_category_name.'</li>';
+                    $list .= '<li data-id="'.$category->id.'">'.$category->product_category_name.'</li>';
                 }
             }
             else{
-                $list = '<li class="list-group-item list-group-item-primary">No Data Found</li>';
+                $list = '<li>No Data Found</li>';
             }
             return $list;
         }else{
@@ -618,7 +619,7 @@ class InventoryController extends Controller
 
 
 
-    //show sub category by category id
+    //Show Product Sub Category by category id
     public function ShowSubCategoryByCategory($category){
         $sub_category = Inv_Product_Sub_Category::where('category_id','=', $category)
         ->orderBy('added_at','desc')
@@ -687,7 +688,7 @@ class InventoryController extends Controller
 
 
 
-    //product Category Pagination
+    //product Product Sub Category Pagination
     public function SubCategoryPagination(){
         $sub_category = Inv_Product_Sub_Category::orderBy('added_at','desc')->paginate(15);
         return response()->json([
@@ -698,18 +699,19 @@ class InventoryController extends Controller
 
 
 
-    //product category Search
+    //Search Product Sub Category by Name
     public function SearchSubCategory(Request $request){
         $sub_category = Inv_Product_Sub_Category::where('sub_category_name', 'like', '%'.$request->search.'%')
-        ->orWhere('id', 'like','%'.$request->search.'%')
         ->orderBy('sub_category_name','asc')
         ->paginate(15);
-        
+
+        $paginationHtml = $sub_category->links()->toHtml();
+
         if($sub_category->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                // 'pagination' => $sub_category->links()->toHtml(),
                 'data' => view('inventory.product_category.sub_category.searchSubCategory', compact('sub_category'))->render(),
+                'paginate' =>$paginationHtml
             ]);
         }
         else{
@@ -717,6 +719,32 @@ class InventoryController extends Controller
                 'status'=>'null'
             ]); 
         }
+    }//End Method
+
+
+    //Search Product Sub Category by Category Name
+    public function SearchSubCategoryByCategoryName(Request $request){
+        $sub_category = Inv_Product_Sub_Category::select('inv__product__sub__categories.*','inv__product__categories.product_category_name as pppp')
+        ->join('inv__product__categories', 'inv__product__sub__categories.category_id', '=', 'inv__product__categories.id')
+                ->where('inv__product__categories.product_category_name', 'like', '%'.$request->search.'%')
+                ->orderBy('product_category_name','asc')
+                ->paginate(15);
+
+        $paginationHtml = $sub_category->links()->toHtml();
+
+        if($sub_category->count() >= 1){
+            return response()->json([
+                'status'=>'success',
+                'data' => view('inventory.product_category.sub_category.searchSubCategory', compact('sub_category'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null',
+            ]);
+        }
+         
     }//End Method
     
     /////////////////////////// --------------- Inventory Product Sub Categorys Methods end---------- //////////////////////////

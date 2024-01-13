@@ -38,6 +38,6 @@
         </tr>
     </tfoot>
 </table>
-<div class="center search-paginate">
+<div class="center search-paginate" id="paginate">
     {!! $inv_unit->links() !!}
 </div>

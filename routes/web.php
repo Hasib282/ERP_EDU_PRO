@@ -110,9 +110,11 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/editProductSubCategory/{id}', 'EditSubCategory')->name('edit.subCatagory');
         Route::put('/updateProductSubCategory/{id}', 'UpdateSubCategory')->name('update.subCatagory');
         Route::delete('/deleteProductSubCategory/{id}', 'DeleteSubCategory')->name('delete.subCatagory');
-        Route::get('/searchProductSubCategory', 'SearchSubCategory')->name('search.subCategory');
         Route::get('/productSubCategory/pagination', 'SubCategoryPagination');
-        Route::get('/productSubCategory/searchPagination', 'SearchSubCategory');
+        Route::get('/searchProductSubCategory/name', 'SearchSubCategory')->name('search.subCategory');
+        Route::get('/productSubCategory/namePagination', 'SearchSubCategory');
+        Route::get('/productSubCategory/categoryName', 'SearchSubCategoryByCategoryName')->name('show.subCatagory.by.category');
+        Route::get('/productSubCategory/categoryNamePagination', 'SearchSubCategoryByCategoryName');
 
 
         

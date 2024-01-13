@@ -1,24 +1,30 @@
 @extends('admin.layouts/layout')
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <div class="title">
-                <div class="row center">
-                    <div class="col-md-4">
-                        <button class="open-modal add" data-modal-id="addReceiveDetailModal">Add Receive Details</button>
-                    </div>
-                    <div class="col-md-8 text-right">
-                        <input type="text" name="search" id="search" class="form-control form-control-sm" placeholder="Search here..." style="width: 40%;">
-                    </div>
-                </div>
+    <div class="add-search">
+        <div class="row">
+            <div class="col-md-3">
+                <button class="open-modal add" data-modal-id="addReceiveDetailModal">Add Receive Details</button>
+            </div>
+            <div class="col-md-9 search">
+                <select name="search-option" id="search-option" class="select">
+                    <option value="1">Supplier</option>
+                    <option value="2">Invoice</option>
+                    <option value="3">Batch</option>
+                    <option value="4">Cp</option>
+                    <option value="5">Discount</option>
+                    <option value="6">Expiry Date</option>
+                </select>
+                <input type="text" name="search" id="search" class="form-input" placeholder="Search here...">
             </div>
         </div>
-
-        <!-- /.card-header -->
-        <div class="card-body receive-detail">
-            @include('inventory.receive_detail.receiveDetailPagination')
-        </div>
     </div>
+
+
+    <!-- table show -->
+    <div class="receive-detail">
+        @include('inventory.receive_detail.receiveDetailPagination')
+    </div>
+
 
     @include('inventory.receive_detail.addReceiveDetailModal')
 

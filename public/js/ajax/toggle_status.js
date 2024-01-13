@@ -17,6 +17,7 @@ $(document).ready(function(){
             success:function (res) {
                 if(res.status == 'success'){
                     $(targetElement).load(location.href + ' ' + targetElement);
+                    $('#search').val('');
                 }
             }
         });

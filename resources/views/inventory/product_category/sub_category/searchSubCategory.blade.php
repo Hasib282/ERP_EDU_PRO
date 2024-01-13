@@ -42,6 +42,4 @@
         </tr>
     </tfoot>
 </table>
-<div class="center search-paginate">
-    {!! $sub_category->links() !!}
-</div>
+
