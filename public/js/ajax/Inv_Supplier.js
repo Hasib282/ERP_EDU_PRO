@@ -19,6 +19,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addSupplierModal').hide();
                     $('#AddSupplierForm')[0].reset();
+                    $('#search').val('');
                     $('.supplier').load(location.href + ' .supplier');
                     toastr.success('Supplier Added Successfully', 'Added!');
                 }
@@ -97,6 +98,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editSupplierModal').hide();
                     $('#EditSupplierForm')[0].reset();
+                    $('#search').val('');
                     $('.supplier').load(location.href + ' .supplier');
                     toastr.success('Supplier Updated Successfully', 'Updated!');
                 }
@@ -123,6 +125,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.supplier').load(location.href + ' .supplier');
+                        $('#search').val('');
                         toastr.success('Supplier Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -139,12 +142,29 @@ $(document).ready(function () {
     });
 
 
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
+    });
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadSupplierData(`/admin/inventory/searchSuppliers`, {search:search}, '.supplier');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadSupplierData(`/admin/inventory/searchSupplier/name`, {search:search}, '.supplier');
+        }
+        else if(searchOption == '2'){
+            loadSupplierData(`/admin/inventory/searchSupplier/email`, {search:search}, '.supplier')
+        }
+        else if(searchOption == '3'){
+            loadSupplierData(`/admin/inventory/searchSupplier/contact`, {search:search}, '.supplier')
+        }
+        else if(searchOption == '4'){
+            loadSupplierData(`/admin/inventory/searchSupplier/address`, {search:search}, '.supplier')
+        }
+        
     });
 
 
@@ -155,7 +175,19 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadSupplierData(`/admin/inventory/supplier/searchPagination?page=${page}`, {search:search}, '.supplier');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadSupplierData(`/admin/inventory/supplier/namePagination?page=${page}`, {search:search}, '.supplier');
+        }
+        else if(searchOption == '2'){
+            loadSupplierData(`/admin/inventory/supplier/emailPagination?page=${page}`, {search:search}, '.supplier')
+        }
+        else if(searchOption == '3'){
+            loadSupplierData(`/admin/inventory/supplier/contactPagination?page=${page}`, {search:search}, '.supplier')
+        }
+        else if(searchOption == '4'){
+            loadSupplierData(`/admin/inventory/supplier/addressPagination?page=${page}`, {search:search}, '.supplier')
+        }
     });
 
 
@@ -169,9 +201,14 @@ $(document).ready(function () {
                     $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
                 } else {
                     $(targetElement).html(res.data);
+                    if(res.paginate){
+                        $(targetElement).append('<div class="center search-paginate" id="paginate">' + res.paginate + '</div>');
+                    }
                 }
             }
         });
     }
+
+
 
 });

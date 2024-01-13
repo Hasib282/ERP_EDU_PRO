@@ -6,7 +6,7 @@
                 <button class="open-modal add" data-modal-id="addLocationModal">Add Location</button>
             </div>
             <div class="col-md-9 search">
-                <select name="search-option" id="search-option" class="select">
+                <select name="searchOption" id="searchOption" class="select">
                     <option value="1">Division</option>
                     <option value="2">District</option>
                     <option value="3">City</option>

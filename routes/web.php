@@ -65,14 +65,23 @@ Route::controller(InventoryController::class)->group(function(){
 
         
         ///////////// --------------- Inventory Suppliers routes ----------- ///////////////////
+        //crud routes start
         Route::get('/suppliers', 'ShowSuppliers')->name('show.suppliers');
         Route::post('/insertSuppliers', 'InsertSuppliers')->name('insert.suppliers');
         Route::get('/editSuppliers/{id}', 'EditSuppliers')->name('edit.suppliers');
         Route::put('/updateSuppliers/{id}', 'UpdateSuppliers')->name('update.suppliers');
         Route::delete('/deleteSuppliers/{id}', 'DeleteSuppliers')->name('delete.suppliers');
-        Route::get('/searchSuppliers', 'SearchSuppliers')->name('search.suppliers');
+        //search routes start
+        Route::get('/searchSupplier/name', 'SearchSuppliers')->name('search.supplier.name');
+        Route::get('/searchSupplier/email', 'SearchSupplierByEmail')->name('search.supplier.email');
+        Route::get('/searchSupplier/contact', 'SearchSupplierByContact')->name('search.supplier.contact');
+        Route::get('/searchSupplier/address', 'SearchSupplierByAddress')->name('search.supplier.address');
+        //pagination routes start
         Route::get('/supplier/pagination', 'SupplierPagination');
-        Route::get('/supplier/searchPagination', 'SearchSuppliers');
+        Route::get('/supplier/namePagination', 'SearchSuppliers');
+        Route::get('/supplier/emailPagination', 'SearchSupplierByEmail');
+        Route::get('/supplier/contactPagination', 'SearchSupplierByContact');
+        Route::get('/supplier/addressPagination', 'SearchSupplierByAddress');
 
 
 
@@ -82,10 +91,13 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/editManufacturers/{id}', 'EditManufacturers')->name('edit.manufacturers');
         Route::put('/updateManufacturers/{id}', 'UpdateManufacturers')->name('update.manufacturers');
         Route::delete('/deleteManufacturers/{id}', 'DeleteManufacturers')->name('delete.manufacturers');
-        Route::get('/searchManufacturers', 'SearchManufacturer')->name('search.manufacturers');
         Route::get('/manufacturer/pagination', 'ManufacturerPagination');
+        //search and pagination routes start
+        Route::get('/searchManufacturers', 'SearchManufacturer')->name('search.manufacturers');
         Route::get('/manufacturer/searchPagination', 'SearchManufacturer');
 
+        
+        //search and pagination routes end
         
 
         ///////////// --------------- Inventory product category routes ----------- ///////////////////
@@ -104,16 +116,19 @@ Route::controller(InventoryController::class)->group(function(){
 
 
         ///////////// --------------- Inventory product Sub Category routes ----------- ///////////////////
+        //crud routes start
         Route::get('/productSubCategory', 'ShowSubCategory')->name('show.subCatagory');
         Route::get('/productSubCategoryByCategory/{category}', 'ShowSubCategoryByCategory')->name('show.subCatagory.by.category');
         Route::post('/insertProductSubCategory', 'InsertSubCategory')->name('insert.subCatagory');
         Route::get('/editProductSubCategory/{id}', 'EditSubCategory')->name('edit.subCatagory');
         Route::put('/updateProductSubCategory/{id}', 'UpdateSubCategory')->name('update.subCatagory');
         Route::delete('/deleteProductSubCategory/{id}', 'DeleteSubCategory')->name('delete.subCatagory');
+        //search routes start
+        Route::get('/searchProductSubCategory/name', 'SearchSubCategory')->name('search.subCategory.name');
+        Route::get('/productSubCategory/categoryName', 'SearchSubCategoryByCategoryName')->name('show.subCatagory.category');
+        //pagination routes start
         Route::get('/productSubCategory/pagination', 'SubCategoryPagination');
-        Route::get('/searchProductSubCategory/name', 'SearchSubCategory')->name('search.subCategory');
         Route::get('/productSubCategory/namePagination', 'SearchSubCategory');
-        Route::get('/productSubCategory/categoryName', 'SearchSubCategoryByCategoryName')->name('show.subCatagory.by.category');
         Route::get('/productSubCategory/categoryNamePagination', 'SearchSubCategoryByCategoryName');
 
 

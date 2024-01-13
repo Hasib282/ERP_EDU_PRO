@@ -274,15 +274,99 @@ class InventoryController extends Controller
     //Suppplier Search
     public function SearchSuppliers(Request $request){
         $user_info = User_Info::get();
-        $inv_supplier = Inv_Supplier_Info::where('id', 'like', '%'.$request->search.'%')
-        ->orWhere('sup_name', 'like','%'.$request->search.'%')
+        $inv_supplier = Inv_Supplier_Info::where('sup_name', 'like','%'.$request->search.'%')
         ->orderBy('sup_name','asc')
         ->paginate(15);
+
+        $paginationHtml = $inv_supplier->links()->toHtml();
         
         if($inv_supplier->count() >= 1){
             return response()->json([
                 'status' => 'success',
+                'user_info' => $user_info,
                 'data' => view('inventory.supplier.searchSupplier', compact('inv_supplier','user_info'))->render(),
+                'paginate' => $paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+        
+    }//End Method
+
+
+
+    //Suppplier Search
+    public function SearchSupplierByEmail(Request $request){
+        $user_info = User_Info::get();
+        $inv_supplier = Inv_Supplier_Info::where('sup_email', 'like','%'.$request->search.'%')
+        ->orderBy('sup_email','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_supplier->links()->toHtml();
+        
+        if($inv_supplier->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'user_info' => $user_info,
+                'data' => view('inventory.supplier.searchSupplier', compact('inv_supplier','user_info'))->render(),
+                'paginate' => $paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+        
+    }//End Method
+
+
+
+    //Suppplier Search
+    public function SearchSupplierByContact(Request $request){
+        $user_info = User_Info::get();
+        $inv_supplier = Inv_Supplier_Info::where('sup_contact', 'like','%'.$request->search.'%')
+        ->orderBy('sup_contact','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_supplier->links()->toHtml();
+        
+        if($inv_supplier->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'user_info' => $user_info,
+                'data' => view('inventory.supplier.searchSupplier', compact('inv_supplier','user_info'))->render(),
+                'paginate' => $paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+        
+    }//End Method
+
+
+
+    //Suppplier Search
+    public function SearchSupplierByAddress(Request $request){
+        $user_info = User_Info::get();
+        $inv_supplier = Inv_Supplier_Info::where('sup_address', 'like', '%'.$request->search.'%')
+        ->orderBy('sup_address','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_supplier->links()->toHtml();
+        
+        if($inv_supplier->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'user_info' => $user_info,
+                'data' => view('inventory.supplier.searchSupplier', compact('inv_supplier','user_info'))->render(),
+                'paginate' => $paginationHtml
             ]);
         }
         else{

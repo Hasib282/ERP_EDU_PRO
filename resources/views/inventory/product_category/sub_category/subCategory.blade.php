@@ -6,7 +6,7 @@
                 <button class="open-modal add" data-modal-id="addProductSubCategoryModal">Add Sub Category</button>
             </div>
             <div class="col-md-9 search">
-                <select name="search-option" id="searchOption" class="select">
+                <select name="searchOption" id="searchOption" class="select">
                     <option value="1">Sub Category</option>
                     <option value="2">Category</option>
                 </select>

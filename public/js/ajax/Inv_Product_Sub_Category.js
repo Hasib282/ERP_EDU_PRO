@@ -17,7 +17,7 @@ $(document).ready(function () {
                     $('#addProductSubCategoryModal').hide();
                     $('#AddProductSubCategoryForm')[0].reset();
                     $('#category').removeAttr('data-id');
-                    $('#search').val('')
+                    $('#search').val('');
                     $('.sub-category').load(location.href+' .sub-category');
                     toastr.success('Product Sub Category Added Successfully', 'Added!');
                 }
@@ -105,7 +105,7 @@ $(document).ready(function () {
                     $('#editProductSubCategoryModal').hide();
                     $('#EditProductSubCategoryForm')[0].reset();
                     $('.sub-category').load(location.href + ' .sub-category');
-                    $('#search').val('')
+                    $('#search').val('');
                     $('#updateCategory').removeAttr('data-id');
                     toastr.success('Product Sub Category Updated Successfully', 'Updated!');
                 }
@@ -160,32 +160,29 @@ $(document).ready(function () {
             loadProductSubCategoryData(`/admin/inventory/searchProductSubCategory/name`, {search:search, searchOption:searchOption}, '.sub-category');
         }
         else if(searchOption == "2"){
-            loadProductSubCategoryByCategory(`/admin/inventory/productSubCategory/categoryName`, {search:search}, '.sub-category');
+            loadProductSubCategoryData(`/admin/inventory/productSubCategory/categoryName`, {search:search}, '.sub-category');
         }
     });
 
 
-    //Search by Name Pagination ajax part
+    //Search Pagination ajax part
     $(document).on('click', '.search-paginate a', function (e) {
         e.preventDefault();
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadProductSubCategoryData(`/admin/inventory/productSubCategory/namePagination?page=${page}`, {search:search}, '.sub-category');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == "1"){
+            loadProductSubCategoryData(`/admin/inventory/productSubCategory/namePagination?page=${page}`, {search:search}, '.sub-category');
+        }
+        else if(searchOption == "2"){
+            loadProductSubCategoryData(`/admin/inventory/productSubCategory/categoryNamePagination?page=${page}`, {search:search}, '.sub-category');
+        }
     });
 
 
-    //Search by Category Name Pagination ajax part
-    $(document).on('click', '.searchCategory-paginate a', function (e) {
-        e.preventDefault();
-        $('.paginate').addClass('hidden');
-        let search = $('#search').val();
-        let page = $(this).attr('href').split('page=')[1];
-        loadProductSubCategoryByCategory(`/admin/inventory/productSubCategory/categoryNamePagination?page=${page}`, {search:search}, '.sub-category');
-    });
 
-
-    //product Sub Category by name pagination data load function
+    //product Sub Category data load function
     function loadProductSubCategoryData(url, data, targetElement) {
         $.ajax({
             url: url,
@@ -202,25 +199,6 @@ $(document).ready(function () {
             }
         });
     }
-
-
-    //product Sub Category by Category name pagination data load function
-    function loadProductSubCategoryByCategory(url, data, targetElement) {
-        $.ajax({
-            url: url,
-            data: data,
-            success: function (res) {
-                if (res.status == "null") {
-                    $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
-                } 
-                else {
-                    $(targetElement).html(res.data);
-                    $(targetElement).append('<div class="center searchCategory-paginate" id="paginate">' + res.paginate + '</div>');
-                }
-            }
-        });
-    }
-
 
     ///////////////////////// ------------------ Search part ajax end ---------------- /////////////////////////////////
 });
