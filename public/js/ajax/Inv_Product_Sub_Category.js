@@ -148,7 +148,11 @@ $(document).ready(function () {
         loadProductSubCategoryData(`/admin/inventory/productSubCategory/pagination?page=${page}`, {}, '.sub-category');
     });
 
-
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
+    });
+    
 
     //////////////////////////// ------------------ Search part ajax start ---------------- /////////////////////////////
     //search main mechanism

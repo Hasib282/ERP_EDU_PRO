@@ -48,6 +48,4 @@
         </tr>
     </tfoot>
 </table>
-<div class="center search-paginate">
-    {!! $inv_manufacturer->links() !!}
-</div>
+

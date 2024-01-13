@@ -102,6 +102,7 @@ $(document).ready(function () {
                     $('#addReceiveDetailModal').hide();
                     $('#AddReceiveDetailForm')[0].reset();
                     $('#product').removeAttr('data-id');
+                    $('#search').val('');
                     $('.receive-detail').load(location.href + ' .receive-detail');
                     toastr.success('Receive Details Added Successfully', 'Added!');
                 }
@@ -211,6 +212,7 @@ $(document).ready(function () {
                     $('#editReceiveDetailModal').hide();
                     $('#EditReceiveDetailForm')[0].reset();
                     $('#updateProduct').removeAttr('data-id');
+                    $('#search').val('');
                     $('.receive-detail').load(location.href + ' .receive-detail');
                     toastr.success('Receive Details Updated Successfully', 'Updated!');
                 }
@@ -238,6 +240,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.receive-detail').load(location.href + ' .receive-detail');
+                        $('#search').val('');
                         toastr.success('Receive Details Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -273,6 +276,11 @@ $(document).ready(function () {
         loadReceiveDetailsData(`/admin/inventory/receiveDetail/searchPagination?page=${page}`, { search: search }, '.receive-detail');
     });
 
+
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
+    });
 
     //product pagination data load function
     function loadReceiveDetailsData(url, data, targetElement) {

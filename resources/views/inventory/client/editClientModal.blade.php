@@ -55,7 +55,7 @@
                                 <span class="text-danger error" id="update_status_error"></span>
                             </div>
                             <div class="center">
-                                <button type="submit" class="btn btn-primary" id="editClient">Submit</button>
+                                <button type="submit" class="btn btn-primary" id="updateClient">Submit</button>
                             </div>
                         </div>
                     </div>

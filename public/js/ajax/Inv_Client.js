@@ -19,6 +19,7 @@ $(document).ready(function () {
                     $('#addClientModal').hide();
                     $('#AddClientForm')[0].reset();
                     $('.client').load(location.href + ' .client');
+                    $('#search').val('');
                     toastr.success('Client Added Successfully', 'Added!');
                 }
             },
@@ -75,7 +76,7 @@ $(document).ready(function () {
 
 
     /////////////// ------------------ Update Client ajax part start ---------------- /////////////////////////////
-    $(document).on('click', '#editClient', function (e) {
+    $(document).on('click', '#updateClient', function (e) {
         e.preventDefault();
         let id = $('#id').val();;
         let clientName = $('#updateClientName').val();
@@ -95,6 +96,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editClientModal').hide();
                     $('#EditClientForm')[0].reset();
+                    $('#search').val('');
                     $('.client').load(location.href + ' .client');
                     toastr.success('Client Updated Successfully', 'Updated!');
                 }
@@ -121,6 +123,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.client').load(location.href + ' .client');
+                        $('#search').val('');
                         toastr.success('Client Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -136,6 +139,11 @@ $(document).ready(function () {
         loadClientData( `/admin/inventory/client/pagination?page=${page}`, {}, '.client');
     });
 
+
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
+    });
 
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////

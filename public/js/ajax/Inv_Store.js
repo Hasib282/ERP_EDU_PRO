@@ -16,6 +16,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addStoreModal').hide();
                     $('#AddStoreForm')[0].reset();
+                    $('#search').val('');
                     $('.store').load(location.href + ' .store');
                     toastr.success('Store Added Successfully', 'Added!');
                 }
@@ -86,6 +87,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editStoreModal').hide();
                     $('#EditStoreForm')[0].reset();
+                    $('#search').val('');
                     $('.store').load(location.href + ' .store');
                     toastr.success('Store Updated Successfully', 'Updated!');
                 }
@@ -112,6 +114,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.store').load(location.href + ' .store');
+                        $('#search').val('');
                         toastr.success('Store Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -125,6 +128,12 @@ $(document).ready(function () {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
         loadStoreData(`/admin/inventory/store/pagination?page=${page}`, {}, '.store');
+    });
+
+
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
     });
 
 

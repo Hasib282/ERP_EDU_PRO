@@ -19,6 +19,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addLocationModal').hide();
                     $('#AddLocationForm')[0].reset();
+                    $('#search').val('');
                     $('.location').load(location.href + ' .location');
                     toastr.success('Location Added Successfully', 'Added!');
                 }
@@ -90,6 +91,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editLocationModal').hide();
                     $('#EditLocationForm')[0].reset();
+                    $('#search').val('');
                     $('.location').load(location.href + ' .location');
                     toastr.success('Location Updated Successfully', 'Updated!');
                 }
@@ -116,6 +118,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.location').load(location.href + ' .location');
+                        $('#search').val('');
                         toastr.success('Location Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -131,6 +134,11 @@ $(document).ready(function () {
         loadLocationData(`/admin/inventory/location/pagination?page=${page}`, {}, '.location');
     });
 
+
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
+    });
 
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////

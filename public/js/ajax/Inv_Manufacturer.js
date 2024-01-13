@@ -18,6 +18,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addManufacturerModal').hide();
                     $('#AddManufacturerForm')[0].reset();
+                    $('#search').val('');
                     $('.manufacturer').load(location.href + ' .manufacturer');
                     toastr.success('Manufacturer Added Successfully', 'Added!');
                 }
@@ -94,6 +95,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editManufacturerModal').hide();
                     $('#EditManufacturerForm')[0].reset();
+                    $('#search').val('');
                     $('.manufacturer').load(location.href + ' .manufacturer');
                     toastr.success('Manufacturer Updated Successfully', 'Updated!');
                 }
@@ -120,6 +122,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.manufacturer').load(location.href + ' .manufacturer');
+                        $('#search').val('');
                         toastr.success('Manufacturer Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -136,12 +139,26 @@ $(document).ready(function () {
     });
 
 
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
+    });
+    
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadManufacturerData(`/admin/inventory/searchManufacturers`, {search:search}, '.manufacturer');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadManufacturerData(`/admin/inventory/searchManufacturer/name`, {search:search}, '.manufacturer');
+        }
+        else if(searchOption == '2'){
+            loadManufacturerData(`/admin/inventory/searchManufacturer/email`, {search:search}, '.manufacturer');
+        }
+        else if(searchOption == '3'){
+            loadManufacturerData(`/admin/inventory/searchManufacturer/contact`, {search:search}, '.manufacturer');
+        }
     });
 
 
@@ -151,7 +168,16 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadManufacturerData(`/admin/inventory/manufacturer/searchPagination?page=${page}`, {search:search}, '.manufacturer');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadManufacturerData(`/admin/inventory/manufacturer/namePagination?page=${page}`, {search:search}, '.manufacturer');
+        }
+        else if(searchOption == '2'){
+            loadManufacturerData(`/admin/inventory/manufacturer/emailPagination?page=${page}`, {search:search}, '.manufacturer')
+        }
+        else if(searchOption == '3'){
+            loadManufacturerData(`/admin/inventory/manufacturer/contactPagination?page=${page}`, {search:search}, '.manufacturer')
+        }
     });
 
 
@@ -165,6 +191,9 @@ $(document).ready(function () {
                     $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
                 } else {
                     $(targetElement).html(res.data);
+                    if(res.paginate){
+                        $(targetElement).append('<div class="center search-paginate" id="paginate">' + res.paginate + '</div>');
+                    }
                 }
             }
         });

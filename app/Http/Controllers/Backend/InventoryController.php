@@ -483,15 +483,62 @@ class InventoryController extends Controller
     //Manufacturer Search
     public function SearchManufacturer(Request $request){
         $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_name', 'like', '%'.$request->search.'%')
-        ->orWhere('id', 'like','%'.$request->search.'%')
         ->orderBy('manufacturer_name','asc')
         ->paginate(15);
+
+        $paginationHtml = $inv_manufacturer->links()->toHtml();
         
         if($inv_manufacturer->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                // 'pagination' => $inv_manufacturer->links()->toHtml(),
                 'data' => view('inventory.manufacturer.searchManufacturer', compact('inv_manufacturer'))->render(),
+                'paginate' => $paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+    //Manufacturer Search
+    public function SearchManufacturerByEmail(Request $request){
+        $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_email', 'like', '%'.$request->search.'%')
+        ->orderBy('manufacturer_email','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_manufacturer->links()->toHtml();
+        
+        if($inv_manufacturer->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.manufacturer.searchManufacturer', compact('inv_manufacturer'))->render(),
+                'paginate' => $paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+    //Manufacturer Search
+    public function SearchManufacturerByContact(Request $request){
+        $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_contact', 'like', '%'.$request->search.'%')
+        ->orderBy('manufacturer_contact','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_manufacturer->links()->toHtml();
+        
+        if($inv_manufacturer->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.manufacturer.searchManufacturer', compact('inv_manufacturer'))->render(),
+                'paginate' => $paginationHtml
             ]);
         }
         else{

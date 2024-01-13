@@ -66,6 +66,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addProductModal').hide();
                     $('#AddProductForm')[0].reset();
+                    $('#search').val('');
                     $('.product').load(location.href + ' .product');
                     toastr.success('Product Added Successfully', 'Added!');
                 }
@@ -172,6 +173,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editProductModal').hide();
                     $('#EditProductForm')[0].reset();
+                    $('#search').val('');
                     $('.product').load(location.href + ' .product');
                     toastr.success('Product Updated Successfully', 'Updated!');
                 }
@@ -198,6 +200,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status == "success") {
                         $('.product').load(location.href + ' .product');
+                        $('#search').val('');
                         toastr.success('Product Deleted Successfully', 'Deleted!');
                     }
                 }
@@ -213,6 +216,11 @@ $(document).ready(function () {
         loadProductData(`/admin/inventory/product/pagination?page=${page}`, {}, '.product');
     });
 
+
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
+    });
 
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////

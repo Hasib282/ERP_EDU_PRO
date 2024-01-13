@@ -53,15 +53,20 @@ Route::controller(InventoryController::class)->group(function(){
     Route::prefix('/admin/inventory')->group(function(){
 
         ///////////// --------------- Inventory Unit routes ----------- ///////////////////
+        //crud routes start
         Route::get('/units', 'ShowUnits')->name('show.units');
         Route::post('/insertUnits', 'InsertUnits')->name('insert.units');
         Route::get('/editUnits/{id}', 'EditUnits')->name('edit.units');
         Route::put('/updateUnits/{id}', 'UpdateUnits')->name('update.units');
         Route::delete('/deleteUnits/{id}', 'DeleteUnits')->name('delete.units');
+        //search routes start
         Route::get('/searchUnits', 'SearchUnits')->name('search.units');
+        //pagination routes start
         Route::get('/unit/pagination', 'UnitPagination');
         Route::get('/unit/searchPagination', 'SearchUnits');
-        
+        //search list routs
+
+
 
         
         ///////////// --------------- Inventory Suppliers routes ----------- ///////////////////
@@ -82,33 +87,47 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/supplier/emailPagination', 'SearchSupplierByEmail');
         Route::get('/supplier/contactPagination', 'SearchSupplierByContact');
         Route::get('/supplier/addressPagination', 'SearchSupplierByAddress');
+        //search list routs
+
+
 
 
 
         ///////////// --------------- Inventory manufacturer routes ----------- ///////////////////
+        //crud routes start
         Route::get('/manufacturers', 'ShowManufacturers')->name('show.manufacturers');
         Route::post('/insertManufacturers', 'InsertManufacturers')->name('insert.manufacturers');
         Route::get('/editManufacturers/{id}', 'EditManufacturers')->name('edit.manufacturers');
         Route::put('/updateManufacturers/{id}', 'UpdateManufacturers')->name('update.manufacturers');
         Route::delete('/deleteManufacturers/{id}', 'DeleteManufacturers')->name('delete.manufacturers');
+        //search routes start
+        Route::get('/searchManufacturer/name', 'SearchManufacturer')->name('search.manufacturers');
+        Route::get('/searchManufacturer/email', 'SearchManufacturerByEmail')->name('search.manufacturer.email');
+        Route::get('/searchManufacturer/contact', 'SearchManufacturerByContact')->name('search.manufacturer.contact');
+        //pagination routes start
         Route::get('/manufacturer/pagination', 'ManufacturerPagination');
-        //search and pagination routes start
-        Route::get('/searchManufacturers', 'SearchManufacturer')->name('search.manufacturers');
-        Route::get('/manufacturer/searchPagination', 'SearchManufacturer');
-
+        Route::get('/manufacturer/namePagination', 'SearchManufacturer');
+        Route::get('/manufacturer/emailPagination', 'SearchManufacturerByEmail');
+        Route::get('/manufacturer/contactPagination', 'SearchManufacturerByContact');
+        //search list routs
         
-        //search and pagination routes end
+        
+
         
 
         ///////////// --------------- Inventory product category routes ----------- ///////////////////
+        //crud routes start
         Route::get('/productCategory', 'ShowProductCategory')->name('show.productCatagory');
         Route::post('/insertProductCategory', 'InsertProductCategory')->name('insert.productCatagory');
         Route::get('/editProductCategory/{id}', 'EditProductCategory')->name('edit.productCatagory');
         Route::put('/updateProductCategory/{id}', 'UpdateProductCategory')->name('update.productCatagory');
         Route::delete('/deleteProductCategory/{id}', 'DeleteProductCategory')->name('delete.productCatagory');
+        //search routes start
         Route::get('/searchProductCategory', 'SearchProductCategory')->name('search.productCategory');
+        //pagination routes start
         Route::get('/productCategory/pagination', 'ProductCategoryPagination');
         Route::get('/productCategory/searchPagination', 'SearchProductCategory');
+        //search list routs
         Route::get('/getCategoryByName', 'GetCategoryByName')->name('get.category.by.name');
         Route::get('/getCategoryById/{id}', 'GetCategoryById')->name('get.category.by.id');
 
@@ -118,7 +137,6 @@ Route::controller(InventoryController::class)->group(function(){
         ///////////// --------------- Inventory product Sub Category routes ----------- ///////////////////
         //crud routes start
         Route::get('/productSubCategory', 'ShowSubCategory')->name('show.subCatagory');
-        Route::get('/productSubCategoryByCategory/{category}', 'ShowSubCategoryByCategory')->name('show.subCatagory.by.category');
         Route::post('/insertProductSubCategory', 'InsertSubCategory')->name('insert.subCatagory');
         Route::get('/editProductSubCategory/{id}', 'EditSubCategory')->name('edit.subCatagory');
         Route::put('/updateProductSubCategory/{id}', 'UpdateSubCategory')->name('update.subCatagory');
@@ -130,67 +148,97 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/productSubCategory/pagination', 'SubCategoryPagination');
         Route::get('/productSubCategory/namePagination', 'SearchSubCategory');
         Route::get('/productSubCategory/categoryNamePagination', 'SearchSubCategoryByCategoryName');
+        //search list routs
+        Route::get('/productSubCategoryByCategory/{category}', 'ShowSubCategoryByCategory')->name('show.subCatagory.by.category');
+
+
 
 
         
         ///////////// --------------- Inventory products routes ----------- ///////////////////
+        //crud routes start
         Route::get('/products', 'ShowProducts')->name('show.products');
-        Route::get('/getProductById/{id}', 'GetProductByID')->name('get.product.by.id');
         Route::post('/insertProducts', 'InsertProducts')->name('insert.products');
         Route::get('/editProducts/{id}', 'EditProducts')->name('edit.products');
         Route::put('/updateProducts/{id}', 'UpdateProducts')->name('update.products');
         Route::delete('/deleteProducts/{id}', 'DeleteProducts')->name('delete.products');
+        //search routes start
         Route::get('/searchProducts', 'SearchProduct')->name('search.products');
+        //pagination routes start
         Route::get('/product/pagination', 'ProductPagination');
         Route::get('/product/searchPagination', 'SearchProduct');
+        //search list routs
         Route::get('/getProductByName', 'GetProductByName')->name('get.product.by.name');
+        Route::get('/getProductById/{id}', 'GetProductByID')->name('get.product.by.id');
+        
 
 
 
         ///////////// --------------- Inventory Clients routes ----------- ///////////////////
+        //crud routes start
         Route::get('/clients', 'ShowClients')->name('show.clients');
         Route::post('/insertClients', 'InsertClients')->name('insert.clients');
         Route::get('/editClients/{id}', 'EditClients')->name('edit.clients');
         Route::put('/updateClients/{id}', 'UpdateClients')->name('update.clients');
         Route::delete('/deleteClients/{id}', 'DeleteClients')->name('delete.clients');
+        //search routes start
         Route::get('/searchClients', 'SearchClients')->name('search.clients');
+        //pagination routes start
         Route::get('/client/pagination', 'ClientPagination');
         Route::get('/client/searchPagination', 'SearchClients');
+        //search list routs
+
 
 
 
         ///////////// --------------- Inventory Location routes ----------- ///////////////////
+        //crud routes start
         Route::get('/locations', 'ShowLocations')->name('show.locations');
         Route::post('/insertLocations', 'InsertLocations')->name('insert.locations');
         Route::get('/editLocations/{id}', 'EditLocations')->name('edit.locations');
         Route::put('/updateLocations/{id}', 'UpdateLocations')->name('update.locations');
         Route::delete('/deleteLocations/{id}', 'DeleteLocations')->name('delete.locations');
+        //search routes start
         Route::get('/searchLocations', 'SearchLocations')->name('search.locations');
+        //pagination routes start
         Route::get('/location/pagination', 'LocationPagination');
         Route::get('/location/searchPagination', 'SearchLocations');
+        //search list routs
+
 
 
 
         ///////////// --------------- Inventory Store routes ----------- ///////////////////
+        //crud routes start
         Route::get('/stores', 'ShowStores')->name('show.stores');
         Route::post('/insertStores', 'InsertStores')->name('insert.stores');
         Route::get('/editStores/{id}', 'EditStores')->name('edit.stores');
         Route::put('/updateStores/{id}', 'UpdateStores')->name('update.stores');
         Route::delete('/deleteStores/{id}', 'DeleteStores')->name('delete.stores');
+        //search routes start
         Route::get('/searchStores', 'SearchStores')->name('search.stores');
+        //pagination routes start
         Route::get('/store/pagination', 'StorePagination');
         Route::get('/store/searchPagination', 'SearchStores');
-        
+        //search list routs
+
+
 
         //////////// -------------- Inventory Receive Details Routes ------------ ///////////////////////
+        //crud routes start
         Route::get('/receiveDetails', 'ShowReceiveDetails')->name('show.receive.details');
         Route::post('/insertReceiveDetails', 'InsertReceiveDetails')->name('insert.receive.details');
         Route::get('/editReceiveDetails/{id}', 'EditReceiveDetails')->name('edit.receive.details');
         Route::put('/updateReceiveDetails/{id}', 'UpdateReceiveDetails')->name('update.receive.details');
         Route::delete('/deleteReceiveDetails/{id}', 'DeleteReceiveDetails')->name('delete.receive.details');
+        //search routes start
         Route::get('/searchReceiveDetails', 'SearchReceiveDetails')->name('search.receive.details');
+        //pagination routes start
         Route::get('/receiveDetail/pagination', 'ReceiveDetailPagination');
         Route::get('/receiveDetail/searchPagination', 'SearchReceiveDetails');
+        //search list routs
+
+
 
 
         Route::put('/status','Status')->name('status');

@@ -122,6 +122,11 @@ $(document).ready(function () {
     });
 
 
+    //on select option search value will be remove
+    $(document).on('change', '#searchOption', function (e) {
+        $('#search').val('');
+    });
+    
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
     $(document).on('keyup', '#search', function (e) {
