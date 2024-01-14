@@ -27,18 +27,18 @@
 
                             <div class="form-group">
                                 <label for="location">Location:</label>
-                                <select name="location" class="form-control" id="location">
+                                {{-- <select name="location" class="form-control" id="location">
                                     <option value="">Location</option>
                                     @foreach ($inv_location as $location)
                                         <option value="{{ $location->id }}">{{ $location->division }}</option>
                                     @endforeach
-                                </select>
-                                {{-- <input type="text" name="location" class="form-control" id="location" autocomplete="off">
+                                </select> --}}
+                                <input type="text" name="location" class="form-control" id="location" autocomplete="off">
                                 <div id="location-list">
                                     <ul>
 
                                     </ul>
-                                </div> --}}
+                                </div>
                                 <span class="text-danger error" id="location_error"></span>
                             </div>
 

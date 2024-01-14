@@ -4,7 +4,7 @@ $(document).ready(function () {
     $(document).on('click', '#addStore', function (e) {
         e.preventDefault();
         let storeName = $('#storeName').val();
-        let locations = $('#location').val();
+        let locations = $('#location').attr('data-id');
         $.ajax({
             url: "/admin/inventory/insertStores",
             method: 'Post',
@@ -16,6 +16,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addStoreModal').hide();
                     $('#AddStoreForm')[0].reset();
+                    $('#location').removeAttr('data-id');
                     $('#search').val('');
                     $('.store').load(location.href + ' .store');
                     toastr.success('Store Added Successfully', 'Added!');
@@ -44,11 +45,8 @@ $(document).ready(function () {
                 $('#id').val(res.inv_store.id);
                 $('#updateStoreName').val(res.inv_store.store_name);
                 
-                // Create options dynamically based on the user value
-                $('#updateLocation').empty();
-                $.each(res.inv_location, function(key,location) {
-                    $('#updateLocation').append(`<option value="${location.id}" ${res.inv_store.location_id === location.id ? 'selected' : ''}>${location.division}</option>`);
-                });
+                getLocationById(res.inv_store.location_id,'#updateLocation');
+                $('#updateLocation').attr('data-id',res.inv_store.location_id);
 
                 // Create options dynamically based on the status value
                 $('#updateStatus').empty()
@@ -74,7 +72,7 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $('#id').val();
         let storeName = $('#updateStoreName').val();
-        let locations = $('#updateLocation').val();
+        let locations = $('#updateLocation').attr('data-id');
         let status = $('#updateStatus').val();
         $.ajax({
             url: `/admin/inventory/updateStores/${id}`,
@@ -87,6 +85,7 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editStoreModal').hide();
                     $('#EditStoreForm')[0].reset();
+                    $('#updateLocation').removeAttr('data-id');
                     $('#search').val('');
                     $('.store').load(location.href + ' .store');
                     toastr.success('Store Updated Successfully', 'Updated!');
@@ -188,6 +187,26 @@ $(document).ready(function () {
                 }
             }
         });
+    }
+
+
+    //search category by id
+    function getLocationById(id, targetElement1) {
+        if(id==""){
+            $(targetElement1).val('');
+        }
+        else{
+            $.ajax({
+                url: `/admin/inventory/getLocationById`,
+                method: 'get',
+                data:{ id:id },
+                success: function (res) {
+                    if (res.status == "success") {
+                        $(targetElement1).val(res.inv_location.division);
+                    }
+                }
+            });
+        }
     }
 
 });

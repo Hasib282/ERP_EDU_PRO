@@ -566,7 +566,7 @@ class InventoryController extends Controller
 
 
 
-    //get product by name
+    //get product category by name
     public function GetCategoryByName(Request $request){
         if($request->category != ""){
             $inv_product_category = Inv_Product_Category::where('product_category_name', 'like', '%'.$request->category.'%')
@@ -1281,6 +1281,51 @@ class InventoryController extends Controller
     public function ShowLocations(){
         $inv_location = Inv_Location::orderBy('added_at','desc')->paginate(15);
         return view('inventory.location.locations', compact('inv_location'));
+    }//End Method
+
+
+
+    //Get Location by Division
+    public function GetLocationByDivision(Request $request){
+        if($request->location != ""){
+            $inv_location = Inv_Location::where('division', 'like', '%'.$request->location.'%')
+            ->orderBy('division','asc')
+            ->take(10)
+            ->get();
+
+            if($inv_location->count() > 0){
+                $list = "";
+                foreach($inv_location as $location) {
+                    $list .= '<li data-id="'.$location->id.'">'.$location->division.'</li>';
+                }
+            }
+            else{
+                $list = '<li>No Data Found</li>';
+            }
+            return $list;
+        }else{
+            return "";
+        } 
+    }//End Method
+
+
+
+    //Get Location by id
+    public function GetLocationByID(Request $request){
+        $inv_location = Inv_Location::where('id','=', $request->id)->first();
+
+        if($inv_location->count() >= 1){
+            return response()->json([
+                'status'=>'success',
+                'inv_location'=>$inv_location
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'fail',
+            ]);
+        }
+         
     }//End Method
 
 

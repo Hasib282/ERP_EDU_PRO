@@ -218,7 +218,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/location/areaPagination', 'SearchLocationByArea');
         Route::get('/location/roadnoPagination', 'SearchLocationByRoadno');
         //search list routs
-        
+        Route::get('/getLocationByDivision', 'GetLocationByDivision')->name('get.location.by.division');
+        Route::get('/getLocationById', 'GetLocationById')->name('get.location.by.id');
 
 
 

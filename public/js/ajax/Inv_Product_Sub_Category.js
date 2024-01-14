@@ -33,25 +33,6 @@ $(document).ready(function () {
     });
 
 
-    //search category by id
-    function getCategoryById(id, targetElement1) {
-        if(id==""){
-            $(targetElement1).val('');
-        }
-        else{
-            $.ajax({
-                url: `/admin/inventory/getCategoryById/${id}`,
-                method: 'get',
-                success: function (res) {
-                    if (res.status == "success") {
-                        $(targetElement1).val(res.inv_category.product_category_name);
-                    }
-                }
-            });
-        }
-    }
-
-
 
     /////////////// ------------------ Edit Product Sub Category ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.editProductSubCategoryModal', function () {
@@ -140,6 +121,7 @@ $(document).ready(function () {
         }
     });
 
+    
 
     /////////////// ------------------ Pagination Sub ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
@@ -147,6 +129,8 @@ $(document).ready(function () {
         let page = $(this).attr('href').split('page=')[1];
         loadProductSubCategoryData(`/admin/inventory/productSubCategory/pagination?page=${page}`, {}, '.sub-category');
     });
+
+
 
     //on select option search value will be remove
     $(document).on('change', '#searchOption', function (e) {
@@ -202,6 +186,25 @@ $(document).ready(function () {
                 }
             }
         });
+    }
+
+
+    //search category by id
+    function getCategoryById(id, targetElement1) {
+        if(id==""){
+            $(targetElement1).val('');
+        }
+        else{
+            $.ajax({
+                url: `/admin/inventory/getCategoryById/${id}`,
+                method: 'get',
+                success: function (res) {
+                    if (res.status == "success") {
+                        $(targetElement1).val(res.inv_category.product_category_name);
+                    }
+                }
+            });
+        }
     }
 
     ///////////////////////// ------------------ Search part ajax end ---------------- /////////////////////////////////
