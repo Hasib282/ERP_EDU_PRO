@@ -127,6 +127,7 @@ $(document).ready(function () {
     });
 
 
+
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
@@ -135,17 +136,34 @@ $(document).ready(function () {
     });
 
 
+
     //on select option search value will be remove
     $(document).on('change', '#searchOption', function (e) {
         $('#search').val('');
     });
 
 
+
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadLocationData(`/admin/inventory/searchLocations`, {search:search}, '.location');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadLocationData(`/admin/inventory/searchLocation/division`, {search:search}, '.location');
+        }
+        else if(searchOption == '2'){
+            loadLocationData(`/admin/inventory/searchLocation/district`, {search:search}, '.location')
+        }
+        else if(searchOption == '3'){
+            loadLocationData(`/admin/inventory/searchLocation/city`, {search:search}, '.location')
+        }
+        else if(searchOption == '4'){
+            loadLocationData(`/admin/inventory/searchLocation/area`, {search:search}, '.location')
+        }
+        else if(searchOption == '5'){
+            loadLocationData(`/admin/inventory/searchLocation/roadno`, {search:search}, '.location')
+        }
     });
 
 
@@ -156,7 +174,22 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadLocationData(`/admin/inventory/location/searchPagination?page=${page}`, {search:search}, '.location');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadClientData(`/admin/inventory/location/divisionPagination?page=${page}`, {search:search}, '.location');
+        }
+        else if(searchOption == '2'){
+            loadClientData(`/admin/inventory/location/districtPagination?page=${page}`, {search:search}, '.location')
+        }
+        else if(searchOption == '3'){
+            loadClientData(`/admin/inventory/location/cityPagination?page=${page}`, {search:search}, '.location')
+        }
+        else if(searchOption == '4'){
+            loadClientData(`/admin/inventory/location/areaPagination?page=${page}`, {search:search}, '.location')
+        }
+        else if(searchOption == '5'){
+            loadClientData(`/admin/inventory/location/roadnoPagination?page=${page}`, {search:search}, '.location')
+        }
     });
 
 
@@ -171,6 +204,9 @@ $(document).ready(function () {
                     $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
                 } else {
                     $(targetElement).html(res.data);
+                    if(res.paginate){
+                        $(targetElement).append('<div class="center search-paginate" id="paginate">' + res.paginate + '</div>');
+                    }
                 }
             }
         });

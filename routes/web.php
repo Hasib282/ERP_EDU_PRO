@@ -182,12 +182,18 @@ Route::controller(InventoryController::class)->group(function(){
         Route::put('/updateClients/{id}', 'UpdateClients')->name('update.clients');
         Route::delete('/deleteClients/{id}', 'DeleteClients')->name('delete.clients');
         //search routes start
-        Route::get('/searchClients', 'SearchClients')->name('search.clients');
+        Route::get('/searchClient/name', 'SearchClients')->name('search.client.name');
+        Route::get('/searchClient/email', 'SearchClientByEmail')->name('search.client.email');
+        Route::get('/searchClient/contact', 'SearchClientByContact')->name('search.client.contact');
+        Route::get('/searchClient/address', 'SearchClientByAddress')->name('search.client.address');
         //pagination routes start
         Route::get('/client/pagination', 'ClientPagination');
-        Route::get('/client/searchPagination', 'SearchClients');
+        Route::get('/client/namePagination', 'SearchClients');
+        Route::get('/client/emailPagination', 'SearchClientByEmail');
+        Route::get('/client/contactPagination', 'SearchClientByContact');
+        Route::get('/client/addressPagination', 'SearchClientByAddress');
         //search list routs
-
+        
 
 
 
@@ -199,12 +205,20 @@ Route::controller(InventoryController::class)->group(function(){
         Route::put('/updateLocations/{id}', 'UpdateLocations')->name('update.locations');
         Route::delete('/deleteLocations/{id}', 'DeleteLocations')->name('delete.locations');
         //search routes start
-        Route::get('/searchLocations', 'SearchLocations')->name('search.locations');
+        Route::get('/searchLocation/division', 'SearchLocations')->name('search.locations');
+        Route::get('/searchLocation/district', 'SearchLocationByDistrict')->name('search.location.district');
+        Route::get('/searchLocation/city', 'SearchLocationByCity')->name('search.location.city');
+        Route::get('/searchLocation/area', 'SearchLocationByArea')->name('search.location.area');
+        Route::get('/searchLocation/roadno', 'SearchLocationByRoadno')->name('search.location.roadno');
         //pagination routes start
         Route::get('/location/pagination', 'LocationPagination');
-        Route::get('/location/searchPagination', 'SearchLocations');
+        Route::get('/location/divisionPagination', 'SearchLocations');
+        Route::get('/location/districtPagination', 'SearchLocationByDistrict');
+        Route::get('/location/cityPagination', 'SearchLocationByCity');
+        Route::get('/location/areaPagination', 'SearchLocationByArea');
+        Route::get('/location/roadnoPagination', 'SearchLocationByRoadno');
         //search list routs
-
+        
 
 
 
@@ -216,10 +230,12 @@ Route::controller(InventoryController::class)->group(function(){
         Route::put('/updateStores/{id}', 'UpdateStores')->name('update.stores');
         Route::delete('/deleteStores/{id}', 'DeleteStores')->name('delete.stores');
         //search routes start
-        Route::get('/searchStores', 'SearchStores')->name('search.stores');
+        Route::get('/searchStore/name', 'SearchStores')->name('search.store.name');
+        Route::get('/searchStore/location', 'SearchStoreByLocation')->name('search.store.location');
         //pagination routes start
         Route::get('/store/pagination', 'StorePagination');
-        Route::get('/store/searchPagination', 'SearchStores');
+        Route::get('/store/namePagination', 'SearchStores');
+        Route::get('/store/locationPagination', 'SearchStoreByLocation');
         //search list routs
 
 

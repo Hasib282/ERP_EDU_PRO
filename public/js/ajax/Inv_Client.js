@@ -132,12 +132,14 @@ $(document).ready(function () {
     });
 
 
+
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
         loadClientData( `/admin/inventory/client/pagination?page=${page}`, {}, '.client');
     });
+
 
 
     //on select option search value will be remove
@@ -150,9 +152,20 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadClientData(`/admin/inventory/searchClients`, {search:search}, '.client');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadClientData(`/admin/inventory/searchClient/name`, {search:search}, '.client');
+        }
+        else if(searchOption == '2'){
+            loadClientData(`/admin/inventory/searchClient/email`, {search:search}, '.client')
+        }
+        else if(searchOption == '3'){
+            loadClientData(`/admin/inventory/searchClient/contact`, {search:search}, '.client')
+        }
+        else if(searchOption == '4'){
+            loadClientData(`/admin/inventory/searchClient/address`, {search:search}, '.client')
+        }
     });
-
 
 
 
@@ -162,7 +175,19 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadClientData(`/admin/inventory/client/searchPagination?page=${page}`, {search:search}, '.client');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadClientData(`/admin/inventory/client/namePagination?page=${page}`, {search:search}, '.client');
+        }
+        else if(searchOption == '2'){
+            loadClientData(`/admin/inventory/client/emailPagination?page=${page}`, {search:search}, '.client')
+        }
+        else if(searchOption == '3'){
+            loadClientData(`/admin/inventory/client/contactPagination?page=${page}`, {search:search}, '.client')
+        }
+        else if(searchOption == '4'){
+            loadClientData(`/admin/inventory/client/addressPagination?page=${page}`, {search:search}, '.client')
+        }
     });
 
 
@@ -177,6 +202,9 @@ $(document).ready(function () {
                     $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
                 } else {
                     $(targetElement).html(res.data);
+                    if(res.paginate){
+                        $(targetElement).append('<div class="center search-paginate" id="paginate">' + res.paginate + '</div>');
+                    }
                 }
             }
         });

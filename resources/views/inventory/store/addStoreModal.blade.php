@@ -33,6 +33,12 @@
                                         <option value="{{ $location->id }}">{{ $location->division }}</option>
                                     @endforeach
                                 </select>
+                                {{-- <input type="text" name="location" class="form-control" id="location" autocomplete="off">
+                                <div id="location-list">
+                                    <ul>
+
+                                    </ul>
+                                </div> --}}
                                 <span class="text-danger error" id="location_error"></span>
                             </div>
 

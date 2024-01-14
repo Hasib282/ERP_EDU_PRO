@@ -856,7 +856,7 @@ class InventoryController extends Controller
     //Search Product Sub Category by Category Name
     public function SearchSubCategoryByCategoryName(Request $request){
         $sub_category = Inv_Product_Sub_Category::select('inv__product__sub__categories.*','inv__product__categories.product_category_name as pppp')
-        ->join('inv__product__categories', 'inv__product__sub__categories.category_id', '=', 'inv__product__categories.id')
+                ->join('inv__product__categories', 'inv__product__sub__categories.category_id', '=', 'inv__product__categories.id')
                 ->where('inv__product__categories.product_category_name', 'like', '%'.$request->search.'%')
                 ->orderBy('product_category_name','asc')
                 ->paginate(15);
@@ -1184,11 +1184,85 @@ class InventoryController extends Controller
         ->orWhere('id', 'like','%'.$request->search.'%')
         ->orderBy('client_name','asc')
         ->paginate(15);
+
+        $paginationHtml = $inv_client->links()->toHtml();
         
         if($inv_client->count() >= 1){
             return response()->json([
                 'status' => 'success',
                 'data' => view('inventory.client.searchClient', compact('inv_client'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+    //Client Search
+    public function SearchClientByEmail(Request $request){
+        $inv_client = Inv_Client_Info::where('client_email', 'like', '%'.$request->search.'%')
+        ->orderBy('client_email','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_client->links()->toHtml();
+        
+        if($inv_client->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.client.searchClient', compact('inv_client'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    //Client Search
+    public function SearchClientByContact(Request $request){
+        $inv_client = Inv_Client_Info::where('client_contact', 'like', '%'.$request->search.'%')
+        ->orderBy('client_contact','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_client->links()->toHtml();
+        
+        if($inv_client->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.client.searchClient', compact('inv_client'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    //Client Search
+    public function SearchClientByAddress(Request $request){
+        $inv_client = Inv_Client_Info::where('client_address', 'like', '%'.$request->search.'%')
+        ->orderBy('client_address','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_client->links()->toHtml();
+        
+        if($inv_client->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.client.searchClient', compact('inv_client'))->render(),
+                'paginate' =>$paginationHtml
             ]);
         }
         else{
@@ -1302,11 +1376,108 @@ class InventoryController extends Controller
         ->orderBy('division','asc')
         ->paginate(15);
         
+        $paginationHtml = $inv_location->links()->toHtml();
+
         if($inv_location->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                // 'pagination' => $inv_location->links()->toHtml(),
                 'data' => view('inventory.location.searchLocation', compact('inv_location'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+    //Location Search
+    public function SearchLocationByDistrict(Request $request){
+        $inv_location = Inv_Location::where('district', 'like', '%'.$request->search.'%')
+        ->orderBy('district','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_location->links()->toHtml();
+        
+        if($inv_location->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.location.searchLocation', compact('inv_location'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    //Location Search
+    public function SearchLocationByCity(Request $request){
+        $inv_location = Inv_Location::where('city', 'like', '%'.$request->search.'%')
+        ->orderBy('city','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_location->links()->toHtml();
+        
+        if($inv_location->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.location.searchLocation', compact('inv_location'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    //Location Search
+    public function SearchLocationByArea(Request $request){
+        $inv_location = Inv_Location::where('area', 'like', '%'.$request->search.'%')
+        ->orderBy('area','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_location->links()->toHtml();
+        
+        if($inv_location->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.location.searchLocation', compact('inv_location'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    //Location Search
+    public function SearchLocationByRoadno(Request $request){
+        $inv_location = Inv_Location::where('road_no', 'like', '%'.$request->search.'%')
+        ->orderBy('road_no','asc')
+        ->paginate(15);
+
+        $paginationHtml = $inv_location->links()->toHtml();
+        
+        if($inv_location->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.location.searchLocation', compact('inv_location'))->render(),
+                'paginate' =>$paginationHtml
             ]);
         }
         else{
@@ -1414,16 +1585,45 @@ class InventoryController extends Controller
     //Store Search
     public function SearchStores(Request $request){
         $inv_store = Inv_Store::where('store_name', 'like', '%'.$request->search.'%')
-        ->orWhere('location_id', 'like','%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+        ->orderBy('store_name','asc')
         ->paginate(15);
+
+        $paginationHtml = $inv_store->links()->toHtml();
         
         if($inv_store->count() >= 1){
             return response()->json([
                 'status' => 'success',
-                // 'pagination' => $inv_store->links()->toHtml(),
                 'data' => view('inventory.store.searchStore', compact('inv_store'))->render(),
+                'paginate' =>$paginationHtml
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+    //Store Search
+    public function SearchStoreByLocation(Request $request){
+        $inv_store = Inv_Store::select('inv__stores.*','inv__locations.division as division')
+                ->join('inv__locations', 'inv__stores.location_id', '=', 'inv__locations.id')
+                ->where('inv__locations.division', 'like', '%'.$request->search.'%')
+                ->orderBy('division','asc')
+                ->paginate(15);
+
+
+
+
+        $paginationHtml = $inv_store->links()->toHtml();
+        
+        if($inv_store->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.store.searchStore', compact('inv_store'))->render(),
+                'paginate' =>$paginationHtml
             ]);
         }
         else{

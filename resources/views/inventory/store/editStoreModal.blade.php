@@ -31,6 +31,12 @@
                                 <select name="location" class="form-control" id="updateLocation">
                                     {{-- options will be display dynamically --}}
                                 </select>
+                                {{-- <input type="text" name="location" class="form-control" id="updateLocation" autocomplete="off">
+                                <div id="update-location">
+                                    <ul>
+
+                                    </ul>
+                                </div> --}}
                                 <span class="text-danger error" id="update_location_error"></span>
                             </div>
 

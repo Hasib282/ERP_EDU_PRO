@@ -57,6 +57,3 @@
     </tfoot>
 </table>
 
-<div class="center search-paginate">
-    {!! $inv_location->links() !!}
-</div>

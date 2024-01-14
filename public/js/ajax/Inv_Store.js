@@ -123,12 +123,14 @@ $(document).ready(function () {
     });
 
 
+
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1];
         loadStoreData(`/admin/inventory/store/pagination?page=${page}`, {}, '.store');
     });
+
 
 
     //on select option search value will be remove
@@ -142,7 +144,13 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadStoreData(`/admin/inventory/searchStores`, {search:search}, '.store');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadStoreData(`/admin/inventory/searchStore/name`, {search:search}, '.store');
+        }
+        else if(searchOption == '2'){
+            loadStoreData(`/admin/inventory/searchStore/location`, {search:search}, '.store')
+        }
     });
 
 
@@ -153,8 +161,15 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadStoreData(`/admin/inventory/store/searchPagination?page=${page}`, {search:search}, '.store');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadStoreData(`/admin/inventory/store/namePagination?page=${page}`, {search:search}, '.store');
+        }
+        else if(searchOption == '2'){
+            loadStoreData(`/admin/inventory/store/locationPagination?page=${page}`, {search:search}, '.store')
+        }
     });
+
 
 
     //store pagination data load function
@@ -167,6 +182,9 @@ $(document).ready(function () {
                     $(targetElement).html(`<span class="text-danger">Result not Found </span>`);
                 } else {
                     $(targetElement).html(res.data);
+                    if(res.paginate){
+                        $(targetElement).append('<div class="center search-paginate" id="paginate">' + res.paginate + '</div>');
+                    }
                 }
             }
         });
