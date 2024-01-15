@@ -1,88 +1,11 @@
 $(document).ready(function () {
-    /////////////// ------------------ Search product by name and add value to input ajax part start ---------------- /////////////////////////////
-    //search product on add modal
-    $(document).on('keyup', '#product', function () {
-        let name = $(this).val();
-        $('#product').removeAttr('data-id');
-        $('#mrp').val('');
-        getProductByName(name, '#product-list ul');
-    });
-
-    //add list value in product input of add modal
-    $(document).on('click', '#product-list li', function () {
-        let value = $(this).text();
-        let id = $(this).data('id');
-        $('#product').val(value);
-        $('#product').attr('data-id', id);
-        $('#product-list ul').html('');
-        getProductById(id, '#mrp');
-    });
-
-    //search product on edit modal
-    $(document).on('keyup', '#updateProduct', function () {
-        let name = $(this).val();
-        $('#updateMrp').empty();
-        $('#updateProduct').removeAttr('data-id');
-        getProductByName(name, '#update-product ul');
-    });
-
-
-    //add list value in product input of add modal
-    $(document).on('click', '#update-product li', function () {
-        let value = $(this).text();
-        let id = $(this).data('id');
-        $('#updateProduct').val(value);
-        $('#updateProduct').attr('data-id', id);
-        $('#update-product ul').html('');
-        getProductById(id, '#updateMrp');
-    });
-
-
-    //search product by id
-    function getProductById(id, targetElement1, targetElement2="") {
-        if(id==""){
-            $(targetElement1).val('');
-            $(targetElement2).val('');
-        }
-        else{
-            $.ajax({
-                url: `/admin/inventory/getProductById/${id}`,
-                method: 'get',
-                success: function (res) {
-                    if (res.status == "success") {
-                        $(targetElement1).val(res.inv_product.mrp);
-                        $(targetElement2).val(res.inv_product.product_name);
-                    }
-                }
-            });
-        }
-    }
-
-    //search product by name
-    function getProductByName(name, targetElement1) {
-        $.ajax({
-            url: "/admin/inventory/getProductByName",
-            method: 'get',
-            data: {name:name},
-            success: function (res) {
-                $(targetElement1).html(res);
-            }
-        });
-    }
-
-
-    /////////////// ------------------ Search product by name and add value to input ajax part end ---------------- /////////////////////////////
-
     
-
-
     /////////////// ------------------ Add Receive Details ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#addReceiveDetail', function (e) {
         e.preventDefault();
-        let supplier = $('#supplier').val();
+        let supplier = $('#supplier').attr('data-id');
         let invoice = $('#invoice').val();
         let product = $('#product').attr('data-id');
-        // let product = $('#product').val();
         let batch = $('#batch').val();
         let cp = $('#cp').val();
         let discount = $('#discount').val();
@@ -134,11 +57,10 @@ $(document).ready(function () {
                 $('#id').val(res.inv_receive_details.id);
                 $('#updateReceive').val(datePart);
                 
-                $('#updateSupplier').html('')
-                $('#updateSupplier').append('<option>Supplier</option>')
-                $.each(res.inv_supplier, function (key, supplier) {
-                    $('#updateSupplier').append(`<option value="${supplier.id}" ${res.inv_receive_details.supplier_id === supplier.id ? 'selected' : ''}>${supplier.sup_name}</option>`);
-                });
+                
+                getSupplierById(res.inv_receive_details.supplier_id,'#updateSupplier')
+                $('#updateSupplier').attr('data-id',res.inv_receive_details.supplier_id);
+
                 $('#updateBatch').val(res.inv_receive_details.batch_no);
                 $('#updateInvoice').val(res.inv_receive_details.invoice_no);
                 $('#updateExpiry').val(res.inv_receive_details.expiry_date);
@@ -189,7 +111,7 @@ $(document).ready(function () {
     $(document).on('click', '#updateReceiveDetail', function (e) {
         e.preventDefault();
         let id = $('#id').val();
-        let supplier = $('#updateSupplier').val();
+        let supplier = $('#updateSupplier').attr('data-id');
         let invoice = $('#updateInvoice').val();
         let product = $('#updateProduct').attr('data-id');
         let batch = $('#updateBatch').val();
@@ -249,6 +171,7 @@ $(document).ready(function () {
     });
 
 
+
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
@@ -277,10 +200,13 @@ $(document).ready(function () {
     });
 
 
+
     //on select option search value will be remove
     $(document).on('change', '#searchOption', function (e) {
         $('#search').val('');
     });
+
+
 
     //product pagination data load function
     function loadReceiveDetailsData(url, data, targetElement) {
@@ -296,6 +222,49 @@ $(document).ready(function () {
             }
         });
     }
+
+
+    //search product by id
+    function getProductById(id, targetElement1, targetElement2="") {
+        if(id==""){
+            $(targetElement1).val('');
+            $(targetElement2).val('');
+        }
+        else{
+            $.ajax({
+                url: `/admin/inventory/getProductById/${id}`,
+                method: 'get',
+                success: function (res) {
+                    if (res.status == "success") {
+                        $(targetElement1).val(res.inv_product.mrp);
+                        $(targetElement2).val(res.inv_product.product_name);
+                    }
+                }
+            });
+        }
+    }
+
+
+    //search category by id
+    function getSupplierById(id, targetElement1) {
+        if(id==""){
+            $(targetElement1).val('');
+        }
+        else{
+            $.ajax({
+                url: '/admin/inventory/getSupplierById',
+                method: 'get',
+                data:{ id:id },
+                success: function (res) {
+                    if (res.status == "success") {
+                        $(targetElement1).val(res.inv_supplier.sup_name);
+                    }
+                }
+            });
+        }
+    }
+
+
 
     /////////////// ------------------ Calculation ajax part start ---------------- /////////////////////////////
 

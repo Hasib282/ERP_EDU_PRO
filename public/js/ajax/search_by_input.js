@@ -263,6 +263,65 @@ $(document).ready(function () {
     
 
 
+    /////////////// ------------------ Search product by name and add value to input ajax part start ---------------- /////////////////////////////
+    //search product on add modal
+    $(document).on('keyup', '#product', function () {
+        let name = $(this).val();
+        $('#product').removeAttr('data-id');
+        $('#mrp').val('');
+        getProductByName(name, '#product-list ul');
+    });
+
+
+    //add list value in product input of add modal
+    $(document).on('click', '#product-list li', function () {
+        let value = $(this).text();
+        let id = $(this).data('id');
+        let mrp = $(this).data('mrp');
+        $('#product').val(value);
+        $('#product').attr('data-id', id);
+        $('#mrp').val(mrp);
+        $('#product-list ul').html('');
+    });
+
+    //search product on edit modal
+    $(document).on('keyup', '#updateProduct', function () {
+        let name = $(this).val();
+        $('#updateMrp').empty();
+        $('#updateProduct').removeAttr('data-id');
+        getProductByName(name, '#update-product ul');
+    });
+
+
+    //add list value in product input of add modal
+    $(document).on('click', '#update-product li', function () {
+        let value = $(this).text();
+        let id = $(this).data('id');
+        let mrp = $(this).data('mrp');
+        $('#updateProduct').val(value);
+        $('#updateProduct').attr('data-id', id);
+        $('#updateMrp').val(mrp);
+        $('#update-product ul').html('');
+    });
+
+
+
+    //search product by name
+    function getProductByName(name, targetElement1) {
+        $.ajax({
+            url: "/admin/inventory/getProductByName",
+            method: 'get',
+            data: {name:name},
+            success: function (res) {
+                $(targetElement1).html(res);
+            }
+        });
+    }
+
+
+    /////////////// ------------------ Search product by name and add value to input ajax part end ---------------- /////////////////////////////
+
+
 
     /////////////// ------------------ Search Location by Division name and add value to input ajax part start ---------------- /////////////////////////////
     //Search Location on add modal

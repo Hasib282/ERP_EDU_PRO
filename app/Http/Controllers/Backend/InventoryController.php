@@ -881,8 +881,6 @@ class InventoryController extends Controller
     }//End Method
 
 
-
-
     
     //Edit Product Sub Category
     public function EditSubCategory($id){
@@ -1021,7 +1019,7 @@ class InventoryController extends Controller
             if($inv_product->count() > 0){
                 $list = "";
                 foreach($inv_product as $product) {
-                    $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$product->id.'">'.$product->product_name.'</li>';
+                    $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$product->id. '" data-mrp="'.$product->mrp.'">'.$product->product_name.'</li>';
                 }
             }
             else{

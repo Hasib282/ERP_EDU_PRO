@@ -54,21 +54,21 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="supplier">Supplier Name</label>
-                                        <select name="supplier" class="form-control" id="supplier">
-                                            <option value="">Supplier Name</option>
-                                            @foreach ($inv_supplier as $supplier)
-                                                <option value="{{ $supplier->id }}">{{ $supplier->sup_name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="supplier" class="form-control" id="supplier" autocomplete="off">
+                                        <div id="supplier-list">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="supplier_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="product">Product Name</label>
                                         <input type="search" name="product" class="form-control" id="product" autocomplete="off">
                                         <div id="product-list">
-                                            <ul class="list-group">
+                                            <ul>
 
                                             </ul>
                                         </div>

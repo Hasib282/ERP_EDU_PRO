@@ -43,9 +43,12 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="updateSupplier">Supplier Name</label>
-                                        <select name="supplier" class="form-control" id="updateSupplier">
-                                            <option value="">Supplier Name</option>
-                                        </select>
+                                        <input type="text" name="supplier" class="form-control" id="updateSupplier" autocomplete="off">
+                                        <div id="update-supplier">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="update_supplier_error"></span>
                                     </div>
                                 </div>
