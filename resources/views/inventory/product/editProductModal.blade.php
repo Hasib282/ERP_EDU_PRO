@@ -41,30 +41,48 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updateManufacturer">Manufacturer:</label>
-                                        <select name="manufacturer" class="form-control" id="updateManufacturer">
-                                            <option value="">Manufacturer</option>
+                                        {{-- <select name="manufacturer" class="form-control" id="updateManufacturer">
+                                            <option value="">Manufacturer</option> --}}
                                             {{-- options will be display dynamically --}}
-                                        </select>
+                                        {{-- </select> --}}
+                                        <input type="text" name="manufacturer" class="form-control" id="updateManufacturer" autocomplete="off">
+                                        <div id="update-manufacturer">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="update_manufacturer_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updateCategory">Category:</label>
-                                        <select name="category" class="form-control" id="updateCategory">
-                                            <option value="">Category</option>
+                                        {{-- <select name="category" class="form-control" id="updateCategory">
+                                            <option value="">Category</option> --}}
                                             {{-- options will be display dynamically --}}
-                                        </select>
+                                        {{-- </select> --}}
+                                        <input type="text" name="category" class="form-control" id="updateCategory" autocomplete="off">
+                                        <div id="update-category">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="update_category_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group" id="subCategorySelect">
                                         <label for="updateSubCategory">Sub Category:</label>
-                                        <select name="subCategory" class="form-control" id="updateSubCategory" >
-                                            <option value="">Sub Category</option>
+                                        {{-- <select name="subCategory" class="form-control" id="updateSubCategory" >
+                                            <option value="">Sub Category</option> --}}
                                             {{-- options will be display dynamically --}}
-                                        </select>
+                                        {{-- </select> --}}
+                                        <input type="text" name="subCategory" class="form-control" id="updateSubCategory" autocomplete="off">
+                                        <div id="update-subCategory">
+                                            <ul>
+                                                
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="update_subCategory_error"></span>
                                     </div>
                                 </div>
@@ -78,10 +96,16 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updateUnit">Unit:</label>
-                                        <select name="unit" class="form-control" id="updateUnit">
-                                            <option value="">Unit</option>
+                                        {{-- <select name="unit" class="form-control" id="updateUnit">
+                                            <option value="">Unit</option> --}}
                                             {{-- options will be display dynamically --}}
-                                        </select>
+                                        {{-- </select> --}}
+                                        <input type="text" name="unit" class="form-control" id="updateUnit" autocomplete="off">
+                                        <div id="update-unit">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="update_unit_error"></span>
                                     </div>
                                 </div>

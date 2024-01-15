@@ -38,35 +38,36 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="manufacturer">Manufacturer:</label>
-                                        <select name="manufacturer" class="form-control" id="manufacturer">
-                                            <option value="">Manufacturer</option>
-                                            @foreach ($inv_manufacturer as $manufacturer)
-                                                <option value="{{ $manufacturer->id }}">
-                                                    {{ $manufacturer->manufacturer_name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="manufacturer" class="form-control" id="manufacturer" autocomplete="off">
+                                        <div id="manufacturer-list">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="manufacturer_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="category">Category:</label>
-                                        <select name="category" class="form-control" id="category">
-                                            <option value="">Category</option>
-                                            @foreach ($inv_product_category as $category)
-                                                <option value="{{ $category->id }}">
-                                                    {{ $category->product_category_name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="category" class="form-control" id="category" autocomplete="off">
+                                        <div id="category-list">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="category_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group" id="subCategorySelect">
                                         <label for="subCategory">Sub Category:</label>
-                                        <select name="subCategory" class="form-control" id="subCategory" >
-                                            {{-- options will be display dynamically --}}
-                                        </select>
+                                        <input type="text" name="subCategory" class="form-control" id="subCategory" autocomplete="off">
+                                        <div id="subCategory-list">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="subCategory_error"></span>
                                     </div>
                                 </div>
@@ -80,12 +81,12 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="unit">Unit:</label>
-                                        <select name="unit" class="form-control" id="unit">
-                                            <option value="">Unit</option>
-                                            @foreach ($inv_unit as $unit)
-                                                <option value="{{ $unit->id }}">{{ $unit->unit_name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="unit" class="form-control" id="unit" autocomplete="off">
+                                        <div id="unit-list">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
                                         <span class="text-danger error" id="unit_error"></span>
                                     </div>
                                 </div>

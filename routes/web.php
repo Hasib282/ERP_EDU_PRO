@@ -65,7 +65,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/unit/pagination', 'UnitPagination');
         Route::get('/unit/searchPagination', 'SearchUnits');
         //search list routs
-
+        Route::get('/getUnitByName', 'GetUnitByName')->name('get.unit.by.name');
+        Route::get('/getUnitById', 'GetUnitById')->name('get.unit.by.id');
 
 
         
@@ -88,7 +89,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/supplier/contactPagination', 'SearchSupplierByContact');
         Route::get('/supplier/addressPagination', 'SearchSupplierByAddress');
         //search list routs
-
+        Route::get('/getSupplierByName', 'GetSupplierByName')->name('get.supplier.by.name');
+        Route::get('/getSupplierById', 'GetSupplierById')->name('get.supplier.by.id');
 
 
 
@@ -110,7 +112,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/manufacturer/emailPagination', 'SearchManufacturerByEmail');
         Route::get('/manufacturer/contactPagination', 'SearchManufacturerByContact');
         //search list routs
-        
+        Route::get('/getManufacturerByName', 'GetManufacturerByName')->name('get.manufacturer.by.name');
+        Route::get('/getManufacturerById', 'GetManufacturerById')->name('get.manufacturer.by.id');
         
 
         
@@ -129,7 +132,7 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/productCategory/searchPagination', 'SearchProductCategory');
         //search list routs
         Route::get('/getCategoryByName', 'GetCategoryByName')->name('get.category.by.name');
-        Route::get('/getCategoryById/{id}', 'GetCategoryById')->name('get.category.by.id');
+        Route::get('/getCategoryById', 'GetCategoryById')->name('get.category.by.id');
 
 
 
@@ -149,7 +152,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/productSubCategory/namePagination', 'SearchSubCategory');
         Route::get('/productSubCategory/categoryNamePagination', 'SearchSubCategoryByCategoryName');
         //search list routs
-        Route::get('/productSubCategoryByCategory/{category}', 'ShowSubCategoryByCategory')->name('show.subCatagory.by.category');
+        Route::get('/productSubCategoryByCategory', 'GetSubCategoryByCategory')->name('show.subCatagory.by.category');
+        Route::get('/getSubCategoryById', 'GetSubCategoryById')->name('show.subCatagory.by.category');
 
 
 

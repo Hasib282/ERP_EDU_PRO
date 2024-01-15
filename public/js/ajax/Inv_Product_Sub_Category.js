@@ -72,8 +72,6 @@ $(document).ready(function () {
         let subCategory = $('#updateSubCategoryName').val();
         let category = $('#updateCategory').attr('data-id');
         let status = $('#updateStatus').val();
-        alert(id+"sub"+subCategory+"cat"+category+"status"+status)
-        alert()
         $.ajax({
             url: `/admin/inventory/updateProductSubCategory/${id}`,
             method: 'Put',
@@ -121,7 +119,7 @@ $(document).ready(function () {
         }
     });
 
-    
+
 
     /////////////// ------------------ Pagination Sub ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
@@ -196,8 +194,9 @@ $(document).ready(function () {
         }
         else{
             $.ajax({
-                url: `/admin/inventory/getCategoryById/${id}`,
+                url: `/admin/inventory/getCategoryById`,
                 method: 'get',
+                data: { id:id },
                 success: function (res) {
                     if (res.status == "success") {
                         $(targetElement1).val(res.inv_category.product_category_name);

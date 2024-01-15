@@ -1,57 +1,14 @@
 $(document).ready(function () {
-    /////////////// ------------------ Select Sub category by category ajax part start ---------------- /////////////////////////////
-    $(document).on('change', '#category', function () {
-        let category = $(this).val();
-        loadSubCategoryByCategory(category,'#subCategory')
-    });
-
-    $(document).on('change', '#updateCategory', function () {
-        let category = $(this).val();
-        loadSubCategoryByCategory(category,'#updateSubCategory')
-    });
-
-
-    function loadSubCategoryByCategory(category, targetElement, edit) {
-        // let
-        $.ajax({
-            url: `/admin/inventory/productSubCategoryByCategory/${category}`,
-            method: 'get',
-            success: function (res) {
-                if (res.status == "success") {
-                    if(edit != null){
-                        $(targetElement).html('');
-                        $(targetElement).append(`<option value=""> Sub Category </option>`);
-                        
-                        $.each(res.sub_category, function (key, subCategory) {
-                            $(targetElement).append(`<option value="${subCategory.id}" ${edit === subCategory.id ? 'selected' : ''}> ${subCategory.sub_category_name} </option>`);
-                        });
-                    }
-                    else{
-                        $(targetElement).html('');
-                        $(targetElement).append(`<option value=""> Sub Category </option>`);
-                        $.each(res.sub_category, function (key, subCategory) {
-                            $(targetElement).append(`<option value="${subCategory.id}"> ${subCategory.sub_category_name} </option>`);
-                        });
-                        
-                    } 
-                }
-            }
-        });
-    }
-
-    /////////////// ------------------ Select Sub category by category ajax part end ---------------- /////////////////////////////
-
-
-
+    
     /////////////// ------------------ Add Product ajax part start ---------------- /////////////////////////////
     $(document).on('click', '#addProduct', function (e) {
         e.preventDefault();
         let productName = $('#productName').val();
-        let manufacturer = $('#manufacturer').val();
-        let category = $('#category').val();
-        let subCategory = $('#subCategory').val();
+        let manufacturer = $('#manufacturer').attr('data-id');
+        let category = $('#category').attr('data-id');
+        let subCategory = $('#subCategory').attr('data-id');
         let size = $('#size').val();
-        let unit = $('#unit').val();
+        let unit = $('#unit').attr('data-id');
         let mrp = $('#mrp').val();
         let expiry = $('#expiry').val();
         let user = $('#user').val();
@@ -66,6 +23,10 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#addProductModal').hide();
                     $('#AddProductForm')[0].reset();
+                    $('#manufacturer').removeAttr('data-id');
+                    $('#category').removeAttr('data-id');
+                    $('#subCategory').removeAttr('data-id');
+                    $('#unit').removeAttr('data-id');
                     $('#search').val('');
                     $('.product').load(location.href + ' .product');
                     toastr.success('Product Added Successfully', 'Added!');
@@ -95,30 +56,21 @@ $(document).ready(function () {
 
                 $('#updateProductName').val(res.inv_product.product_name);
 
-                $('#updateManufacturer').html('');
-                $('#updateManufacturer').append(`<option value="" >Manufacturer</option>`);
-                $.each(res.inv_manufacturer, function (key, manufacturer) {
-                    $('#updateManufacturer').append(`<option value="${manufacturer.id}" ${res.inv_product.manufacturer_id === manufacturer.id ? 'selected' : ''}>${manufacturer.manufacturer_name}</option>`);
-                });
-
-                $('#updateCategory').html('');
-                $('#updateCategory').append(`<option value="" >Category</option>`);
-                $.each(res.inv_product_category, function (key, category) {
-                    $('#updateCategory').append(`<option value="${category.id}" ${res.inv_product.category_id === category.id ? 'selected' : ''}>${category.product_category_name}</option>`);
-                });
-
-
+                getById('/admin/inventory/getManufacturerById', res.inv_product.manufacturer_id, 'inv_manufacturer', 'manufacturer_name', '#updateManufacturer');
+                $('#updateManufacturer').attr('data-id',res.inv_product.manufacturer_id);
                 
-                loadSubCategoryByCategory(res.inv_product.category_id, '#updateSubCategory', res.inv_product.sub_category_id);
+
+                getById('/admin/inventory/getCategoryById', res.inv_product.category_id, 'inv_category', 'product_category_name', '#updateCategory');
+                $('#updateCategory').attr('data-id',res.inv_product.category_id);
+
+                getById('/admin/inventory/getSubCategoryById', res.inv_product.sub_category_id, 'sub_category', 'sub_category_name', '#updateSubCategory');
+                $('#updateSubCategory').attr('data-id',res.inv_product.sub_category_id);
 
                 $('#updateSize').val(res.inv_product.size);
 
 
-                $('#updateUnit').html('');
-                $('#updateUnit').append(`<option value="" >Unit</option>`);
-                $.each(res.inv_unit, function (key, unit) {
-                    $('#updateUnit').append(`<option value="${unit.id}" ${res.inv_product.unit === unit.id ? 'selected' : ''}>${unit.unit_name}</option>`);
-                });
+                getById('/admin/inventory/getUnitById', res.inv_product.unit, 'inv_unit', 'unit_name', '#updateUnit');
+                $('#updateUnit').attr('data-id',res.inv_product.unit);
 
                 $('#updateMrp').val(res.inv_product.mrp);
                 $('#updateExpiry').val(res.inv_product.expiry_date);
@@ -153,11 +105,11 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $('#id').val();
         let productName = $('#updateProductName').val();
-        let manufacturer = $('#updateManufacturer').val();
-        let category = $('#updateCategory').val();
-        let subCategory = $('#updateSubCategory').val();
+        let manufacturer = $('#updateManufacturer').attr('data-id');
+        let category = $('#updateCategory').attr('data-id');
+        let subCategory = $('#updateSubCategory').attr('data-id');
         let size = $('#updateSize').val();
-        let unit = $('#updateUnit').val();
+        let unit = $('#updateUnit').attr('data-id');
         let mrp = $('#updateMrp').val();
         let expiry = $('#updateExpiry').val();
         let user = $('#updateUser').val();
@@ -173,6 +125,10 @@ $(document).ready(function () {
                 if (res.status == "success") {
                     $('#editProductModal').hide();
                     $('#EditProductForm')[0].reset();
+                    $('#updateManufacturer').removeAttr('data-id');
+                    $('#updateCategory').removeAttr('data-id');
+                    $('#updateSubCategory').removeAttr('data-id');
+                    $('#updateUnit').removeAttr('data-id');
                     $('#search').val('');
                     $('.product').load(location.href + ' .product');
                     toastr.success('Product Updated Successfully', 'Updated!');
@@ -255,6 +211,27 @@ $(document).ready(function () {
                 }
             }
         });
+    }
+
+
+
+    //search category by id
+    function getById(url, id,  object, property, targetElement1) {
+        if(id==""){
+            $(targetElement1).val('');
+        }
+        else{
+            $.ajax({
+                url: url,
+                method: 'get',
+                data:{ id:id },
+                success: function (res) {
+                    if (res.status == "success") {
+                        $(targetElement1).val(res[object][property]);
+                    }
+                }
+            });
+        }
     }
 
 });

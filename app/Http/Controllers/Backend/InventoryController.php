@@ -72,8 +72,8 @@ class InventoryController extends Controller
 
 
     //Get Unit by id
-    public function GetUnitByID($id){
-        $inv_unit = Inv_Unit::where('id','=', $id)
+    public function GetUnitByID(Request $request){
+        $inv_unit = Inv_Unit::where('id','=', $request->id)
         ->orderBy('added_at','asc')
         ->first();
 
@@ -177,6 +177,50 @@ class InventoryController extends Controller
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::orderBy('added_at','desc')->paginate(15);
         return view('inventory.supplier.suppliers', compact('inv_supplier','user_info'));
+    }//End Method
+
+
+
+    //Get Suppliers by name
+    public function GetSupplierByName(Request $request){
+        if($request->supplier != ""){
+            $inv_supplier = Inv_Supplier_Info::where('sup_name', 'like', '%'.$request->supplier.'%')
+                ->orderBy('sup_name','asc')
+                ->take(10)
+                ->get();
+    
+            if($inv_supplier->count() > 0){
+                $list = "";
+                foreach($inv_supplier as $supplier) {
+                    $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$supplier->id.'">'.$supplier->sup_name.'</li>';
+                }
+            }
+            else{
+                $list = '<li class="list-group-item list-group-item-primary">No Data Found</li>';
+            }
+            return $list;
+        }else{
+            return "";
+        } 
+    }//End Method
+    
+    
+    
+    //Get Suppliers by id
+    public function GetSupplierByID(Request $request){
+        $inv_supplier = Inv_Supplier_Info::where('id','=', $request->id)->first();
+    
+        if($inv_supplier->count() >= 1){
+            return response()->json([
+                'status'=>'success',
+                'inv_supplier'=>$inv_supplier
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'fail',
+            ]);
+        }        
     }//End Method
 
 
@@ -390,6 +434,51 @@ class InventoryController extends Controller
     }//End Method
 
 
+    //Get Manufacturers by name
+    public function GetManufacturerByName(Request $request){
+        if($request->manufacturer != ""){
+            $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_name', 'like', '%'.$request->manufacturer.'%')
+                ->orderBy('manufacturer_name','asc')
+                ->take(10)
+                ->get();
+    
+            if($inv_manufacturer->count() > 0){
+                $list = "";
+                foreach($inv_manufacturer as $manufacturer) {
+                    $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$manufacturer->id.'">'.$manufacturer->manufacturer_name.'</li>';
+                }
+            }
+            else{
+                $list = '<li class="list-group-item list-group-item-primary">No Data Found</li>';
+            }
+            return $list;
+        }else{
+            return "";
+        } 
+    }//End Method
+    
+    
+    
+    //Get Manufacturers by id
+    public function GetManufacturerById(Request $request){
+        $inv_manufacturer = Inv_Manufacturer_Info::where('id','=', $request->id)
+        ->orderBy('added_at','asc')
+        ->first();
+    
+        if($inv_manufacturer->count() >= 1){
+            return response()->json([
+                'status'=>'success',
+                'inv_manufacturer'=>$inv_manufacturer
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'fail',
+            ]);
+        }        
+    }//End Method
+
+
 
     //Insert Manufacturer
     public function InsertManufacturers(Request $request){
@@ -592,10 +681,8 @@ class InventoryController extends Controller
 
 
     //get product category by id
-    public function GetCategoryByID($id){
-        $inv_category = Inv_Product_Category::where('id','=', $id)
-        ->orderBy('added_at','desc')
-        ->first();
+    public function GetCategoryByID(Request $request){
+        $inv_category = Inv_Product_Category::where('id','=', $request->id)->first();
 
         if($inv_category->count() >= 1){
             return response()->json([
@@ -728,6 +815,51 @@ class InventoryController extends Controller
     }//End Method
 
 
+    //Get Product Sub Category by category id
+    public function GetSubCategoryByCategory(Request $request){
+        if($request->category != ""){
+            $sub_category = Inv_Product_Sub_Category::where('category_id','=', $request->category)
+            ->where('sub_category_name', 'like', '%'.$request->subCategory.'%')
+            ->orderBy('sub_category_name','asc')
+            ->take(10)
+            ->get();
+
+            if($sub_category->count() > 0){
+                $list = "";
+                foreach($sub_category as $sub) {
+                    $list .= '<li data-id="'.$sub->id.'">'.$sub->sub_category_name.'</li>';
+                }
+            }
+            else{
+                $list = '<li>No Data Found</li>';
+            }
+            return $list;
+        }else{
+            return "";
+        } 
+    }//End Method
+
+
+
+    //Get Sub Category by id
+    public function GetSubCategoryByID(Request $request){
+        $sub_category = Inv_Product_Sub_Category::where('id','=', $request->id)->first();
+
+        if($sub_category->count() >= 1){
+            return response()->json([
+                'status'=>'success',
+                'sub_category'=>$sub_category
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'fail',
+            ]);
+        }
+         
+    }//End Method
+
+
 
     //Insert Product Sub Category
     public function InsertSubCategory(Request $request){
@@ -749,26 +881,6 @@ class InventoryController extends Controller
     }//End Method
 
 
-
-    //Show Product Sub Category by category id
-    public function ShowSubCategoryByCategory($category){
-        $sub_category = Inv_Product_Sub_Category::where('category_id','=', $category)
-        ->orderBy('added_at','desc')
-        ->get();
-
-        if($sub_category->count() >= 1){
-            return response()->json([
-                'status'=>'success',
-                'sub_category'=>$sub_category
-            ]);
-        }
-        else{
-            return response()->json([
-                'status'=>'fail',
-            ]);
-        }
-         
-    }//End Method
 
 
     
