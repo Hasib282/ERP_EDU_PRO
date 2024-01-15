@@ -185,7 +185,28 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadReceiveDetailsData(`/admin/inventory/searchReceiveDetails`, { search: search }, '.receive-detail');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadReceiveDetailsData(`/admin/inventory/searchReceiveDetail/supplier`, {search:search}, '.receive-detail');
+        }
+        else if(searchOption == '2'){
+            loadReceiveDetailsData(`/admin/inventory/searchReceiveDetail/product`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '3'){
+            loadReceiveDetailsData(`/admin/inventory/searchReceiveDetail/invoice`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '4'){
+            loadReceiveDetailsData(`/admin/inventory/searchReceiveDetail/batch`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '5'){
+            loadReceiveDetailsData(`/admin/inventory/searchReceiveDetail/cp`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '6'){
+            loadReceiveDetailsData(`/admin/inventory/searchReceiveDetail/discount`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '7'){
+            loadReceiveDetailsData(`/admin/inventory/searchReceiveDetail/expiry`, {search:search}, '.receive-detail')
+        }
     });
 
 
@@ -196,7 +217,29 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadReceiveDetailsData(`/admin/inventory/receiveDetail/searchPagination?page=${page}`, { search: search }, '.receive-detail');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadReceiveDetailsData(`/admin/inventory/receiveDetail/supplierPagination?page=${page}`, {search:search}, '.receive-detail');
+        }
+        else if(searchOption == '2'){
+            loadReceiveDetailsData(`/admin/inventory/receiveDetail/productPagination?page=${page}`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '3'){
+            loadReceiveDetailsData(`/admin/inventory/receiveDetail/invoicePagination?page=${page}`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '4'){
+            loadReceiveDetailsData(`/admin/inventory/receiveDetail/batchPagination?page=${page}`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '5'){
+            loadReceiveDetailsData(`/admin/inventory/receiveDetail/cpPagination?page=${page}`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '6'){
+            loadReceiveDetailsData(`/admin/inventory/receiveDetail/discountPagination?page=${page}`, {search:search}, '.receive-detail')
+        }
+        else if(searchOption == '7'){
+            loadReceiveDetailsData(`/admin/inventory/receiveDetail/expiryPagination?page=${page}`, {search:search}, '.receive-detail')
+        }
+        
     });
 
 
@@ -264,8 +307,6 @@ $(document).ready(function () {
         }
     }
 
-
-
     /////////////// ------------------ Calculation ajax part start ---------------- /////////////////////////////
 
     $('#cp, #discount, #quantity, #paid').on('input', function () {
@@ -284,6 +325,7 @@ $(document).ready(function () {
     });
 
 
+
     $('#updateCp, #updateDiscount, #updateQuantity, #updatePaid').on('input', function () {
         let cp = parseFloat($('#updateCp').val())||"";
         let discount = parseFloat($('#updateDiscount').val()) || "";
@@ -298,7 +340,6 @@ $(document).ready(function () {
         $('#updateNetTotal').val(netTotal)
         $('#updateBalance').val(due)
     });
-
 
     /////////////// ------------------ Calculation ajax part end ---------------- /////////////////////////////
 

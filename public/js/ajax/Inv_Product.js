@@ -183,7 +183,22 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
-        loadProductData(`/admin/inventory/searchProducts`, { search: search }, '.product');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadProductData(`/admin/inventory/searchProduct/name`, {search:search}, '.product');
+        }
+        else if(searchOption == '2'){
+            loadProductData(`/admin/inventory/searchProduct/category`, {search:search}, '.product')
+        }
+        else if(searchOption == '3'){
+            loadProductData(`/admin/inventory/searchProduct/subCategory`, {search:search}, '.product')
+        }
+        else if(searchOption == '4'){
+            loadProductData(`/admin/inventory/searchProduct/manufacturer`, {search:search}, '.product')
+        }
+        else if(searchOption == '5'){
+            loadProductData(`/admin/inventory/searchProduct/mrp`, {search:search}, '.product')
+        }
     });
 
 
@@ -194,7 +209,22 @@ $(document).ready(function () {
         $('.paginate').addClass('hidden');
         let search = $('#search').val();
         let page = $(this).attr('href').split('page=')[1];
-        loadProductData(`/admin/inventory/product/searchPagination?page=${page}`, { search: search }, '.product');
+        let searchOption = $("#searchOption").val();
+        if(searchOption == '1'){
+            loadProductData(`/admin/inventory/product/namePagination?page=${page}`, {search:search}, '.product');
+        }
+        else if(searchOption == '2'){
+            loadProductData(`/admin/inventory/product/categorPagination?page=${page}`, {search:search}, '.product')
+        }
+        else if(searchOption == '3'){
+            loadProductData(`/admin/inventory/product/subCategoryPagination?page=${page}`, {search:search}, '.product')
+        }
+        else if(searchOption == '4'){
+            loadProductData(`/admin/inventory/product/manufacturerPagination?page=${page}`, {search:search}, '.product')
+        }
+        else if(searchOption == '5'){
+            loadProductData(`/admin/inventory/product/mrpPagination?page=${page}`, {search:search}, '.product')
+        }
     });
 
 

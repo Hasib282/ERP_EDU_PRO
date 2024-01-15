@@ -46,7 +46,7 @@ class InventoryController extends Controller
 
 
 
-    //Get Unit by name
+    //Get Unit by Name
     public function GetUnitByName(Request $request){
         if($request->unit != ""){
             $inv_unit = Inv_unit::where('unit_name', 'like', '%'.$request->unit.'%')
@@ -71,7 +71,7 @@ class InventoryController extends Controller
 
 
 
-    //Get Unit by id
+    //Get Unit by Id
     public function GetUnitByID(Request $request){
         $inv_unit = Inv_Unit::where('id','=', $request->id)
         ->orderBy('added_at','asc')
@@ -171,6 +171,8 @@ class InventoryController extends Controller
     /////////////////////////// --------------- Inventory Units Methods end ---------- //////////////////////////
 
 
+
+
     /////////////////////////// --------------- Inventory Suppliers Methods start---------- //////////////////////////
     //Show Suppliers
     public function ShowSuppliers(){
@@ -181,7 +183,7 @@ class InventoryController extends Controller
 
 
 
-    //Get Suppliers by name
+    //Get Suppliers by Name
     public function GetSupplierByName(Request $request){
         if($request->supplier != ""){
             $inv_supplier = Inv_Supplier_Info::where('sup_name', 'like', '%'.$request->supplier.'%')
@@ -206,7 +208,7 @@ class InventoryController extends Controller
     
     
     
-    //Get Suppliers by id
+    //Get Suppliers by Id
     public function GetSupplierByID(Request $request){
         $inv_supplier = Inv_Supplier_Info::where('id','=', $request->id)->first();
     
@@ -315,7 +317,7 @@ class InventoryController extends Controller
 
 
 
-    //Suppplier Search
+    //Search Suppplier by Name
     public function SearchSuppliers(Request $request){
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::where('sup_name', 'like','%'.$request->search.'%')
@@ -342,7 +344,7 @@ class InventoryController extends Controller
 
 
 
-    //Suppplier Search
+    //Search Suppplier by Email
     public function SearchSupplierByEmail(Request $request){
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::where('sup_email', 'like','%'.$request->search.'%')
@@ -369,7 +371,7 @@ class InventoryController extends Controller
 
 
 
-    //Suppplier Search
+    //Search Suppplier by Contact
     public function SearchSupplierByContact(Request $request){
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::where('sup_contact', 'like','%'.$request->search.'%')
@@ -396,7 +398,7 @@ class InventoryController extends Controller
 
 
 
-    //Suppplier Search
+    //Search Suppplier by Address
     public function SearchSupplierByAddress(Request $request){
         $user_info = User_Info::get();
         $inv_supplier = Inv_Supplier_Info::where('sup_address', 'like', '%'.$request->search.'%')
@@ -425,6 +427,7 @@ class InventoryController extends Controller
 
 
 
+
     /////////////////////////// --------------- Inventory Manufacturers Methods start---------- //////////////////////////
     //Show Manufacturers
     public function ShowManufacturers(){
@@ -434,7 +437,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Get Manufacturers by name
+
+    //Get Manufacturers by Name
     public function GetManufacturerByName(Request $request){
         if($request->manufacturer != ""){
             $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_name', 'like', '%'.$request->manufacturer.'%')
@@ -459,7 +463,7 @@ class InventoryController extends Controller
     
     
     
-    //Get Manufacturers by id
+    //Get Manufacturers by Id
     public function GetManufacturerById(Request $request){
         $inv_manufacturer = Inv_Manufacturer_Info::where('id','=', $request->id)
         ->orderBy('added_at','asc')
@@ -569,7 +573,7 @@ class InventoryController extends Controller
 
 
 
-    //Manufacturer Search
+    //Search Manufacturer by Name
     public function SearchManufacturer(Request $request){
         $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_name', 'like', '%'.$request->search.'%')
         ->orderBy('manufacturer_name','asc')
@@ -592,7 +596,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Manufacturer Search
+
+    //Search Manufacturer by Email
     public function SearchManufacturerByEmail(Request $request){
         $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_email', 'like', '%'.$request->search.'%')
         ->orderBy('manufacturer_email','asc')
@@ -615,7 +620,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Manufacturer Search
+
+    //Search Manufacturer by Contact
     public function SearchManufacturerByContact(Request $request){
         $inv_manufacturer = Inv_Manufacturer_Info::where('manufacturer_contact', 'like', '%'.$request->search.'%')
         ->orderBy('manufacturer_contact','asc')
@@ -642,11 +648,7 @@ class InventoryController extends Controller
 
 
 
-
-
-
-
-    /////////////////////////// --------------- Inventory Product Categorys Methods start---------- //////////////////////////
+    /////////////////////////// --------------- Inventory Product Category Methods start---------- //////////////////////////
     //Show Product Categories
     public function ShowProductCategory(){
         $inv_product_category = Inv_Product_Category::orderBy('added_at','desc')->paginate(15);;
@@ -655,7 +657,7 @@ class InventoryController extends Controller
 
 
 
-    //get product category by name
+    //Get Product Category by Name
     public function GetCategoryByName(Request $request){
         if($request->category != ""){
             $inv_product_category = Inv_Product_Category::where('product_category_name', 'like', '%'.$request->category.'%')
@@ -680,7 +682,7 @@ class InventoryController extends Controller
 
 
 
-    //get product category by id
+    //Get Product Category by Id
     public function GetCategoryByID(Request $request){
         $inv_category = Inv_Product_Category::where('id','=', $request->id)->first();
 
@@ -762,7 +764,7 @@ class InventoryController extends Controller
 
 
 
-    //product Category Pagination
+    //Product Category Pagination
     public function ProductCategoryPagination(){
         $inv_product_category = Inv_Product_Category::orderBy('added_at','desc')->paginate(15);
         return response()->json([
@@ -773,7 +775,7 @@ class InventoryController extends Controller
 
 
 
-    //product category Search
+    // Search Product Category
     public function SearchProductCategory(Request $request){
         $inv_product_category = Inv_Product_Category::where('product_category_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
@@ -794,19 +796,12 @@ class InventoryController extends Controller
         }
     }//End Method
     
-    /////////////////////////// --------------- Inventory Product Categorys Methods end---------- //////////////////////////
+    /////////////////////////// --------------- Inventory Product Category Methods end---------- //////////////////////////
 
 
 
 
-
-
-
-
-
-
-
-    /////////////////////////// --------------- Inventory Product Sub Categorys Methods start---------- //////////////////////////
+    /////////////////////////// --------------- Inventory Product Sub Category Methods start---------- //////////////////////////
     //Show Product Sub Categories
     public function ShowSubCategory(){
         $inv_product_category = Inv_Product_Category::get();
@@ -815,7 +810,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Get Product Sub Category by category id
+
+    //Get Product Sub Category by Category Id
     public function GetSubCategoryByCategory(Request $request){
         if($request->category != ""){
             $sub_category = Inv_Product_Sub_Category::where('category_id','=', $request->category)
@@ -841,7 +837,7 @@ class InventoryController extends Controller
 
 
 
-    //Get Sub Category by id
+    //Get Sub Category by Id
     public function GetSubCategoryByID(Request $request){
         $sub_category = Inv_Product_Sub_Category::where('id','=', $request->id)->first();
 
@@ -929,7 +925,7 @@ class InventoryController extends Controller
 
 
 
-    //product Product Sub Category Pagination
+    //Product Sub Category Pagination
     public function SubCategoryPagination(){
         $sub_category = Inv_Product_Sub_Category::orderBy('added_at','desc')->paginate(15);
         return response()->json([
@@ -993,10 +989,8 @@ class InventoryController extends Controller
 
 
 
-
     //////////////////////////// ------------------ Inventory Products Methods start --------------- //////////////////////////
-    
-    //show all Products
+    //Show All Products
     public function ShowProducts(){
         $inv_product_category = Inv_Product_Category::get();
         $sub_category = Inv_Product_Sub_Category::get();
@@ -1008,7 +1002,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //get product by name
+
+    //Get Product by Name
     public function GetProductByName(Request $request){
         if($request->name != ""){
             $inv_product = Inv_Product::where('product_name', 'like', '%'.$request->name.'%')
@@ -1032,7 +1027,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //get product by id
+
+    //Get Product by Id
     public function GetProductByID($id){
         $inv_product = Inv_Product::where('id','=', $id)
         ->orderBy('added_at','desc')
@@ -1141,6 +1137,7 @@ class InventoryController extends Controller
     }//End Method
 
 
+
     //Delete Product
     public function DeleteProducts($id){
         Inv_Product::findOrFail($id)->delete();
@@ -1150,7 +1147,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //product Pagination
+
+    //Product Pagination
     public function ProductPagination(){
         $inv_product = Inv_Product::orderBy('added_at','desc')->paginate(15);
         return response()->json([
@@ -1160,7 +1158,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //product Search
+
+    //Search Product By Name
     public function SearchProduct(Request $request){
         $inv_product = Inv_Product::where('product_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
@@ -1181,7 +1180,99 @@ class InventoryController extends Controller
     }//End Method
 
 
+
+    //Search Product By Category
+    public function SearchProductByCategory(Request $request){
+        $inv_product = Inv_Product::select('inv__products.*','inv__product__categories.product_category_name as category_name')
+        ->join('inv__product__categories', 'inv__products.category_id', '=', 'inv__product__categories.id')
+        ->where('inv__product__categories.product_category_name', 'like', '%'.$request->search.'%')
+        ->orderBy('product_category_name','asc')
+        ->paginate(15);
+
+        
+        if($inv_product->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.product.searchProduct', compact('inv_product'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    //Search Product By Sub Category
+    public function SearchProductBySubCategory(Request $request){
+        $inv_product = Inv_Product::select('inv__products.*','inv__product__sub__categories.sub_category_name as sub_category')
+        ->join('inv__product__sub__categories', 'inv__products.sub_category_id', '=', 'inv__product__sub__categories.id')
+        ->where('inv__product__sub__categories.sub_category_name', 'like', '%'.$request->search.'%')
+        ->orderBy('sub_category_name','asc')
+        ->paginate(15);
+
+        
+        if($inv_product->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.product.searchProduct', compact('inv_product'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    //Search Product By Manufacturer
+    public function SearchProductByManufacturer(Request $request){
+        $inv_product = Inv_Product::select('inv__products.*','inv__manufacturer__infos.manufacturer_name as manufacturer_name')
+        ->join('inv__manufacturer__infos', 'inv__products.manufacturer_id', '=', 'inv__manufacturer__infos.id')
+        ->where('inv__manufacturer__infos.manufacturer_name', 'like', '%'.$request->search.'%')
+        ->orderBy('manufacturer_name','asc')
+        ->paginate(15);
+        
+        if($inv_product->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.product.searchProduct', compact('inv_product'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    //Search Product By Mrp
+    public function SearchProductByMrp(Request $request){
+        $inv_product = Inv_Product::where('mrp', 'like', '%'.$request->search.'%')
+        ->orderBy('mrp','asc')
+        ->paginate(15);
+        
+        if($inv_product->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.product.searchProduct', compact('inv_product'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
     /////////////////////////// --------------- Inventory Products Methods end ---------- //////////////////////////
+
 
 
 
@@ -1234,7 +1325,7 @@ class InventoryController extends Controller
 
 
 
-    //Update client
+    //Update Client
     public function UpdateClients(Request $request,$id){
         $inv_client = Inv_Client_Info::findOrFail($id);
 
@@ -1288,7 +1379,7 @@ class InventoryController extends Controller
 
 
 
-    //Client Search
+    //Search Client by Name
     public function SearchClients(Request $request){
         $inv_client = Inv_Client_Info::where('client_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
@@ -1312,7 +1403,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Client Search
+
+    //Search Client by Email
     public function SearchClientByEmail(Request $request){
         $inv_client = Inv_Client_Info::where('client_email', 'like', '%'.$request->search.'%')
         ->orderBy('client_email','asc')
@@ -1336,7 +1428,7 @@ class InventoryController extends Controller
 
 
 
-    //Client Search
+    //Search Client by Contact
     public function SearchClientByContact(Request $request){
         $inv_client = Inv_Client_Info::where('client_contact', 'like', '%'.$request->search.'%')
         ->orderBy('client_contact','asc')
@@ -1360,7 +1452,7 @@ class InventoryController extends Controller
 
 
 
-    //Client Search
+    //Search Client by Address
     public function SearchClientByAddress(Request $request){
         $inv_client = Inv_Client_Info::where('client_address', 'like', '%'.$request->search.'%')
         ->orderBy('client_address','asc')
@@ -1383,6 +1475,7 @@ class InventoryController extends Controller
     }//End Method
 
     /////////////////////////// --------------- Inventory Client Methods end---------- //////////////////////////
+
 
 
 
@@ -1420,7 +1513,7 @@ class InventoryController extends Controller
 
 
 
-    //Get Location by id
+    //Get Location by Id
     public function GetLocationByID(Request $request){
         $inv_location = Inv_Location::where('id','=', $request->id)->first();
 
@@ -1465,7 +1558,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Edit Locations
+
+    //Edit Location
     public function EditLocations($id){
         $inv_location = Inv_Location::findOrFail($id);
         return response()->json([
@@ -1475,7 +1569,7 @@ class InventoryController extends Controller
 
 
 
-    //Update Locations
+    //Update Location
     public function UpdateLocations(Request $request,$id){
         $request->validate([
             "division" => 'required',
@@ -1503,7 +1597,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Delete Locations
+
+    //Delete Location
     public function DeleteLocations($id){
         Inv_Location::findOrFail($id)->delete();
         return response()->json([
@@ -1524,7 +1619,7 @@ class InventoryController extends Controller
 
 
 
-    //Location Search
+    //Search Location by Division
     public function SearchLocations(Request $request){
         $inv_location = Inv_Location::where('division', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
@@ -1548,7 +1643,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Location Search
+
+    //Search Location by District
     public function SearchLocationByDistrict(Request $request){
         $inv_location = Inv_Location::where('district', 'like', '%'.$request->search.'%')
         ->orderBy('district','asc')
@@ -1572,7 +1668,7 @@ class InventoryController extends Controller
 
 
 
-    //Location Search
+    //Search Location by City
     public function SearchLocationByCity(Request $request){
         $inv_location = Inv_Location::where('city', 'like', '%'.$request->search.'%')
         ->orderBy('city','asc')
@@ -1596,7 +1692,7 @@ class InventoryController extends Controller
 
 
 
-    //Location Search
+    //Search Location by Area
     public function SearchLocationByArea(Request $request){
         $inv_location = Inv_Location::where('area', 'like', '%'.$request->search.'%')
         ->orderBy('area','asc')
@@ -1620,7 +1716,7 @@ class InventoryController extends Controller
 
 
 
-    //Location Search
+    //Search Location by Roadno
     public function SearchLocationByRoadno(Request $request){
         $inv_location = Inv_Location::where('road_no', 'like', '%'.$request->search.'%')
         ->orderBy('road_no','asc')
@@ -1642,7 +1738,6 @@ class InventoryController extends Controller
         }
     }//End Method
 
-
     /////////////////////////// --------------- Inventory Location Methods end ---------- //////////////////////////
 
 
@@ -1650,7 +1745,6 @@ class InventoryController extends Controller
 
 
     /////////////////////////// --------------- Inventory Store Methods start ---------- //////////////////////////
-    
     //Show Store
     public function ShowStores(){
         $inv_location = Inv_Location::get();
@@ -1692,6 +1786,7 @@ class InventoryController extends Controller
     }//End Method
 
 
+
     //Update Stores
     public function UpdateStores(Request $request,$id){
         $inv_store = Inv_Store::findOrFail($id);
@@ -1717,6 +1812,7 @@ class InventoryController extends Controller
     }//End Method
 
 
+
     //Delete Stores
     public function DeleteStores($id){
         Inv_Store::findOrFail($id)->delete();
@@ -1724,6 +1820,7 @@ class InventoryController extends Controller
             'status'=>'success'
         ]); 
     }//End Method
+
 
 
     //Store Pagination
@@ -1737,7 +1834,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Store Search
+
+    //Search Store by Name
     public function SearchStores(Request $request){
         $inv_store = Inv_Store::where('store_name', 'like', '%'.$request->search.'%')
         ->orWhere('id', 'like','%'.$request->search.'%')
@@ -1761,7 +1859,8 @@ class InventoryController extends Controller
     }//End Method
 
 
-    //Store Search
+
+    //Search Store by Location
     public function SearchStoreByLocation(Request $request){
         $inv_store = Inv_Store::select('inv__stores.*','inv__locations.division as division')
                 ->join('inv__locations', 'inv__stores.location_id', '=', 'inv__locations.id')
@@ -1929,13 +2028,146 @@ class InventoryController extends Controller
 
 
 
-    //Receive Details Search
-    public function SearchReceiveDetails(Request $request){
-        $inv_receive_details = Inv_Receive_Detail::where('supplier_id', 'like', '%'.$request->search.'%')
-        ->orWhere('product_id', 'like','%'.$request->search.'%')
-        ->orWhere('id', 'like','%'.$request->search.'%')
-        ->orderBy('id','desc')
+    // Search Receive Details By Supplier
+    public function SearchReceiveDetailBySupplier(Request $request){
+        $inv_receive_details = Inv_Receive_Detail::with('SupplierName:id,sup_name')
+        ->whereHas('SupplierName', function ($query) use ($request) {
+            $query->where('sup_name', 'like', '%' . $request->search . '%');
+            $query->orderBy('sup_name','asc');
+        })
         ->paginate(15);
+
+
+        if($inv_receive_details->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.receive_detail.searchReceiveDetail', compact('inv_receive_details'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    // Search Receive Details By Invoice No
+    public function SearchReceiveDetailByInvoice(Request $request){
+        $inv_receive_details = Inv_Receive_Detail::where('invoice_no', 'like', '%' . $request->search . '%')
+        ->orderBy('invoice_no','asc')
+        ->paginate(15);
+
+        if($inv_receive_details->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.receive_detail.searchReceiveDetail', compact('inv_receive_details'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    // Search Receive Details By Batch No
+    public function SearchReceiveDetailByBatch(Request $request){
+        $inv_receive_details = Inv_Receive_Detail::where('batch_no', 'like', '%' . $request->search . '%')
+        ->orderBy('batch_no','asc')
+        ->paginate(15);
+
+        if($inv_receive_details->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.receive_detail.searchReceiveDetail', compact('inv_receive_details'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    // Search Receive Details By Cp
+    public function SearchReceiveDetailByCp(Request $request){
+        $inv_receive_details = Inv_Receive_Detail::where('cp', 'like', '%' . $request->search . '%')
+        ->orderBy('cp','asc')
+        ->paginate(15);
+
+        if($inv_receive_details->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.receive_detail.searchReceiveDetail', compact('inv_receive_details'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    // Search Receive Details By Discount
+    public function SearchReceiveDetailByDiscount(Request $request){
+        $inv_receive_details = Inv_Receive_Detail::where('discount', 'like', '%' . $request->search . '%')
+        ->orderBy('discount','asc')
+        ->paginate(15);
+
+        if($inv_receive_details->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.receive_detail.searchReceiveDetail', compact('inv_receive_details'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    // Search Receive Details By Expiry Date
+    public function SearchReceiveDetailByExpiry(Request $request){
+        $inv_receive_details = Inv_Receive_Detail::where('expiry_date', 'like', '%' . $request->search . '%')
+        ->orderBy('expiry_date','asc')
+        ->paginate(15);
+
+        if($inv_receive_details->count() >= 1){
+            return response()->json([
+                'status' => 'success',
+                'data' => view('inventory.receive_detail.searchReceiveDetail', compact('inv_receive_details'))->render(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>'null'
+            ]); 
+        }
+    }//End Method
+
+
+
+    // Search Receive Details By Product
+    public function SearchReceiveDetailByProduct(Request $request){
+        $inv_receive_details = Inv_Receive_Detail::with('ProductName:id,product_name')
+        ->whereHas('ProductName', function ($query) use ($request) {
+            $query->where('product_name', 'like', '%' . $request->search . '%');
+            $query->orderBy('product_name','asc');
+        })
+        ->paginate(15);
+
+
         if($inv_receive_details->count() >= 1){
             return response()->json([
                 'status' => 'success',
@@ -1960,7 +2192,7 @@ class InventoryController extends Controller
 
 
     /////////////////////////// --------------- Status Methods start ---------- //////////////////////////
-    //update status dynamically
+    //Update Status Dynamically
     public function Status(Request $req){
         $model = "App\\Models\\" . $req->table_name;
         if($req->status==0){

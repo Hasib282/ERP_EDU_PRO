@@ -167,10 +167,18 @@ Route::controller(InventoryController::class)->group(function(){
         Route::put('/updateProducts/{id}', 'UpdateProducts')->name('update.products');
         Route::delete('/deleteProducts/{id}', 'DeleteProducts')->name('delete.products');
         //search routes start
-        Route::get('/searchProducts', 'SearchProduct')->name('search.products');
+        Route::get('/searchProduct/name', 'SearchProduct')->name('search.product.name');
+        Route::get('/searchProduct/category', 'SearchProductByCategory')->name('search.product.category');
+        Route::get('/searchProduct/subCategory', 'SearchProductBySubCategory')->name('search.product.subCategory');
+        Route::get('/searchProduct/manufacturer', 'SearchProductByManufacturer')->name('search.products.manufacturer');
+        Route::get('/searchProduct/mrp', 'SearchProductByMrp')->name('search.product.mrp');
         //pagination routes start
         Route::get('/product/pagination', 'ProductPagination');
-        Route::get('/product/searchPagination', 'SearchProduct');
+        Route::get('/product/namePagination', 'SearchProduct');
+        Route::get('/product/categoryPagination', 'SearchProductByCategory');
+        Route::get('/product/subCategoryPagination', 'SearchProductBySubCategory');
+        Route::get('/product/manufacturerPagination', 'SearchProductByManufacturer');
+        Route::get('/product/mrpPagination', 'SearchProductByMrp');
         //search list routs
         Route::get('/getProductByName', 'GetProductByName')->name('get.product.by.name');
         Route::get('/getProductById/{id}', 'GetProductByID')->name('get.product.by.id');
@@ -253,10 +261,22 @@ Route::controller(InventoryController::class)->group(function(){
         Route::put('/updateReceiveDetails/{id}', 'UpdateReceiveDetails')->name('update.receive.details');
         Route::delete('/deleteReceiveDetails/{id}', 'DeleteReceiveDetails')->name('delete.receive.details');
         //search routes start
-        Route::get('/searchReceiveDetails', 'SearchReceiveDetails')->name('search.receive.details');
+        Route::get('/searchReceiveDetail/supplier', 'SearchReceiveDetailBySupplier')->name('search.receive.details.supplier');
+        Route::get('/searchReceiveDetail/invoice', 'SearchReceiveDetailByInvoice')->name('search.receive.details.invoice');
+        Route::get('/searchReceiveDetail/batch', 'SearchReceiveDetailByBatch')->name('search.receive.details.batch');
+        Route::get('/searchReceiveDetail/cp', 'SearchReceiveDetailByCp')->name('search.receive.details.cp');
+        Route::get('/searchReceiveDetail/discount', 'SearchReceiveDetailByDiscount')->name('search.receive.details.discount');
+        Route::get('/searchReceiveDetail/expiry', 'SearchReceiveDetailByExpiry')->name('search.receive.details.expiry');
+        Route::get('/searchReceiveDetail/product', 'SearchReceiveDetailByProduct')->name('search.receive.details.product');
         //pagination routes start
         Route::get('/receiveDetail/pagination', 'ReceiveDetailPagination');
-        Route::get('/receiveDetail/searchPagination', 'SearchReceiveDetails');
+        Route::get('/receiveDetail/supplierPagination', 'SearchReceiveDetailBySupplier');
+        Route::get('/receiveDetail/invoicePagination', 'SearchReceiveDetailByInvoice');
+        Route::get('/receiveDetail/batchPagination', 'SearchReceiveDetailByBatch');
+        Route::get('/receiveDetail/cpPagination', 'SearchReceiveDetailByCp');
+        Route::get('/receiveDetail/discountPagination', 'SearchReceiveDetailByDiscount');
+        Route::get('/receiveDetail/expiryPagination', 'SearchReceiveDetailByExpiry');
+        Route::get('/receiveDetail/productPagination', 'SearchReceiveDetailByProduct');
         //search list routs
 
 

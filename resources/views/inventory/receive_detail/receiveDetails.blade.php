@@ -8,11 +8,12 @@
             <div class="col-md-9 search">
                 <select name="searchOption" id="searchOption" class="select">
                     <option value="1">Supplier</option>
-                    <option value="2">Invoice</option>
-                    <option value="3">Batch</option>
-                    <option value="4">Cp</option>
-                    <option value="5">Discount</option>
-                    <option value="6">Expiry Date</option>
+                    <option value="2">Product</option>
+                    <option value="3">Invoice</option>
+                    <option value="4">Batch</option>
+                    <option value="5">Cp</option>
+                    <option value="6">Discount</option>
+                    <option value="7">Expiry Date</option>
                 </select>
                 <input type="text" name="search" id="search" class="form-input" placeholder="Search here...">
             </div>
