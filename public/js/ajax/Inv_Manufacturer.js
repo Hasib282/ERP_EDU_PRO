@@ -130,6 +130,7 @@ $(document).ready(function () {
         }
     });
 
+    
 
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
@@ -139,11 +140,13 @@ $(document).ready(function () {
     });
 
 
+
     //on select option search value will be remove
     $(document).on('change', '#searchOption', function (e) {
         $('#search').val('');
     });
     
+
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
     $(document).on('keyup', '#search', function (e) {
@@ -160,6 +163,7 @@ $(document).ready(function () {
             loadManufacturerData(`/admin/inventory/searchManufacturer/contact`, {search:search}, '.manufacturer');
         }
     });
+
 
 
     /////////////// ------------------ Search Pagination ajax part start ---------------- /////////////////////////////
@@ -179,6 +183,7 @@ $(document).ready(function () {
             loadManufacturerData(`/admin/inventory/manufacturer/contactPagination?page=${page}`, {search:search}, '.manufacturer')
         }
     });
+
 
 
     //product Manufacturer data load function

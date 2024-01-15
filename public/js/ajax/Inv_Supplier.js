@@ -133,6 +133,7 @@ $(document).ready(function () {
         }
     });
 
+    
 
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
@@ -212,7 +213,5 @@ $(document).ready(function () {
             }
         });
     }
-
-
 
 });

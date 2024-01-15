@@ -148,6 +148,7 @@ $(document).ready(function () {
     });
 
 
+    
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();

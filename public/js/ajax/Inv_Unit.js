@@ -114,6 +114,7 @@ $(document).ready(function () {
     });
 
 
+
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
@@ -122,11 +123,13 @@ $(document).ready(function () {
     });
 
 
+
     //on select option search value will be remove
     $(document).on('change', '#searchOption', function (e) {
         $('#search').val('');
     });
     
+
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
     $(document).on('keyup', '#search', function (e) {
@@ -134,7 +137,6 @@ $(document).ready(function () {
         let search = $(this).val();
         loadUnitData(`/admin/inventory/searchUnits`, {search:search}, '.unit');
     });
-
 
 
 
@@ -147,6 +149,7 @@ $(document).ready(function () {
         loadUnitData(`/admin/inventory/unit/searchPagination?page=${page}`, {search:search}, '.unit');
     });
 
+    
 
     //unit pagination data load function
     function loadUnitData(url, data, targetElement) {

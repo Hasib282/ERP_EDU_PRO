@@ -163,6 +163,7 @@ $(document).ready(function () {
     });
 
 
+    
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
@@ -171,10 +172,12 @@ $(document).ready(function () {
     });
 
 
+
     //on select option search value will be remove
     $(document).on('change', '#searchOption', function (e) {
         $('#search').val('');
     });
+
 
 
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
@@ -224,6 +227,7 @@ $(document).ready(function () {
             loadProductData(`/admin/inventory/product/mrpPagination?page=${page}`, {search:search}, '.product')
         }
     });
+
 
 
     //product pagination data load function

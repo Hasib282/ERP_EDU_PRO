@@ -266,7 +266,6 @@ $(document).ready(function () {
         });
     }
 
-
     /////////////// ------------------ Calculation ajax part start ---------------- /////////////////////////////
 
     $('#cp, #discount, #quantity, #paid').on('input', function () {

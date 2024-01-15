@@ -66,7 +66,6 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/unit/searchPagination', 'SearchUnits');
         //search list routs
         Route::get('/getUnitByName', 'GetUnitByName')->name('get.unit.by.name');
-        Route::get('/getUnitById', 'GetUnitById')->name('get.unit.by.id');
 
 
         
@@ -90,7 +89,6 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/supplier/addressPagination', 'SearchSupplierByAddress');
         //search list routs
         Route::get('/getSupplierByName', 'GetSupplierByName')->name('get.supplier.by.name');
-        Route::get('/getSupplierById', 'GetSupplierById')->name('get.supplier.by.id');
 
 
 
@@ -113,7 +111,6 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/manufacturer/contactPagination', 'SearchManufacturerByContact');
         //search list routs
         Route::get('/getManufacturerByName', 'GetManufacturerByName')->name('get.manufacturer.by.name');
-        Route::get('/getManufacturerById', 'GetManufacturerById')->name('get.manufacturer.by.id');
         
 
         
@@ -132,7 +129,6 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/productCategory/searchPagination', 'SearchProductCategory');
         //search list routs
         Route::get('/getCategoryByName', 'GetCategoryByName')->name('get.category.by.name');
-        Route::get('/getCategoryById', 'GetCategoryById')->name('get.category.by.id');
 
 
 
@@ -153,7 +149,6 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/productSubCategory/categoryNamePagination', 'SearchSubCategoryByCategoryName');
         //search list routs
         Route::get('/productSubCategoryByCategory', 'GetSubCategoryByCategory')->name('show.subCatagory.by.category');
-        Route::get('/getSubCategoryById', 'GetSubCategoryById')->name('show.subCatagory.by.category');
 
 
 
@@ -181,7 +176,6 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/product/mrpPagination', 'SearchProductByMrp');
         //search list routs
         Route::get('/getProductByName', 'GetProductByName')->name('get.product.by.name');
-        Route::get('/getProductById/{id}', 'GetProductByID')->name('get.product.by.id');
         
 
 
@@ -231,7 +225,6 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/location/roadnoPagination', 'SearchLocationByRoadno');
         //search list routs
         Route::get('/getLocationByDivision', 'GetLocationByDivision')->name('get.location.by.division');
-        Route::get('/getLocationById', 'GetLocationById')->name('get.location.by.id');
 
 
 

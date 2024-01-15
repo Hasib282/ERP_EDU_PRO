@@ -137,6 +137,7 @@ $(document).ready(function () {
     });
     
 
+    
     //////////////////////////// ------------------ Search part ajax start ---------------- /////////////////////////////
     //search main mechanism
     $(document).on('keyup', '#search', function (e) {
@@ -150,6 +151,7 @@ $(document).ready(function () {
             loadProductSubCategoryData(`/admin/inventory/productSubCategory/categoryName`, {search:search}, '.sub-category');
         }
     });
+
 
 
     //Search Pagination ajax part

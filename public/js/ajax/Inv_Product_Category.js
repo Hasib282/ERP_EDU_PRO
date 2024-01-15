@@ -114,6 +114,7 @@ $(document).ready(function () {
     });
 
 
+    
     /////////////// ------------------ Pagination ajax part start ---------------- /////////////////////////////
     $(document).on('click', '.paginate a', function (e) {
         e.preventDefault();
@@ -122,19 +123,20 @@ $(document).ready(function () {
     });
 
 
+
     //on select option search value will be remove
     $(document).on('change', '#searchOption', function (e) {
         $('#search').val('');
     });
 
     
+
     /////////////// ------------------ Search ajax part start ---------------- /////////////////////////////
     $(document).on('keyup', '#search', function (e) {
         e.preventDefault();
         let search = $(this).val();
         loadProductCategoryData(`/admin/inventory/searchProductCategory`, {search:search}, '.category');
     });
-
 
 
 
@@ -146,6 +148,8 @@ $(document).ready(function () {
         let page = $(this).attr('href').split('page=')[1];
         loadProductCategoryData(`/admin/inventory/productCategory/searchPagination?page=${page}`, {search:search}, '.category');
     });
+
+
 
     //product Category pagination data load function
     function loadProductCategoryData(url, data, targetElement) {
