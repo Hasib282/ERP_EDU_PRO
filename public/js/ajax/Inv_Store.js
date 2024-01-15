@@ -45,7 +45,7 @@ $(document).ready(function () {
                 $('#id').val(res.inv_store.id);
                 $('#updateStoreName').val(res.inv_store.store_name);
                 
-                getLocationById(res.inv_store.location_id,'#updateLocation');
+                $('#updateLocation').val(res.inv_store.location.division);
                 $('#updateLocation').attr('data-id',res.inv_store.location_id);
 
                 // Create options dynamically based on the status value
@@ -189,24 +189,5 @@ $(document).ready(function () {
         });
     }
 
-
-    //search category by id
-    function getLocationById(id, targetElement1) {
-        if(id==""){
-            $(targetElement1).val('');
-        }
-        else{
-            $.ajax({
-                url: `/admin/inventory/getLocationById`,
-                method: 'get',
-                data:{ id:id },
-                success: function (res) {
-                    if (res.status == "success") {
-                        $(targetElement1).val(res.inv_location.division);
-                    }
-                }
-            });
-        }
-    }
 
 });

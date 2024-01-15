@@ -45,12 +45,13 @@ $(document).ready(function () {
                 $('#updateSubCategoryId').val(res.sub_category.id);
                 $('#updateSubCategoryName').val(res.sub_category.sub_category_name);
 
-                getCategoryById(res.sub_category.category_id,'#updateCategory');
+                $('#updateCategory').val(res.sub_category.category_name.product_category_name)
                 $('#updateCategory').attr('data-id',res.sub_category.category_id);
 
                 // Create options dynamically based on the status value
                 $('#updateStatus').html(`<option value="1" ${res.sub_category.status === 1 ? 'selected' : ''}>Active</option>
                                          <option value="0" ${res.sub_category.status === 0 ? 'selected' : ''}>Inactive</option>`);
+                
                 var modal = document.getElementById(modalId);
 
                 if (modal) {
@@ -184,26 +185,6 @@ $(document).ready(function () {
                 }
             }
         });
-    }
-
-
-    //search category by id
-    function getCategoryById(id, targetElement1) {
-        if(id==""){
-            $(targetElement1).val('');
-        }
-        else{
-            $.ajax({
-                url: `/admin/inventory/getCategoryById`,
-                method: 'get',
-                data: { id:id },
-                success: function (res) {
-                    if (res.status == "success") {
-                        $(targetElement1).val(res.inv_category.product_category_name);
-                    }
-                }
-            });
-        }
     }
 
     ///////////////////////// ------------------ Search part ajax end ---------------- /////////////////////////////////

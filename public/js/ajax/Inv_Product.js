@@ -56,20 +56,18 @@ $(document).ready(function () {
 
                 $('#updateProductName').val(res.inv_product.product_name);
 
-                getById('/admin/inventory/getManufacturerById', res.inv_product.manufacturer_id, 'inv_manufacturer', 'manufacturer_name', '#updateManufacturer');
+                $('#updateManufacturer').val(res.inv_product.manufacturer_name.manufacturer_name)
                 $('#updateManufacturer').attr('data-id',res.inv_product.manufacturer_id);
                 
-
-                getById('/admin/inventory/getCategoryById', res.inv_product.category_id, 'inv_category', 'product_category_name', '#updateCategory');
+                $('#updateCategory').val(res.inv_product.category_name.product_category_name);
                 $('#updateCategory').attr('data-id',res.inv_product.category_id);
 
-                getById('/admin/inventory/getSubCategoryById', res.inv_product.sub_category_id, 'sub_category', 'sub_category_name', '#updateSubCategory');
+                $('#updateSubCategory').val(res.inv_product.sub_category.sub_category_name);
                 $('#updateSubCategory').attr('data-id',res.inv_product.sub_category_id);
 
                 $('#updateSize').val(res.inv_product.size);
 
-
-                getById('/admin/inventory/getUnitById', res.inv_product.unit, 'inv_unit', 'unit_name', '#updateUnit');
+                $('#updateUnit').val(res.inv_product.unit_name.unit_name);
                 $('#updateUnit').attr('data-id',res.inv_product.unit);
 
                 $('#updateMrp').val(res.inv_product.mrp);
@@ -241,27 +239,6 @@ $(document).ready(function () {
                 }
             }
         });
-    }
-
-
-
-    //search category by id
-    function getById(url, id,  object, property, targetElement1) {
-        if(id==""){
-            $(targetElement1).val('');
-        }
-        else{
-            $.ajax({
-                url: url,
-                method: 'get',
-                data:{ id:id },
-                success: function (res) {
-                    if (res.status == "success") {
-                        $(targetElement1).val(res[object][property]);
-                    }
-                }
-            });
-        }
     }
 
 });

@@ -57,17 +57,17 @@ $(document).ready(function () {
                 $('#id').val(res.inv_receive_details.id);
                 $('#updateReceive').val(datePart);
                 
-                
-                getSupplierById(res.inv_receive_details.supplier_id,'#updateSupplier')
+
+                $('#updateSupplier').val(res.inv_receive_details.supplier_name.sup_name);
                 $('#updateSupplier').attr('data-id',res.inv_receive_details.supplier_id);
 
                 $('#updateBatch').val(res.inv_receive_details.batch_no);
                 $('#updateInvoice').val(res.inv_receive_details.invoice_no);
                 $('#updateExpiry').val(res.inv_receive_details.expiry_date);
                 
-                
-                getProductById(res.inv_receive_details.product_id, "#updateMrp","#updateProduct")
+                $('#updateProduct').val('data-id', res.inv_receive_details.product_name.product_name);
                 $('#updateProduct').attr('data-id', res.inv_receive_details.product_id);
+                $('#updateMrp').val(res.inv_receive_details.mrp);
 
                 
 
@@ -266,46 +266,6 @@ $(document).ready(function () {
         });
     }
 
-
-    //search product by id
-    function getProductById(id, targetElement1, targetElement2="") {
-        if(id==""){
-            $(targetElement1).val('');
-            $(targetElement2).val('');
-        }
-        else{
-            $.ajax({
-                url: `/admin/inventory/getProductById/${id}`,
-                method: 'get',
-                success: function (res) {
-                    if (res.status == "success") {
-                        $(targetElement1).val(res.inv_product.mrp);
-                        $(targetElement2).val(res.inv_product.product_name);
-                    }
-                }
-            });
-        }
-    }
-
-
-    //search category by id
-    function getSupplierById(id, targetElement1) {
-        if(id==""){
-            $(targetElement1).val('');
-        }
-        else{
-            $.ajax({
-                url: '/admin/inventory/getSupplierById',
-                method: 'get',
-                data:{ id:id },
-                success: function (res) {
-                    if (res.status == "success") {
-                        $(targetElement1).val(res.inv_supplier.sup_name);
-                    }
-                }
-            });
-        }
-    }
 
     /////////////// ------------------ Calculation ajax part start ---------------- /////////////////////////////
 
