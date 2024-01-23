@@ -274,6 +274,27 @@ Route::controller(InventoryController::class)->group(function(){
 
 
 
+        //////////// -------------- Inventory Transaction Details Routes ------------ ///////////////////////
+        //crud routes start
+        Route::get('/transactionDetailTemp', 'ShowTransactionDetailTemp')->name('show.transaction.details.temp');
+        Route::post('/insertTransactionDetailTemp', 'InsertTransactionDetailTemp')->name('insert.transaction.details.temp');
+        Route::get('/editTransactionDetailTemp/{id}', 'EditTransactionDetailTemp')->name('edit.recetransactionive.details.temp');
+        Route::put('/updateTransactionDetailTemp/{id}', 'UpdateTransactionDetailTemp')->name('update.transaction.details.temp');
+        Route::delete('/deleteTransactionDetailTemp/{id}', 'DeleteTransactionDetailTemp')->name('delete.transaction.details.temp');
+
+
+
+
+        //////////// -------------- Inventory Transaction Main Routes ------------ ///////////////////////
+        //crud routes start
+        Route::get('/transactionMainTemp', 'ShowTransactionMainTemp')->name('show.transaction.main.temp');
+        Route::post('/insertTransactionMainTemp', 'InsertTransactionMainTemp')->name('insert.retransactionceive.main.temp');
+        Route::get('/editTransactionMainTemp/{id}', 'EditTransactionMainTemp')->name('edit.transaction.main.temp');
+        Route::put('/updateTransactionMainTemp/{id}', 'UpdateTransactionMainTemp')->name('update.transaction.main.temp');
+        Route::delete('/deleteTransactionMainTemp/{id}', 'DeleteTransactionMainTemp')->name('delete.transaction.main.temp');
+
+
+
 
         Route::put('/status','Status')->name('status');
 

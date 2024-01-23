@@ -17,6 +17,7 @@ use App\Models\Inv_Client_Info;
 use App\Models\Inv_Location;
 use App\Models\Inv_Store;
 use App\Models\Inv_Receive_Detail;
+use App\Models\Inv_Transaction_Details_Temp;
 
 class InventoryController extends Controller
 {
@@ -2027,6 +2028,141 @@ class InventoryController extends Controller
 
 
 
+    /////////////////////////// --------------- Inventory Transaction Details Methods start ---------- //////////////////////////
+    //Show Temporary Transaction Details
+    public function ShowTransactionDetailTemp(){
+        $user_info = User_Info::get();
+        $inv_transaction_temp = Inv_Transaction_Details_Temp::orderBy('tran_date','desc')->paginate(15);
+        return view('inventory.transaction.details_temp.tempTransactionDetails', compact('user_info','inv_transaction_temp'));
+    }//End Method
+
+
+
+    // //Insert Receive Details
+    // public function InsertReceiveDetails(Request $request){
+    //     $request->validate([
+    //         "supplier" => 'required|numeric',
+    //         'invoice' => 'required|numeric|unique:inv__receive__details,invoice_no',
+    //         'product' => 'required|numeric',
+    //         'batch' => 'required|numeric',
+    //         'cp' => 'required|numeric',
+    //         'discount' => 'required|numeric',
+    //         'expiry' => 'required|date',
+    //         'quantity' => 'required|numeric',
+    //         'mrp' => 'required|numeric',
+    //         'user' => 'required|numeric',
+    //     ]);
+
+    //     $inv_receive_details = Inv_Receive_Detail::insert([
+    //         'supplier_id' => $request->supplier,
+    //         'invoice_no' => $request->invoice,
+    //         'product_id' => $request->product,
+    //         'batch_no' => $request->batch,
+    //         'cp' => $request->cp,
+    //         'discount' => $request->discount,
+    //         'expiry_date' => $request->expiry,
+    //         'quantity' => $request->quantity,
+    //         'mrp' => $request->mrp,
+    //         'user_id' => $request->user,
+    //     ]);
+        
+    //     if($inv_receive_details){
+    //         return response()->json([
+    //             'status'=>'success',
+    //         ]); 
+    //     } 
+    // }//End Method
+
+
+
+    // //Edit Receive Details
+    // public function EditReceiveDetails($id){
+    //     $user_info = User_Info::get();
+    //     $inv_receive_details = Inv_Receive_Detail::with('ProductName:id,product_name','UserName:id,name','SupplierName:id,sup_name')->findOrFail($id);
+    //     return response()->json([
+    //         'user_info'=>$user_info,
+    //         'inv_receive_details'=>$inv_receive_details,
+    //     ]);
+    // }//End Method
+
+
+
+    // //Update Receive Details
+    // public function UpdateReceiveDetails(Request $request,$id){
+    //     $inv_receive_details = Inv_Receive_Detail::findOrFail($id);
+
+    //     $request->validate([
+    //         "supplier" => 'required|numeric',
+    //         'invoice' => ['required','numeric',Rule::unique('inv__receive__details', 'invoice_no')->ignore($inv_receive_details->id)],
+    //         'product' => 'required|numeric',
+    //         'batch' => 'required|numeric',
+    //         'cp' => 'required|numeric',
+    //         'discount' => 'required|numeric',
+    //         'expiry' => 'required|date',
+    //         'quantity' => 'required|numeric',
+    //         'mrp' => 'required|numeric',
+    //         'user' => 'required|numeric',
+    //         "status" => 'required'
+    //     ]);
+
+
+    //     $update = Inv_Receive_Detail::findOrFail($id)->update([
+    //         'supplier_id' => $request->supplier,
+    //         'invoice_no' => $request->invoice,
+    //         'product_id' => $request->product,
+    //         'batch_no' => $request->batch,
+    //         'cp' => $request->cp,
+    //         'discount' => $request->discount,
+    //         'expiry_date' => $request->expiry,
+    //         'quantity' => $request->quantity,
+    //         'mrp' => $request->mrp,
+    //         'user_id' => $request->user,
+    //         "status" => $request->status,
+    //         "updated_at" => now()
+    //     ]);
+
+
+
+        
+    //     if($update){
+    //         return response()->json([
+    //             'status'=>'success'
+    //         ]); 
+    //     } 
+    // }//End Method
+
+
+
+    // //Delete Receive Details
+    // public function DeleteReceiveDetails($id){
+    //     Inv_Receive_Detail::findOrFail($id)->delete();
+    //     return response()->json([
+    //         'status'=>'success'
+    //     ]); 
+    // }//End Method
+
+
+
+    //Receive Details Pagination
+    // public function ReceiveDetailPagination(){  
+    //     $inv_receive_details = Inv_Receive_Detail::orderBy('receive_date','desc')->paginate(15);
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'data' => view('inventory.receive_detail.receiveDetailPagination', compact('inv_receive_details'))->render(),
+    //     ]);
+    // }//End Method
+
+    /////////////////////////// --------------- Inventory Transaction Details Methods end ---------- //////////////////////////
+    
+
+
+    /////////////////////////// --------------- Inventory Transaction Details Methods start ---------- //////////////////////////
+    //Show Temporary Transaction Main details
+    public function ShowTransactionMainTemp(){
+        $user_info = User_Info::get();
+        $inv_transaction_main_temp = Inv_Transaction_Details_Temp::orderBy('tran_date','desc')->paginate(15);
+        return view('inventory.transaction.main_temp.tempTransactionMain', compact('user_info','inv_transaction_main_temp'));
+    }//End Method
 
     /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////
     /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////

@@ -100,7 +100,13 @@
               <li class="nav-item">
                 <a href="{{route('show.receive.details')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Inventory Receive Main</p>
+                  <p>Inventory Receive Details</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('show.transaction.details.temp')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inventory Temp Transaction Details</p>
                 </a>
               </li>
             </ul>

@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             InvStoreSeeder::class,
             InvClientInfoSeeder::class,
             InvReceiveDetailSeeder::class,
-            
+            InvTransactionDetailSeeder::class,
+            InvTransactionMainSeeder::class,
         ]);
 
         // Inv_Product_category::factory()->count(50000)->unique()->create();
