@@ -269,6 +269,7 @@ $(document).ready(function () {
         let name = $(this).val();
         $('#product').removeAttr('data-id');
         $('#mrp').val('');
+        $('#cp').val('');
         getProductByName(name, '#product-list ul');
     });
 
@@ -278,9 +279,11 @@ $(document).ready(function () {
         let value = $(this).text();
         let id = $(this).data('id');
         let mrp = $(this).data('mrp');
+        let cp = $(this).data('cp');
         $('#product').val(value);
         $('#product').attr('data-id', id);
         $('#mrp').val(mrp);
+        $('#cp').val(cp);
         $('#product-list ul').html('');
     });
 
@@ -288,6 +291,7 @@ $(document).ready(function () {
     $(document).on('keyup', '#updateProduct', function () {
         let name = $(this).val();
         $('#updateMrp').empty();
+        $('#updateCp').empty();
         $('#updateProduct').removeAttr('data-id');
         getProductByName(name, '#update-product ul');
     });
@@ -298,9 +302,11 @@ $(document).ready(function () {
         let value = $(this).text();
         let id = $(this).data('id');
         let mrp = $(this).data('mrp');
+        let cp = $(this).data('cp');
         $('#updateProduct').val(value);
         $('#updateProduct').attr('data-id', id);
         $('#updateMrp').val(mrp);
+        $('#updateCp').val(cp);
         $('#update-product ul').html('');
     });
 

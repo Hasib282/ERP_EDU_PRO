@@ -12,7 +12,7 @@
     },
     {
         "tran_type":"Receive",
-        "tran_id":"R00000000002",
+        "tran_id":"I00000000001",
         "supplier_id":2,
         "client_id":2,
         "invoice_no":111,
@@ -23,7 +23,7 @@
     },
     {
         "tran_type":"Receive",
-        "tran_id":"R00000000003",
+        "tran_id":"E00000000001",
         "supplier_id":3,
         "client_id":3,
         "invoice_no":112,
@@ -34,7 +34,7 @@
     },
     {
         "tran_type":"Receive",
-        "tran_id":"R00000000004",
+        "tran_id":"P00000000001",
         "supplier_id":4,
         "client_id":4,
         "invoice_no":113,
@@ -45,7 +45,7 @@
     },
     {
         "tran_type":"Receive",
-        "tran_id":"R00000000005",
+        "tran_id":"N00000000001",
         "supplier_id":5,
         "client_id":5,
         "invoice_no":114,

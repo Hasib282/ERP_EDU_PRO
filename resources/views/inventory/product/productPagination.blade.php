@@ -9,6 +9,7 @@
             <th>Manufacturer</th>
             <th>Size</th>
             <th>MRP</th>
+            <th>CP</th>
             <th>Inserted By</th>
             <th>Status</th>
             <th>Action</th>
@@ -24,6 +25,7 @@
                 <td>{{ $item->ManufacturerName->manufacturer_name }}</td>
                 <td>{{ $item->size }}{{ $item->UnitName->unit_name }}</td>
                 <td>{{ $item->mrp }}Tk.</td>
+                <td>{{ $item->cp }}Tk.</td>
                 <td>{{ $item->UserName->name }}</td>
                 <td>
                     @if ($item->status == 1)
@@ -50,6 +52,7 @@
             <th>Manufacturer</th>
             <th>Size</th>
             <th>MRP</th>
+            <th>CP</th>
             <th>Inserted By</th>
             <th>Status</th>
             <th>Action</th>

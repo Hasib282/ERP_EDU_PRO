@@ -26,6 +26,7 @@ class InvProductSeeder extends Seeder
                 "size"=>$user->size,
                 "unit"=>$user->unit,
                 "mrp"=>$user->mrp,
+                "cp"=>$user->cp,
                 "user_id"=>$user->user_id,
             ]);
         });

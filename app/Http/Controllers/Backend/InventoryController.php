@@ -18,6 +18,7 @@ use App\Models\Inv_Location;
 use App\Models\Inv_Store;
 use App\Models\Inv_Receive_Detail;
 use App\Models\Inv_Transaction_Details_Temp;
+use App\Models\Inv_Transaction_Main_Temp;
 
 class InventoryController extends Controller
 {
@@ -909,7 +910,7 @@ class InventoryController extends Controller
             if($inv_product->count() > 0){
                 $list = "";
                 foreach($inv_product as $product) {
-                    $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$product->id. '" data-mrp="'.$product->mrp.'">'.$product->product_name.'</li>';
+                    $list .= '<li class="list-group-item list-group-item-primary" data-id="'.$product->id. '" data-mrp="'.$product->mrp.'" data-cp="'.$product->cp. '">'.$product->product_name.'</li>';
                 }
             }
             else{
@@ -2038,40 +2039,78 @@ class InventoryController extends Controller
 
 
 
-    // //Insert Receive Details
-    // public function InsertReceiveDetails(Request $request){
-    //     $request->validate([
-    //         "supplier" => 'required|numeric',
-    //         'invoice' => 'required|numeric|unique:inv__receive__details,invoice_no',
-    //         'product' => 'required|numeric',
-    //         'batch' => 'required|numeric',
-    //         'cp' => 'required|numeric',
-    //         'discount' => 'required|numeric',
-    //         'expiry' => 'required|date',
-    //         'quantity' => 'required|numeric',
-    //         'mrp' => 'required|numeric',
-    //         'user' => 'required|numeric',
-    //     ]);
+    //Insert Temporary Transaction Details 
+    public function InsertTransactionDetailTemp(Request $request){
+        $request->validate([
+            "tranType" => 'required',
+            "tranId" => 'required',
+            "supplier" => 'required|numeric',
+            // "client" => 'required|numeric',
+            "sl" => 'required',
+            "product" => 'required|numeric',
+            "receiveQty" => 'required|numeric',
+            "issueQty" => 'required|numeric',
+            "balanceQty" => 'required|numeric',
+            "cp" => 'required|numeric',
+            "mrp" => 'required|numeric',
+            "totCp" => 'required|numeric',
+            "totMrp" => 'required|numeric',
+            "discount" => 'required|numeric',
+            "profit" => 'required|numeric',
+            "receive" => 'required',
+            "user" => 'required|numeric',
+            "status" => 'required',
+        ]);
 
-    //     $inv_receive_details = Inv_Receive_Detail::insert([
-    //         'supplier_id' => $request->supplier,
-    //         'invoice_no' => $request->invoice,
-    //         'product_id' => $request->product,
-    //         'batch_no' => $request->batch,
-    //         'cp' => $request->cp,
-    //         'discount' => $request->discount,
-    //         'expiry_date' => $request->expiry,
-    //         'quantity' => $request->quantity,
-    //         'mrp' => $request->mrp,
-    //         'user_id' => $request->user,
-    //     ]);
+        $inv_transaction_temp = Inv_Transaction_Details_Temp::insert([
+            "tran_type" => $request->tranType,
+            "tran_id" => $request->tranId,
+            "supplier_id" => $request->supplier,
+            "client_id" => $request->client,
+            "sl" => $request->sl,
+            "product_id" => $request->product,
+            "receive_qty" => $request->receiveQty,
+            "issue_qty" => $request->issueQty,
+            "balance_qty" => $request->balanceQty,
+            "cp" => $request->cp,
+            "mrp" => $request->mrp,
+            "tot_cp" => $request->totCp,
+            "tot_mrp" => $request->totMrp,
+            "discount" => $request->discount,
+            "profit" => $request->profit,
+            "receive_id" => $request->receive,
+            "user_id" => $request->user,
+            "status" => $request->status
+        ]);
         
-    //     if($inv_receive_details){
-    //         return response()->json([
-    //             'status'=>'success',
-    //         ]); 
-    //     } 
-    // }//End Method
+        if($inv_transaction_temp){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        } 
+    }//End Method
+
+
+    //Get Inserted Transacetion Grid By Transaction Id
+    public function GetTransactionGrid(Request $request){
+        if($request->tranId != ""){
+            $current_transaction = Inv_Transaction_Details_Temp::where('tran_id', 'like', $request->tranId)
+            ->orderBy('tran_id','asc')
+            ->paginate(15);
+            if ($current_transaction) {
+                return response()->json([
+                    'status' => 'success',
+                    'data' => view('inventory.transaction.details_temp.transactionGrid', compact('current_transaction'))->render(),
+                    'current_transaction' => $current_transaction
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'null'
+                ]); 
+            }
+        }
+        
+    }//End Method
 
 
 
@@ -2160,8 +2199,31 @@ class InventoryController extends Controller
     //Show Temporary Transaction Main details
     public function ShowTransactionMainTemp(){
         $user_info = User_Info::get();
-        $inv_transaction_main_temp = Inv_Transaction_Details_Temp::orderBy('tran_date','desc')->paginate(15);
+        $inv_transaction_main_temp = Inv_Transaction_Main_Temp::orderBy('tran_date','desc')->paginate(15);
         return view('inventory.transaction.main_temp.tempTransactionMain', compact('user_info','inv_transaction_main_temp'));
+    }//End Method
+
+
+    //Search Product By Name
+    public function GetTransactionId(Request $request){
+        if($request->tranType != ""){
+            $inv_transaction = Inv_Transaction_Main_Temp::where('tran_id', 'like', $request->tranType . '%')
+            ->latest('tran_id')
+            ->first();
+            
+            if ($inv_transaction) {
+                return response()->json([
+                    'status' => 'success',
+                    'inv_transaction' => $inv_transaction,
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'null',
+                    'tran_id' => $request->tranType.'00000000001'
+                ]); 
+            }
+        }
+        
     }//End Method
 
     /////////////////////////// --------------- Inventory Units Methods start ---------- //////////////////////////

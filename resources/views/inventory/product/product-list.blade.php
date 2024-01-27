@@ -18,6 +18,7 @@
                 <td>{{ $item->ManufacturerName->manufacturer_name }}</td>
                 <td>{{ $item->size }}{{ $item->UnitName->unit_name }}</td>
                 <td>{{ $item->mrp }}Tk.</td>
+                <td>{{ $item->cp }}Tk.</td>
             </tr>
         @endforeach
     </tbody>

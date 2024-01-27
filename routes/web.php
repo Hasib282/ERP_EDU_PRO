@@ -281,7 +281,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/editTransactionDetailTemp/{id}', 'EditTransactionDetailTemp')->name('edit.recetransactionive.details.temp');
         Route::put('/updateTransactionDetailTemp/{id}', 'UpdateTransactionDetailTemp')->name('update.transaction.details.temp');
         Route::delete('/deleteTransactionDetailTemp/{id}', 'DeleteTransactionDetailTemp')->name('delete.transaction.details.temp');
-
+        //search list routs
+        Route::get('/getTransactionGrid', 'GetTransactionGrid')->name('get.transaction.grid');
 
 
 
@@ -292,7 +293,8 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/editTransactionMainTemp/{id}', 'EditTransactionMainTemp')->name('edit.transaction.main.temp');
         Route::put('/updateTransactionMainTemp/{id}', 'UpdateTransactionMainTemp')->name('update.transaction.main.temp');
         Route::delete('/deleteTransactionMainTemp/{id}', 'DeleteTransactionMainTemp')->name('delete.transaction.main.temp');
-
+        //search list routs
+        Route::get('/getTransactionId', 'GetTransactionId')->name('get.transaction.id');
 
 
 

@@ -10,12 +10,13 @@ $(document).ready(function () {
         let size = $('#size').val();
         let unit = $('#unit').attr('data-id');
         let mrp = $('#mrp').val();
+        let cp = $('#cp').val();
         let expiry = $('#expiry').val();
         let user = $('#user').val();
         $.ajax({
             url: "/admin/inventory/insertProducts",
             method: 'Post',
-            data: { productName: productName, manufacturer: manufacturer, category: category, subCategory: subCategory, size: size, unit: unit, mrp: mrp, expiry: expiry, user: user },
+            data: { productName: productName, manufacturer: manufacturer, category: category, subCategory: subCategory, size: size, unit: unit, mrp: mrp, cp:cp, expiry: expiry, user: user },
             beforeSend: function () {
                 $(document).find('span.error').text('');
             },
@@ -71,6 +72,7 @@ $(document).ready(function () {
                 $('#updateUnit').attr('data-id',res.inv_product.unit);
 
                 $('#updateMrp').val(res.inv_product.mrp);
+                $('updateCp').val(res.inv_product.cp);
                 $('#updateExpiry').val(res.inv_product.expiry_date);
 
 

@@ -12,6 +12,7 @@
                     <option value="3">Sub Category</option>
                     <option value="4">Manufacturer</option>
                     <option value="5">Mrp</option>
+                    <option value="6">Cp</option>
                 </select>
                 <input type="text" name="search" id="search" class="form-input" placeholder="Search here...">
             </div>

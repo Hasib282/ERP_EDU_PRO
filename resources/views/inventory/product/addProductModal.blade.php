@@ -90,11 +90,18 @@
                                         <span class="text-danger error" id="unit_error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="mrp">MRP</label>
                                         <input type="text" name="mrp" class="form-control" id="mrp">
                                         <span class="text-danger error" id="mrp_error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="cp">Cp</label>
+                                        <input type="text" name="cp" class="form-control" id="cp">
+                                        <span class="text-danger error" id="cp_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
