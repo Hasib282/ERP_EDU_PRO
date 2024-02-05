@@ -15,7 +15,7 @@
 
         <div class="center">
             <div class="card card-primary col-md-12">
-                <form id="AddReceiveTransactionForm" method="post">
+                <form id="AddTempTransactionForm" method="post">
                     @csrf
                     <div class="center">
                         <div class="card-body">
@@ -130,7 +130,7 @@
                                     <span class="text-danger error" id="user_error"></span>
                                 </div>
                                 <div class="center">
-                                    <button type="submit" id="addTempReceiveTransaction"
+                                    <button type="submit" id="addTempTransaction"
                                         class="btn btn-success addButton">Add + </button>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                                     </table>
                                 </div>
                                 <div class="center">
-                                    <button type="submit" id="addTempReceiveMainTransaction" class="btn btn-success addButton">Submit</button>
+                                    <button type="submit" id="addTempMainTransaction" class="btn btn-success addButton">Submit</button>
                                 </div>
                             </div>
                         </div>

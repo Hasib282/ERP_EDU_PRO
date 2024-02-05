@@ -23,6 +23,6 @@ class InvProductCategorySeeder extends Seeder
             ]);
         });
 
-        Inv_Product_category::factory()->count(50000)->create();
+        Inv_Product_category::factory()->count(50)->create();
     }
 }

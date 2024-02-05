@@ -248,43 +248,56 @@ Route::controller(InventoryController::class)->group(function(){
 
         //////////// -------------- Inventory Receive Details Routes ------------ ///////////////////////
         //crud routes start
-        Route::get('/receiveDetails', 'ShowReceiveDetails')->name('show.receive.details');
-        Route::post('/insertReceiveDetails', 'InsertReceiveDetails')->name('insert.receive.details');
-        Route::get('/editReceiveDetails/{id}', 'EditReceiveDetails')->name('edit.receive.details');
-        Route::put('/updateReceiveDetails/{id}', 'UpdateReceiveDetails')->name('update.receive.details');
-        Route::delete('/deleteReceiveDetails/{id}', 'DeleteReceiveDetails')->name('delete.receive.details');
-        //search routes start
-        Route::get('/searchReceiveDetail/supplier', 'SearchReceiveDetailBySupplier')->name('search.receive.details.supplier');
-        Route::get('/searchReceiveDetail/invoice', 'SearchReceiveDetailByInvoice')->name('search.receive.details.invoice');
-        Route::get('/searchReceiveDetail/batch', 'SearchReceiveDetailByBatch')->name('search.receive.details.batch');
-        Route::get('/searchReceiveDetail/cp', 'SearchReceiveDetailByCp')->name('search.receive.details.cp');
-        Route::get('/searchReceiveDetail/discount', 'SearchReceiveDetailByDiscount')->name('search.receive.details.discount');
-        Route::get('/searchReceiveDetail/expiry', 'SearchReceiveDetailByExpiry')->name('search.receive.details.expiry');
-        Route::get('/searchReceiveDetail/product', 'SearchReceiveDetailByProduct')->name('search.receive.details.product');
-        //pagination routes start
-        Route::get('/receiveDetail/pagination', 'ReceiveDetailPagination');
-        Route::get('/receiveDetail/supplierPagination', 'SearchReceiveDetailBySupplier');
-        Route::get('/receiveDetail/invoicePagination', 'SearchReceiveDetailByInvoice');
-        Route::get('/receiveDetail/batchPagination', 'SearchReceiveDetailByBatch');
-        Route::get('/receiveDetail/cpPagination', 'SearchReceiveDetailByCp');
-        Route::get('/receiveDetail/discountPagination', 'SearchReceiveDetailByDiscount');
-        Route::get('/receiveDetail/expiryPagination', 'SearchReceiveDetailByExpiry');
-        Route::get('/receiveDetail/productPagination', 'SearchReceiveDetailByProduct');
+        // Route::get('/receiveDetails', 'ShowReceiveDetails')->name('show.receive.details');
+        // Route::post('/insertReceiveDetails', 'InsertReceiveDetails')->name('insert.receive.details');
+        // Route::get('/editReceiveDetails/{id}', 'EditReceiveDetails')->name('edit.receive.details');
+        // Route::put('/updateReceiveDetails/{id}', 'UpdateReceiveDetails')->name('update.receive.details');
+        // Route::delete('/deleteReceiveDetails/{id}', 'DeleteReceiveDetails')->name('delete.receive.details');
+        // //search routes start
+        // Route::get('/searchReceiveDetail/supplier', 'SearchReceiveDetailBySupplier')->name('search.receive.details.supplier');
+        // Route::get('/searchReceiveDetail/invoice', 'SearchReceiveDetailByInvoice')->name('search.receive.details.invoice');
+        // Route::get('/searchReceiveDetail/batch', 'SearchReceiveDetailByBatch')->name('search.receive.details.batch');
+        // Route::get('/searchReceiveDetail/cp', 'SearchReceiveDetailByCp')->name('search.receive.details.cp');
+        // Route::get('/searchReceiveDetail/discount', 'SearchReceiveDetailByDiscount')->name('search.receive.details.discount');
+        // Route::get('/searchReceiveDetail/expiry', 'SearchReceiveDetailByExpiry')->name('search.receive.details.expiry');
+        // Route::get('/searchReceiveDetail/product', 'SearchReceiveDetailByProduct')->name('search.receive.details.product');
+        // //pagination routes start
+        // Route::get('/receiveDetail/pagination', 'ReceiveDetailPagination');
+        // Route::get('/receiveDetail/supplierPagination', 'SearchReceiveDetailBySupplier');
+        // Route::get('/receiveDetail/invoicePagination', 'SearchReceiveDetailByInvoice');
+        // Route::get('/receiveDetail/batchPagination', 'SearchReceiveDetailByBatch');
+        // Route::get('/receiveDetail/cpPagination', 'SearchReceiveDetailByCp');
+        // Route::get('/receiveDetail/discountPagination', 'SearchReceiveDetailByDiscount');
+        // Route::get('/receiveDetail/expiryPagination', 'SearchReceiveDetailByExpiry');
+        // Route::get('/receiveDetail/productPagination', 'SearchReceiveDetailByProduct');
         //search list routs
 
 
 
-        //////////// -------------- Inventory Transaction Details Routes ------------ ///////////////////////
-        //crud routes start
-        Route::get('/transactionDetailTemp', 'ShowTransactionDetailTemp')->name('show.transaction.details.temp');
-        Route::post('/insertTransactionDetailTemp', 'InsertTransactionDetailTemp')->name('insert.transaction.details.temp');
-        Route::get('/editTransactionDetailTemp/{id}', 'EditTransactionDetailTemp')->name('edit.recetransactionive.details.temp');
-        Route::put('/updateTransactionDetailTemp/{id}', 'UpdateTransactionDetailTemp')->name('update.transaction.details.temp');
-        Route::delete('/deleteTransactionDetailTemp/{id}', 'DeleteTransactionDetailTemp')->name('delete.transaction.details.temp');
-        //search list routs
-        Route::get('/getTransactionGrid', 'GetTransactionGrid')->name('get.transaction.grid');
+        //////////// -------------- Inventory Temporary Transaction Details Routes ------------ ///////////////////////
+
+        Route::prefix('/temp/transaction')->group(function(){
+            //////////// -------------- Inventory Temporary Receive Details Routes ------------ ///////////////////////
+            //crud routes start
+            Route::get('/receiveDetails', 'ShowReceiveDetailTemp')->name('show.receive.details.temp');
+            Route::post('/insertReceiveDetails', 'InsertReceiveDetailTemp')->name('insert.receive.details.temp');
+            Route::get('/editReceiveDetails/{id}', 'EditReceiveDetailTemp')->name('edit.receive.details.temp');
+            Route::put('/updateReceiveDetails/{id}', 'UpdateReceiveDetailTemp')->name('update.receive.details.temp');
+            Route::delete('/deleteReceiveDetails/{id}', 'DeleteReceiveDetailsTemp')->name('delete.receive.details.temp');
+            //search list routs
+            Route::get('/getTransactionGrid', 'GetTransactionGrid')->name('get.transaction.grid');
 
 
+
+            //////////// -------------- Inventory Temporary Receive Main Routes ------------ ///////////////////////
+            //crud routes start
+            Route::get('/receiveMain', 'ShowReceiveMainTemp')->name('show.receive.main.temp');
+            Route::post('/insertReceiveMain', 'InsertReceiveMainTemp')->name('insert.receive.main.temp');
+            Route::get('/editReceiveMain/{id}', 'EditReceiveMainTemp')->name('edit.receive.main.temp');
+            Route::put('/updateReceiveMain/{id}', 'UpdateReceiveMainTemp')->name('update.receive.main.temp');
+            Route::delete('/deleteReceiveMain/{id}', 'DeleteReceiveMainTemp')->name('delete.receive.main.temp');
+
+        });
 
         //////////// -------------- Inventory Transaction Main Routes ------------ ///////////////////////
         //crud routes start

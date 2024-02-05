@@ -97,14 +97,14 @@
                   <p>Stores</p>
                 </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="{{route('show.receive.details')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inventory Receive Details</p>
                 </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
-                <a href="{{route('show.transaction.details.temp')}}" class="nav-link">
+                <a href="{{route('show.receive.details.temp')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inventory Temp Transaction Details</p>
                 </a>

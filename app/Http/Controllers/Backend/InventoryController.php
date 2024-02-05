@@ -2030,57 +2030,45 @@ class InventoryController extends Controller
 
 
     /////////////////////////// --------------- Inventory Transaction Details Methods start ---------- //////////////////////////
-    //Show Temporary Transaction Details
-    public function ShowTransactionDetailTemp(){
+    //Show Temporary Receive Transaction Details
+    public function ShowReceiveDetailTemp(){
         $user_info = User_Info::get();
         $inv_transaction_temp = Inv_Transaction_Details_Temp::orderBy('tran_date','desc')->paginate(15);
-        return view('inventory.transaction.details_temp.tempTransactionDetails', compact('user_info','inv_transaction_temp'));
+        return view('inventory.transaction.details_temp.receive.receiveDetails', compact('user_info','inv_transaction_temp'));
     }//End Method
 
 
 
-    //Insert Temporary Transaction Details 
-    public function InsertTransactionDetailTemp(Request $request){
+    //Insert Temporary Receive Transaction Details 
+    public function InsertReceiveDetailTemp(Request $request){
         $request->validate([
             "tranType" => 'required',
             "tranId" => 'required',
             "supplier" => 'required|numeric',
-            // "client" => 'required|numeric',
-            "sl" => 'required',
             "product" => 'required|numeric',
             "receiveQty" => 'required|numeric',
-            "issueQty" => 'required|numeric',
-            "balanceQty" => 'required|numeric',
             "cp" => 'required|numeric',
             "mrp" => 'required|numeric',
             "totCp" => 'required|numeric',
             "totMrp" => 'required|numeric',
             "discount" => 'required|numeric',
             "profit" => 'required|numeric',
-            "receive" => 'required',
             "user" => 'required|numeric',
-            "status" => 'required',
         ]);
 
         $inv_transaction_temp = Inv_Transaction_Details_Temp::insert([
             "tran_type" => $request->tranType,
             "tran_id" => $request->tranId,
             "supplier_id" => $request->supplier,
-            "client_id" => $request->client,
-            "sl" => $request->sl,
             "product_id" => $request->product,
             "receive_qty" => $request->receiveQty,
-            "issue_qty" => $request->issueQty,
-            "balance_qty" => $request->balanceQty,
             "cp" => $request->cp,
             "mrp" => $request->mrp,
             "tot_cp" => $request->totCp,
             "tot_mrp" => $request->totMrp,
             "discount" => $request->discount,
             "profit" => $request->profit,
-            "receive_id" => $request->receive,
             "user_id" => $request->user,
-            "status" => $request->status
         ]);
         
         if($inv_transaction_temp){
@@ -2109,7 +2097,38 @@ class InventoryController extends Controller
                 ]); 
             }
         }
+    }//End Method
+
+
+
+    //Insert Temporary Receive Transaction Details 
+    public function InsertReceiveMainTemp(Request $request){
+        $request->validate([
+            "tranType" => 'required',
+            "tranId" => 'required',
+            "supplier" => 'required|numeric',
+            "invoice" => 'required',
+            "amount" => 'required',
+            "netAmount" => 'required',
+            "totalDiscount" => 'required|numeric',
+        ]);
+
+        $inv_transaction_temp = Inv_Transaction_Main_Temp::insert([
+            "tran_type" => $request->tranType,
+            "tran_id" => $request->tranId,
+            "supplier_id" => $request->supplier,
+            "invoice_no" => $request->invoice,
+            "invoice_amount" => $request->amount,
+            "net_amount" => $request->netAmount,
+            "discount" => $request->totalDiscount,
+            "user_id" => $request->user,
+        ]);
         
+        if($inv_transaction_temp){
+            return response()->json([
+                'status'=>'success',
+            ]); 
+        } 
     }//End Method
 
 
@@ -2172,13 +2191,13 @@ class InventoryController extends Controller
 
 
 
-    // //Delete Receive Details
-    // public function DeleteReceiveDetails($id){
-    //     Inv_Receive_Detail::findOrFail($id)->delete();
-    //     return response()->json([
-    //         'status'=>'success'
-    //     ]); 
-    // }//End Method
+    //Delete Receive Details
+    public function DeleteReceiveDetailsTemp($id){
+        Inv_Transaction_Details_Temp::findOrFail($id)->delete();
+        return response()->json([
+            'status'=>'success'
+        ]); 
+    }//End Method
 
 
 

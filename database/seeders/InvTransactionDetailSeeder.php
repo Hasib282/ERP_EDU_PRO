@@ -22,19 +22,14 @@ class InvTransactionDetailSeeder extends Seeder
                 "tran_type"=>$transition->tran_type,
                 "tran_id"=>$transition->tran_id,
                 "supplier_id"=>$transition->supplier_id,
-                "client_id"=>$transition->client_id,
-                "sl"=>$transition->sl,
                 "product_id"=>$transition->product_id,
                 "receive_qty"=>$transition->receive_qty,
-                "issue_qty"=>$transition->issue_qty,
-                "balance_qty"=>$transition->balance_qty,
                 "cp"=>$transition->cp,
                 "mrp"=>$transition->mrp,
                 "tot_cp"=>$transition->tot_cp,
                 "tot_mrp"=>$transition->tot_mrp,
                 "discount"=>$transition->discount,
                 "profit"=>$transition->profit,
-                "receive_id"=>$transition->receive_id,
                 "user_id"=>$transition->user_id
             ]);
         });

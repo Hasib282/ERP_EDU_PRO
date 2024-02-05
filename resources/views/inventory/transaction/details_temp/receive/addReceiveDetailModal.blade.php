@@ -6,11 +6,11 @@
     </style>
 @endsection
 
-<div id="addTempTransactionModal" class="modal-container">
+<div id="addTempReceiveTransactionModal" class="modal-container">
     <div class="modal-subject">
         <div class="modal-heading">
             <h3 class="center">Add Temp Transactions</h3>
-            <span class="close-modal" data-modal-id="addTempTransactionModal">&times;</span>
+            <span class="close-modal" data-modal-id="addTempReceiveTransactionModal">&times;</span>
         </div>
 
         <div class="center">

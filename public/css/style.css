@@ -184,6 +184,11 @@ select {
 }
 
 
+.addButton{
+    margin: 15px 0;
+    padding: 5px 20px;
+}
+
 
 /* -------------------------------------- Form inputs custom design end ----------------------------------------------------- */
 
@@ -224,3 +229,10 @@ div[id$="-list"] li:hover, div[id^="update-"] li:hover {
 }
 
 /* -------------------------------------- Search by input css end here -------------------------------------------------*/
+
+
+.grid{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
