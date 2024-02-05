@@ -22,6 +22,8 @@ class InvTransactionMainSeeder extends Seeder
                 "tran_type"=>$transition->tran_type,
                 "tran_id"=>$transition->tran_id,
                 "supplier_id"=>$transition->supplier_id,
+                "store_id"=>$transition->store_id,
+                "location_id"=>$transition->location_id,
                 "client_id"=>$transition->client_id,
                 "invoice_no"=>$transition->invoice_no,
                 "invoice_amount"=>$transition->invoice_amount,

@@ -40,13 +40,28 @@
                                 </div>
                                 <div class="col-md-2">
                                     <label for="tranId">Transaction Id</label>
-                                    <input type="text" name="tranId" class="input-small" id="tranId" disabled>
+                                    <input type="text" name="tranId" class="input-small" id="tranId">
                                     <span class="text-danger error" id="tranId_error"></span>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="invoice">Invoice No</label>
                                     <input type="text" name="invoice" class="input-small" id="invoice">
                                     <span class="text-danger error" id="invoice_error"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="store">Store</label>
+                                    <input type="text" name="store" class="input-small" id="store" autocomplete="off">
+                                    <div id="store-list">
+                                        <ul>
+
+                                        </ul>
+                                    </div>
+                                    <span class="text-danger error" id="store_error"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="location">Location</label>
+                                    <input type="text" name="location" class="input-small" id="location" disabled>
+                                    <span class="text-danger error" id="location_error"></span>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="supplier">Supplier</label>
@@ -59,7 +74,7 @@
                                     <span class="text-danger error" id="supplier_error"></span>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="product">Product</label>
                                     <input type="text" name="product" class="input-small" id="product" autocomplete="off">
                                     <div id="product-list">
@@ -69,18 +84,18 @@
                                     </div>
                                     <span class="text-danger error" id="product_error"></span>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label for="cp">Cp</label>
                                     <input type="text" name="cp" class="input-small" id="cp">
                                     <span class="text-danger error" id="cp_error"></span>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label for="mrp">Mrp</label>
                                     <input type="text" name="mrp" class="input-small" id="mrp">
                                     <span class="text-danger error" id="mrp_error"></span>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label for="receiveQty">Receive Qty</label>
                                     <input type="text" name="receiveQty" class="input-small" id="receiveQty">
                                     <span class="text-danger error" id="receiveQty_error"></span>
@@ -96,28 +111,22 @@
                                     <span class="text-danger error" id="balanceQty_error"></span>
                                 </div> --}}
                                 
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label for="totCp">Total Cp</label>
                                     <input type="text" name="totCp" class="input-small" id="totCp"
                                         disabled>
                                     <span class="text-danger error" id="totCp_error"></span>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label for="totMrp">Total Mrp</label>
                                     <input type="text" name="totMrp" class="input-small" id="totMrp"
                                         disabled>
                                     <span class="text-danger error" id="totMrp_error"></span>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label for="discount">Discount</label>
                                     <input type="text" name="discount" class="input-small" id="discount" value="0">
                                     <span class="text-danger error" id="discount_error"></span>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="profit">Profit</label>
-                                    <input type="text" name="profit" class="input-small" id="profit"
-                                        disabled>
-                                    <span class="text-danger error" id="profit_error"></span>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="user">User id:</label>

@@ -243,7 +243,7 @@ Route::controller(InventoryController::class)->group(function(){
         Route::get('/store/namePagination', 'SearchStores');
         Route::get('/store/locationPagination', 'SearchStoreByLocation');
         //search list routs
-
+        Route::get('/getStoreByName', 'GetStoreByName')->name('get.store.by.name');
 
 
         //////////// -------------- Inventory Receive Details Routes ------------ ///////////////////////
@@ -286,7 +286,8 @@ Route::controller(InventoryController::class)->group(function(){
             Route::delete('/deleteReceiveDetails/{id}', 'DeleteReceiveDetailsTemp')->name('delete.receive.details.temp');
             //search list routs
             Route::get('/getTransactionGrid', 'GetTransactionGrid')->name('get.transaction.grid');
-
+            Route::get('/getTransactionDetailsById', 'GetTransactionDetailsById')->name('get.transaction.details.by.id');
+            
 
 
             //////////// -------------- Inventory Temporary Receive Main Routes ------------ ///////////////////////

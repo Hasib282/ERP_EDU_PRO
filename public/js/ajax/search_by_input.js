@@ -348,9 +348,9 @@ $(document).ready(function () {
 
     //Search Location on edit modal
     $(document).on('keyup', '#updateLocation', function () {
-        let category = $(this).val();
+        let location = $(this).val();
         $('#updateLocation').removeAttr('data-id');
-        getLocationByDivision(category, '#update-location ul');
+        getLocationByDivision(location, '#update-location ul');
     });
 
 
@@ -378,6 +378,71 @@ $(document).ready(function () {
     }
 
     /////////////// ------------------ Search Location by Division name and add value to input ajax part end ---------------- /////////////////////////////
+    
+
+
+
+    /////////////// ------------------ Search Store name and add value to input ajax part start ---------------- /////////////////////////////
+    //Search Store on add modal
+    $(document).on('keyup', '#store', function () {
+        let store = $(this).val();
+        $('#store').removeAttr('data-id');
+        $('#location').removeAttr('data-id');
+        $('#location').val('');
+        getStoreByName(store, '#store-list ul');
+    });
+
+    //Add list value in store input of add modal
+    $(document).on('click', '#store-list li', function () {
+        let value = $(this).text();
+        let id = $(this).data('id');
+        let locId = $(this).data('location-id');
+        let location = $(this).data('location');
+        $('#store').val(value);
+        $('#store').attr('data-id', id);
+        $('#location').val(location);
+        $('#location').attr('data-id', locId);
+        $('#store-list ul').html('');
+    });
+
+    //Search Store on edit modal
+    $(document).on('keyup', '#updateStore', function () {
+        let store = $(this).val();
+        $('#updateStore').removeAttr('data-id');
+        $('#updateLocation').removeAttr('data-id');
+        $('#updateLocation').val('');
+        getStoreByName(store, '#update-store ul');
+    });
+
+
+    //Add list value in store input of add modal
+    $(document).on('click', '#update-store li', function () {
+        let value = $(this).text();
+        let id = $(this).data('id');
+        let locId = $(this).data('location-id');
+        let location = $(this).data('location');
+        $('#updateStore').val(value);
+        $('#updateStore').attr('data-id', id);
+        $('#updateLocation').val(location);
+        $('#updateLocation').attr('data-id', locId);
+        $('#update-store ul').html('');
+    });
+
+
+
+    //Search Location by Division
+    function getStoreByName(store, targetElement1) {
+        $.ajax({
+            url: "/admin/inventory/getStoreByName",
+            method: 'get',
+            data: {store:store},
+            success: function (res) {
+                $(targetElement1).html(res);
+            }
+        });
+    }
+
+    /////////////// ------------------ Search Store by Name and add value to input ajax part end ---------------- /////////////////////////////
     
    
 });

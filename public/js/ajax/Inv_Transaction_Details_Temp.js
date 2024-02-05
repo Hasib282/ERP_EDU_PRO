@@ -3,6 +3,12 @@ $(document).ready(function () {
     $(document).on('click', '.add', function (e) {
         let tranType = $('#tranType').val();
         getTransactionId(tranType, '#tranId');
+        
+    });
+
+    $(document).on('keyup', '#tranId', function (e) {
+        let tranId = $('#tranId').val();
+        getTransactionGrid(tranId, '.transaction_grid tbody', '#amount', '#totalDiscount', '#netAmount' );
     });
 
 
@@ -15,9 +21,6 @@ $(document).ready(function () {
         
         let total_cp = cp * receiveQty;
         let total_mrp = mrp * receiveQty;
-        let discount = parseFloat($('#discount').val());
-        let netCp = total_cp - discount;
-        let profit = total_mrp - netCp;
         $('#totCp').val(total_cp);
         $('#totMrp').val(total_mrp);
         $('#profit').val(profit);
@@ -33,12 +36,8 @@ $(document).ready(function () {
         let receiveQty = $('#receiveQty').val();
         let total_cp = cp * receiveQty;
         let total_mrp = mrp * receiveQty;
-        let discount = parseFloat($('#discount').val());
-        let netCp = total_cp - discount;
-        let profit = total_mrp - netCp;
         $('#totCp').val(total_cp);
         $('#totMrp').val(total_mrp);
-        $('#profit').val(profit);
         $('#product').val(value);
         $('#product').attr('data-id', id);
         $('#mrp').val(mrp);
@@ -55,6 +54,8 @@ $(document).ready(function () {
         let tranType = $('#tranType').val();
         let tranId = $('#tranId').val();
         let supplier = $('#supplier').attr('data-id');
+        let store = $('#store').attr('data-id');
+        let location = $('#location').attr('data-id');
         let receiveQty = $('#receiveQty').val();
         // let issueQty = $('#issueQty').val();
         // let balanceQty = $('#balanceQty').val();
@@ -64,19 +65,17 @@ $(document).ready(function () {
         let totCp = $('#totCp').val();
         let totMrp = $('#totMrp').val();
         let discount = $('#discount').val();
-        let profit = $('#profit').val();
         let user = $('#user').val();
         $.ajax({
             url: "/admin/inventory/temp/transaction/insertReceiveDetails",
             method: 'Post',
-            data: { tranType: tranType, tranId: tranId, supplier: supplier, receiveQty: receiveQty, product:product, mrp: mrp, cp:cp, totCp:totCp, totMrp:totMrp, discount:discount, profit: profit, user: user },
+            data: { tranType: tranType, tranId: tranId, supplier: supplier, store:store, location:location, receiveQty: receiveQty, product:product, mrp: mrp, cp:cp, totCp:totCp, totMrp:totMrp, discount:discount, user: user },
             beforeSend: function () {
                 $(document).find('span.error').text('');
             },
             success: function (res) {
                 if (res.status == "success") {
-                    console.log(tranId);
-                    getTransactionGrid(tranId, '.transaction_grid tbody');
+                    getTransactionGrid(tranId, '.transaction_grid tbody', '#amount', '#totalDiscount', '#netAmount' );
                     $('#product').removeAttr('data-id');
                     $('#product').val('');
                     $('#cp').val('');
@@ -92,7 +91,6 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err)
                 let error = err.responseJSON;
                 $.each(error.errors, function (key, value) {
                     $('#' + key + "_error").text(value);
@@ -109,6 +107,8 @@ $(document).ready(function () {
         let tranType = $('#tranType').val();
         let tranId = $('#tranId').val();
         let supplier = $('#supplier').attr('data-id');
+        let store = $('#store').attr('data-id');
+        let locations = $('#location').attr('data-id');
         let invoice = $('#invoice').val();
         let amount = $('#amount').val();
         let netAmount = $('#netAmount').val();
@@ -118,17 +118,18 @@ $(document).ready(function () {
         $.ajax({
             url: "/admin/inventory/temp/transaction/insertReceiveMain",
             method: 'Post',
-            data: { tranType: tranType, tranId: tranId, supplier: supplier, invoice:invoice, amount:amount, totalDiscount:totalDiscount, netAmount:netAmount, profit: profit, user: user },
+            data: { tranType: tranType, tranId: tranId, supplier: supplier, store:store, locations:locations, invoice:invoice, amount:amount, totalDiscount:totalDiscount, netAmount:netAmount, profit: profit, user: user },
             beforeSend: function () {
                 $(document).find('span.error').text('');
             },
             success: function (res) {
                 if (res.status == "success") {
-                    console.log(res)
                     // getTransactionGrid(tranId, '.transaction_grid tbody');
                     $('#addTempReceiveTransactionModal').hide();
                     $('#AddReceiveTransactionForm')[0].reset();
                     $('#supplier').removeAttr('data-id');
+                    $('#store').removeAttr('data-id');
+                    $('#location').removeAttr('data-id');
                     $('#product').removeAttr('data-id');
                     $('.transaction_grid tbody').html('');
                     $('#search').val('');
@@ -137,11 +138,57 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err)
                 let error = err.responseJSON;
                 $.each(error.errors, function (key, value) {
                     $('#' + key + "_error").text(value);
                 });
+            }
+        });
+    });
+
+
+
+    ///////////// ------------------ Edit Transaction Receive Details ajax part start ---------------- /////////////////////////////
+    $(document).on('click', '.editTempReceiveTransactionModal', function () {
+        let modalId = $(this).data('modal-id');
+        let transaction = $(this).data('transaction');
+        let id = $(this).data('id');
+        
+        $.ajax({
+            url: `/admin/inventory/temp/transaction/editReceiveDetails/${transaction}`,
+            method: 'get',
+            success: function (res) {
+                getTransactionGrid(transaction, '.updateTransaction_grid tbody', '#updateAmount', '#updateTotalDiscount', '#updateNetAmount' );
+                getReceiveDetails(id)
+                console.log(res.inv_transaction);
+
+                // $('#id').val(res.inv_supplier.id);
+                // $('#updateSupplierName').val(res.inv_supplier.sup_name);
+                // $('#updateSupplierEmail').val(res.inv_supplier.sup_email);
+                // $('#updateSupplierContact').val(res.inv_supplier.sup_contact);
+                // $('#updateSupplierAddress').val(res.inv_supplier.sup_address);
+                
+
+                // // Create options dynamically based on the user value
+                // $('#updateUser').empty();
+                // $.each(res.user_info, function(key,user) {
+                //     $('#updateUser').append(`<option value="${user.id}" ${res.inv_supplier.user_id === user.id ? 'selected' : ''}>${user.name}</option>`);
+                // });
+
+                // // Create options dynamically based on the status value
+                // $('#updateStatus').empty();
+                // $('#updateStatus').append(`<option value="1" ${res.inv_supplier.status === 1 ? 'selected' : ''}>Active</option>
+                //                          <option value="0" ${res.inv_supplier.status === 0 ? 'selected' : ''}>Inactive</option>`);
+                
+                
+                // var modal = document.getElementById(modalId);
+
+                // if (modal) {
+                //     modal.style.display = 'block';
+                // }
+            },
+            error: function (err) {
+                console.log(err);
             }
         });
     });
@@ -189,6 +236,7 @@ $(document).ready(function () {
                     // Format the new transaction ID
                     let newTranId = tranId[0] + newNumericPart.toString().padStart(numericPart.length, '0');
                     $(targetElement).val(newTranId);
+                    getTransactionGrid(newTranId, '.transaction_grid tbody', '#amount', '#totalDiscount', '#netAmount' );
                 }
                 else{
                     $(targetElement).val(res.tran_id);
@@ -202,25 +250,55 @@ $(document).ready(function () {
 
 
     //Get Inserted Transacetion Grid By Transaction Id Function
-    function getTransactionGrid(tranId, targetElement) {
+    function getReceiveDetails(id) {
+        $.ajax({
+            url: "/admin/inventory/temp/transaction/getTransactionDetailsById",
+            method: 'get',
+            data: {id:id},
+            success: function (res) {
+                if(res.status === 'success'){
+                    console.log(res);
+                    $('#updateTranDate').val(res.transaction.tran_date);
+                    $('#updateTranId').val(res.transaction.tran_id);
+                    $('#updateInvoice').val(res.transaction.invoice_no);
+                    $('#updateStore').val(res.transaction.store.store_name);
+                    $('#updateLocation').val(res.transaction.location.division);
+                    $('#updateSupplier').val(res.transaction.supplier.sup_name);
+                    $('#updateStore').attr('data-id',res.transaction.store_id);
+                    $('#updateLocation').attr('data-id',res.transaction.location_id);
+                    $('#updateSupplier').attr('data-id',res.transaction.supplier_id);
+
+                }
+                else{
+                    $(targetElement).html('');
+                }
+                
+            }
+        });
+    }
+
+
+
+    //Get Inserted Transacetion Grid By Transaction Id Function
+    function getTransactionGrid(tranId, grid, amount="", discount="", total ="") {
         $.ajax({
             url: "/admin/inventory/temp/transaction/getTransactionGrid",
             method: 'get',
             data: {tranId:tranId},
             success: function (res) {
                 if(res.status === 'success'){
-                    $(targetElement).html(res.data);
+                    $(grid).html(res.data);
                     
                     let transactions = res.current_transaction.data;
                     // Calculate total cp
                     let totalAmount = transactions.reduce((sum, transaction) => sum + transaction.tot_cp, 0);
-                    $('#amount').val(totalAmount);
+                    $(amount).val(totalAmount);
                     // Calculate total discount
                     let totalDiscount = transactions.reduce((sum, transaction) => sum + transaction.discount, 0);
-                    $('#totalDiscount').val(totalDiscount);
+                    $(discount).val(totalDiscount);
 
                     let netAmount = totalAmount - totalDiscount;
-                    $('#netAmount').val(netAmount);
+                    $(total).val(netAmount);
                 }
                 else{
                     $(targetElement).html('');

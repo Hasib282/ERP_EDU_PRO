@@ -1611,6 +1611,32 @@ class InventoryController extends Controller
     }//End Method
 
 
+    //Get Store by Name
+    public function GetStoreByName(Request $request){
+        if($request->store != ""){
+            $inv_store = Inv_Store::with('Location:id,division')
+            ->whereHas('Location', function ($query) use ($request) {})
+            ->where('store_name', 'like', '%'.$request->store.'%')
+            ->orderBy('store_name','asc')
+            ->take(10)
+            ->get();
+
+
+            if($inv_store->count() > 0){
+                $list = "";
+                foreach($inv_store as $store) {
+                    $list .= '<li data-id="'.$store->id.'" data-location-id="'.$store->location_id.'" data-location="'.$store->Location->division.'">'.$store->store_name.'</li>';
+                }
+            }
+            else{
+                $list = '<li>No Data Found</li>';
+            }
+            return $list;
+        }else{
+            return "";
+        } 
+    }//End Method
+
 
     //Insert Store
     public function InsertStores(Request $request){
@@ -2045,6 +2071,9 @@ class InventoryController extends Controller
             "tranType" => 'required',
             "tranId" => 'required',
             "supplier" => 'required|numeric',
+            "invoice" => 'required|numeric',
+            "store" => 'required|numeric',
+            "location"=> 'required|numeric',
             "product" => 'required|numeric',
             "receiveQty" => 'required|numeric',
             "cp" => 'required|numeric',
@@ -2052,7 +2081,6 @@ class InventoryController extends Controller
             "totCp" => 'required|numeric',
             "totMrp" => 'required|numeric',
             "discount" => 'required|numeric',
-            "profit" => 'required|numeric',
             "user" => 'required|numeric',
         ]);
 
@@ -2060,6 +2088,9 @@ class InventoryController extends Controller
             "tran_type" => $request->tranType,
             "tran_id" => $request->tranId,
             "supplier_id" => $request->supplier,
+            "invoice_no" => $request->invoice,
+            "store_id" => $request->store,
+            "location_id" => $request->location,
             "product_id" => $request->product,
             "receive_qty" => $request->receiveQty,
             "cp" => $request->cp,
@@ -2067,7 +2098,6 @@ class InventoryController extends Controller
             "tot_cp" => $request->totCp,
             "tot_mrp" => $request->totMrp,
             "discount" => $request->discount,
-            "profit" => $request->profit,
             "user_id" => $request->user,
         ]);
         
@@ -2090,6 +2120,27 @@ class InventoryController extends Controller
                     'status' => 'success',
                     'data' => view('inventory.transaction.details_temp.transactionGrid', compact('current_transaction'))->render(),
                     'current_transaction' => $current_transaction
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'null'
+                ]); 
+            }
+        }
+    }//End Method
+
+
+    //Get Get Transacetion Details By Id
+    public function GetTransactionDetailsById(Request $request){
+        if($request->id != ""){
+            $transaction = Inv_Transaction_Details_Temp::with('Store:id,store_name','Location:id,division','Supplier:id,sup_name','Product:id,product_name','User:id,name')
+            ->where('id', $request->id)
+            ->first();
+
+            if ($transaction) {
+                return response()->json([
+                    'status' => 'success',
+                    'transaction' => $transaction
                 ]);
             } else {
                 return response()->json([
@@ -2133,15 +2184,17 @@ class InventoryController extends Controller
 
 
 
-    // //Edit Receive Details
-    // public function EditReceiveDetails($id){
-    //     $user_info = User_Info::get();
-    //     $inv_receive_details = Inv_Receive_Detail::with('ProductName:id,product_name','UserName:id,name','SupplierName:id,sup_name')->findOrFail($id);
-    //     return response()->json([
-    //         'user_info'=>$user_info,
-    //         'inv_receive_details'=>$inv_receive_details,
-    //     ]);
-    // }//End Method
+    //Edit Temporary Receive Details
+    public function EditReceiveDetailTemp($id){
+        $user_info = User_Info::get();
+        $inv_transaction = Inv_Transaction_Details_Temp::with('Store:id,store_name','Location:id,division','Supplier:id,sup_name','Product:id,product_name','User:id,name')
+        ->where('tran_id', 'like', $id)
+        ->get();
+        return response()->json([
+            'user_info'=>$user_info,
+            'inv_transaction'=>$inv_transaction,
+        ]);
+    }//End Method
 
 
 

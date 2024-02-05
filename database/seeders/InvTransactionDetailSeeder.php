@@ -22,6 +22,9 @@ class InvTransactionDetailSeeder extends Seeder
                 "tran_type"=>$transition->tran_type,
                 "tran_id"=>$transition->tran_id,
                 "supplier_id"=>$transition->supplier_id,
+                "invoice_no"=>$transition->invoice,
+                "location_id"=>$transition->location_id,
+                "store_id"=>$transition->store_id,
                 "product_id"=>$transition->product_id,
                 "receive_qty"=>$transition->receive_qty,
                 "cp"=>$transition->cp,
@@ -29,7 +32,6 @@ class InvTransactionDetailSeeder extends Seeder
                 "tot_cp"=>$transition->tot_cp,
                 "tot_mrp"=>$transition->tot_mrp,
                 "discount"=>$transition->discount,
-                "profit"=>$transition->profit,
                 "user_id"=>$transition->user_id
             ]);
         });

@@ -21,11 +21,15 @@ return new class extends Migration
             $table->float('invoice_amount');
             $table->float('discount');
             $table->float('net_amount');
+            $table->unsignedBigInteger('store_id')->nullable();
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->tinyInteger('status')->default('0')->comment('1 for Active 0 for Inacative');
             $table->timestamp('tran_date')->useCurrent();
             $table->timestamp('updated_at')->nullable();
             $table->foreign('supplier_id')->references('id')->on('inv__supplier__infos')
+                    ->onUpdate('cascade')
+                    ->onDelete('set null');
+            $table->foreign('store_id')->references('id')->on('inv__stores')
                     ->onUpdate('cascade')
                     ->onDelete('set null');
             $table->foreign('user_id')->references('id')->on('user__infos')

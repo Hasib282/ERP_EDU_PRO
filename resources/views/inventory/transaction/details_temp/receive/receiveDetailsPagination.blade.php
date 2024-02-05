@@ -10,7 +10,6 @@
             <th>Cp</th>
             <th>Mrp</th>
             <th>Discount</th>
-            <th>Profit</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -25,10 +24,9 @@
                 <td>{{ $item->cp }}</td>
                 <td>{{ $item->mrp }}</td>
                 <td>{{ $item->discount }}</td>
-                <td>{{ $item->profit }}</td>
                 <td style="display: flex;gap:5px;">
-                    <button class="btn btn-info btn-sm open-modal editTempTransactionModal" data-modal-id="editTempTransactionModal"
-                        data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-info btn-sm open-modal editTempReceiveTransactionModal" data-modal-id="editTempReceiveTransactionModal"
+                        data-transaction="{{ $item->tran_id }}" data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm deleteTempTransaction" data-id="{{ $item->id }}" id="delete"><i
                             class="fas fa-trash"></i></button>
                 </td>
@@ -45,7 +43,6 @@
             <th>Cp</th>
             <th>Mrp</th>
             <th>Discount</th>
-            <th>Profit</th>
             <th>Action</th>
         </tr>
     </tfoot>
